@@ -1,0 +1,45 @@
+###################
+# Initial build image
+
+FROM publysher/hugo
+
+###################
+# Export site
+
+EXPORT /usr/share/nginx/html/ /site
+
+###################
+# Final build image
+
+FROM nginx:stable-alpine
+
+RUN rm -rf /usr/share/nginx/html
+
+IMPORT /site/ /usr/share/nginx/html
+
+RUN chown -R nginx: /usr/share/nginx/html
+
+###################
+# Push the image
+
+{{ $image_name := "kalbasit/kalbas-it" }}
+
+{{ if .TAG }}
+  PUSH {{ $image_name }}:{{ .TAG }}
+{{ end }}
+
+{{ if .BRANCH }}
+  {{ if eq .BRANCH "master" }}
+    PUSH {{ $image_name }}:latest
+  {{ else }}
+    PUSH {{ $image_name }}:{{ .BRANCH }}
+  {{ end }}
+{{ end }}
+
+{{ if .TRAVIS_BUILD_NUMBER }}
+  PUSH {{ $image_name }}:travis-{{ .TRAVIS_BUILD_NUMBER }}
+{{ end }}
+
+{{ if .COMMIT }}
+  PUSH {{ $image_name }}:{{ .COMMIT }}
+{{ end }}
