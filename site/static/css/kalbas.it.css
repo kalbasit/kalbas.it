@@ -1,0 +1,17 @@
+#profile .inner .profile-block #hireme {
+  color: #fff;
+  width: 150px;
+  height: 40px;
+  display: block;
+  font-size: 14px;
+  line-height: 40px;
+  text-align: center;
+  margin: 20px auto 10px;
+  background: #ff0000;
+  -webkit-border-radius: 20px;
+  border-radius: 20px;
+  -webkit-transition: 0.2s ease;
+  -moz-transition: 0.2s ease;
+  -ms-transition: 0.2s ease;
+  transition: 0.2s ease;
+}
