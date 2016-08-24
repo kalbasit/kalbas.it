@@ -12,7 +12,7 @@ env:
     # deploy-tools settings
     - BUILD_IMAGE_BRANCH=ALL
     - DEPLOY_SYSTEMD_BRANCH=master
-    - SYSTEMD_SSH_HOST="kalbas.it"
+    - SYSTEMD_SSH_HOST="webserver.kalbas.it"
     - SYSTEMD_SSH_USER="core"
     - SYSTEMD_SSH_IDENTITY_FILE="${HOME}/web_server_id_rsa"
     - SYSTEMD_DOCKER_IMAGE="kalbasit/kalbas-it"
