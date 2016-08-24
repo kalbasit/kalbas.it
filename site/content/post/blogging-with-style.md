@@ -90,9 +90,9 @@ After=docker.service data.mount
 [Service]
 ExecStartPre=/bin/sh -c "docker inspect nginx >/dev/null 2>&1 && docker rm -f nginx || true"
 ExecStartPre=/usr/bin/docker create --name nginx -p 80:80 -p 443:443 \
-  -v /data/nginx/conf.d:/etc/nginx/conf.d \
-  -v /data/nginx/vhost.d:/etc/nginx/vhost.d \
-  -v /data/nginx/html:/usr/share/nginx/html \
+  -v /etc/nginx/conf.d \
+  -v /etc/nginx/vhost.d \
+  -v /usr/share/nginx/html \
   -v /data/nginx/certs:/etc/nginx/certs:ro \
   nginx
 ExecStart=/usr/bin/docker start -a nginx
@@ -194,6 +194,11 @@ RestartSec=10
 WantedBy=multi-user.target
 ```
 
+You might have noticed that all the mounted volumes are mounted from
+`/data`. I'm using [Elastic File-system](https://aws.amazon.com/efs/)
+for the `/data` volume as I want to make sure that the new server
+booting up can mount the same volume as the instance currently running.
+
 ## Alternatives
 
 - [S3 Website Hosting](https://docs.aws.amazon.com/AmazonS3/latest/dev/WebsiteHosting.html).
@@ -241,7 +246,214 @@ more details.
 
 ## How to update the server?
 
-I've solved that by using an AWS Elastic IP and have Terraform create an
-instance before removing the current one and switch the EIP.
+I've solved that by using an Elastic Load Balancer and have Terraform create an
+instance before removing the current one and update the ELB with the new
+instance ID.
 
 # Cloud provisioning
+
+I'm using Terraform to provision AWS. The server itself is provisioned
+via cloud-config.
+
+`web_server.tf`:
+```
+resource "aws_security_group" "web_server" {
+  name_prefix = "web_server"
+  description = "Allow HTTP, HTTPS and SSH from anywhere"
+  vpc_id      = "${module.vpc_us-east-1.vpc_id}"
+
+  tags {
+    Name    = "web_server"
+    http    = "yes"
+    https   = "yes"
+    ssh     = "yes"
+    self    = "yes"
+    out_pub = "yes"
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_security_group_rule" "web_server-allow-all-from-self" {
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  self              = true
+  security_group_id = "${aws_security_group.web_server.id}"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_security_group_rule" "web_server-allow-ssh-from-all" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = "${aws_security_group.web_server.id}"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_security_group_rule" "web_server-allow-http-from-all" {
+  type              = "ingress"
+  from_port         = 80
+  to_port           = 80
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = "${aws_security_group.web_server.id}"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_security_group_rule" "web_server-allow-https-from-all" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = "${aws_security_group.web_server.id}"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_security_group_rule" "web_server-allow-all-out" {
+  type              = "egress"
+  cidr_blocks       = ["0.0.0.0/0"]
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  security_group_id = "${aws_security_group.web_server.id}"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_security_group" "web_server_data" {
+  name_prefix = "web_server"
+  description = "Allow HTTP, HTTPS and SSH from anywhere"
+  vpc_id      = "${module.vpc_us-east-1.vpc_id}"
+
+  tags {
+    Name = "web_server_data"
+    nfs  = "yes"
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_security_group_rule" "web_server_data-allow-all-from-web-server" {
+  type                     = "ingress"
+  from_port                = 0
+  to_port                  = 0
+  protocol                 = "-1"
+  source_security_group_id = "${aws_security_group.web_server.id}"
+  security_group_id        = "${aws_security_group.web_server_data.id}"
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_efs_file_system" "web_server_data" {
+  tags {
+    Name = "web_server_data"
+    role = "web_server_data"
+  }
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "aws_efs_mount_target" "web_server_data" {
+  count           = "${length(var.public_subnets["us-east-1"])}"
+  file_system_id  = "${aws_efs_file_system.web_server_data.id}"
+  subnet_id       = "${element(module.vpc_us-east-1.public_subnets, count.index)}"
+  security_groups = ["${aws_security_group.web_server_data.id}"]
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+// TODO(kalbasit): The `data` type does not support the count metadata as of
+// Terraform v0.7.0. We will continue using the deperecated `resource` for
+// `template_file` until the `data` supports it.
+// See https://github.com/hashicorp/terraform/issues/7919
+resource "template_file" "web_server-cloud-config" {
+  count    = "${length(var.public_subnets["us-east-1"])}"
+  template = "${file("${path.module}/templates/web_server-cloud-config.yml")}"
+
+  vars {
+    web_server_data_dns_name = "${element(aws_efs_mount_target.web_server_data.*.dns_name, count.index)}"
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_instance" "web_server" {
+  count                  = 1
+  ami                    = "${data.aws_ami.coreos-stable.id}"
+  instance_type          = "t2.micro"
+  vpc_security_group_ids = ["${aws_security_group.web_server.id}"]
+  subnet_id              = "${element(module.vpc_us-east-1.public_subnets, count.index)}"
+  user_data              = "${element(template_file.web_server-cloud-config.*.rendered, count.index)}"
+
+  tags {
+    Name = "web_server-${count.index}"
+    role = "web_server"
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_elb" "web_server" {
+  name            = "web-server"
+  subnets         = ["${module.vpc_us-east-1.public_subnets}"]
+  security_groups = ["${aws_security_group.web_server.id}"]
+
+  listener {
+    instance_port     = "80"
+    instance_protocol = "tcp"
+    lb_port           = "80"
+    lb_protocol       = "tcp"
+  }
+
+  listener {
+    instance_port     = "443"
+    instance_protocol = "tcp"
+    lb_port           = "443"
+    lb_protocol       = "tcp"
+  }
+
+  instances                   = ["${aws_instance.web_server.*.id}"]
+  cross_zone_load_balancing   = true
+  idle_timeout                = "400"
+  connection_draining         = true
+  connection_draining_timeout = "400"
+
+  tags {
+    Name = "web_server"
+    role = "lb"
+  }
+}
+```
