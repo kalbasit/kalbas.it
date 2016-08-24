@@ -20,20 +20,20 @@ It's been quite some time since I shared my knowledge and the daily
 challenges that I overcome. I always wanted to get back into writing as
 it has always been therapeutic for me.
 
-Opening Chrome and typing in a text box just don't feel right for a tech
-blog. I feel the same about pushing to Github pages, I just didn't work
-hard enough for that.
+Opening Chrome and typing in a text box just doesn't feel right for a
+tech blog. I feel the same about pushing to Github pages, I just haven't
+work hard enough for that.
 
 # Micro-Containerized cluster
 
-The coolest ideal stack today would be:
+The most ideal stack today would be:
 - Etcd2 cluster with at least 5 nodes.
 - Kubernetes cluster with at least 3 master nodes and 2 minion nodes.
 - Let's encrypt generated SSL certificates for all websites.
 - Route53 for managing the DNS zones.
 - All managed using Terraform.
 
-That's exactly what I did for work, but it's just way overkill and
+That's exactly what I did for work, but it's way overkill and
 financially unacceptable for a blog.
 
 The stack I designed for this blog:
@@ -52,9 +52,9 @@ server and finally the cloud provisioning.
 
 # The blog
 
-I wanted something quite customizable for my blog, but at the same time,
-it should not use many resources on the server. I thought of writing my
-own Go server to serve static files but why [re-invent the
+I wanted something I could easily customize, and does not use many
+resources on the server. I thought of writing my own Go server to serve
+static files but why [re-invent the
 wheel](https://github.com/search?utf8=%E2%9C%93&q=%22static+site+generator%22&type=Repositories&ref=advsearch&l=&l=)?
 [Jekyll](https://github.com/jekyll/jekyll) is very popular but
 [Hugo](https://gohugo.io/) is much nicer, getting quite popular and get
@@ -62,21 +62,21 @@ few more points for being written in Go.
 
 # The hosting
 
-Hosting a static website is quite simple, there are many choices out
-there but for now I've decided to go with the setup that I currently
-have at home for my home-only websites.
+Hosting a static website is quite common, there are many choices out
+there but none of them offer a free SSL certificate from Let's Encrypt.
 
 I'm using [Nginx](https://hub.docker.com/r/library/nginx/) container as
-the server listening on HTTP and HTTPS. I'm using
-[docker-gen](https://hub.docker.com/r/jwilder/docker-gen/) to watch for
+the server listening on HTTP and HTTPS.
+[docker-gen](https://hub.docker.com/r/jwilder/docker-gen/) watches for
 containers exporting the variable `VIRTUAL_HOST`. `docker-gen` uses that
-information to generate a configuration file to listen on the domain
-`VIRTUAL_HOST` is assigned and forward the requests to the container
-exporting the `VIRTUAL_HOST`.
+information to generate a configuration file for Nginx to listen on the
+domain `VIRTUAL_HOST` is assigned and forward the requests to the
+container exporting the `VIRTUAL_HOST`. Basically, the main Nginx
+container is our reverse proxy and SSL terminating container.
 
-I'm using [Let's encrypt Nginx proxy
+[Let's encrypt Nginx proxy
 container](https://hub.docker.com/r/jrcs/letsencrypt-nginx-proxy-companion/)
-to watch containers exporting the variable `LETSENCRYPT_HOST` and
+also watch containers exporting the variable `LETSENCRYPT_HOST` and
 `LETSENCRYPT_EMAIL` to generate the SSL certificate via Let's Encrypt.
 
 Here's all the systemd unit files for the hosting
