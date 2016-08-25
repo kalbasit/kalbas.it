@@ -15,3 +15,18 @@
   -ms-transition: 0.2s ease;
   transition: 0.2s ease;
 }
+
+#toc {
+  float: none;
+  font-size: 16px;
+  line-height: normal;
+  margin: 50px 0 0 30px;
+}
+
+#toc ul ul {
+  margin: 0 0 0 15px;
+}
+
+#toc ul ul ul {
+  margin: 0 0 0 30px;
+}
