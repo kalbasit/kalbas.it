@@ -21,6 +21,7 @@ deploy:
     bucket: kalbas.it
     acl: private
     local_dir: public
+    skip_cleanup: true
     on:
       repo: "kalbasit/kalbas.it"
       branch: "deploy_to_s3"
