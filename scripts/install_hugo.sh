@@ -7,3 +7,4 @@ cd "${GOPATH}/src/github.com/spf13/hugo"
 go get github.com/kardianos/govendor
 govendor sync github.com/spf13/hugo
 make install
+pip install -r requirements.txt
