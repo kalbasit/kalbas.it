@@ -19,4 +19,4 @@ deploy:
     acl: private
     on:
       repo: "kalbasit/kalbas.it"
-      branch: "master"
+      branch: "deploy_to_s3"
