@@ -17,6 +17,7 @@ deploy:
     secret_access_key: $AWS_SECRET_ACCESS_KEY
     bucket: kalbas.it
     acl: private
+    local_dir: public
     on:
       repo: "kalbasit/kalbas.it"
       branch: "deploy_to_s3"
