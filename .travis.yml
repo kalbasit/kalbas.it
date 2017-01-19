@@ -11,12 +11,7 @@ env:
     - secure: "qFVcPZI1z9KrHzjl8RexxlZD95n3CPH1qARZJvNLKBTzb0Fvv1p6uqnLmRGMsr+g9TuRovDP26Kaa3ggb9pYoNO3SWvKk80FFu4RKfDmelsnDoIbzMT3q59Dol7BMzKqTmc1YgOduepUvqeV3UraP7rPoo8s+xz6RDFDAx2ETWI5IV0FNIS5G00boE3UpMo/zfUdqH6VDTleLi+CCwIFSWDrD5bpFbnTtOVTDyIF4R9RNAQxuPyFWbG6zqXtSQKBeFwVQSPv2QWcE27sgZERjsJjlVURPK8rheGchmHxYCWzixxwSZVV/YmRRjKbMrhjrHz/CJtjSp2/uPGViZNwTQc3D2yr7aAuA2XXYpLj7QNLd6vjNeFwe9yc5FQFD4jBwIK2xRw/7p1yCVScIa/YK2NXwcU3eF1v/E/enuJQGeRULNl6ofjL0O7tufeb6LCWmN5ZP1Rp11qUFFqL/uSS/60Fi2VF6WbCDEHhwKrYm5ou1eqgR4ejc12VQNCsiPTOmc/oTxTTKE8YbL/lkJqyDE7M/QQUee65kC+OBQXq/V9HZhKEjN2kZqpkSRq5WFlbGiDhRAxNOtHnsFvFpS11dBUTVHbmtn+lRlNn3y0CNVCa3oS6hru+j7fVLfeCifFkMdTqkUVKVDaYDA0p5wj7JVjGiwGtAmczkMZvvSZ1R5o="
     - HUGO_VERSION=v0.18.1
 install:
-  - mkdir -p "${GOPATH}/src/github.com/spf13"
-  - git clone --branch=$HUGO_VERSION https://github.com/spf13/hugo.git "${GOPATH}/src/github.com/spf13/hugo"
-  - cd "${GOPATH}/src/github.com/spf13/hugo"
-  - go get github.com/kardianos/govendor
-  - govendor sync github.com/spf13/hugo
-  - make install
+  - ./scripts/install_hugo.sh
 script:
   - hugo
 deploy:
