@@ -1,5 +1,5 @@
-#!/usr/bin/bash
-set -e
+#!/usr/bin/env bash
+set -ex
 
 mkdir -p "${GOPATH}/src/github.com/spf13"
 git clone --branch=$HUGO_VERSION https://github.com/spf13/hugo.git "${GOPATH}/src/github.com/spf13/hugo"
