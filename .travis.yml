@@ -1,32 +1,27 @@
-sudo: required
-language: c
+language: go
+go:
+  - 1.7
 services:
   - docker
 env:
   global:
-    # DOCKER_USER
-    - secure: "k5jg1C7NRBtVT/b+Uilv7S6QCgYPSLA+7rqGHcRE88Ve6R4m+SyZKtKrJsHzUvSbq/g1kp9X3mxyYekXyM98rfbxX0+CWVnyD3ZHFbb5jDwJjKDEeB3TvmhlZFVyybgUjbjGhqlmafRG1o3slhTxCSnYSwcZXEkshPqXhX6GvVVd405Fq1B64wOZEQ5Dz0KVyR+lO5VaKYh+nl5kTX1wT1ugj4fnRwkpcdSkII1+yOi9r5Aj8YqcYEotVUqDt1SFRkDFaASzxXyFn95sf24Gjn87Qoc5c8jHpUbHLazVDfG9fKaEGNlFFZJB92zUrFMODRWR0qXMRb3zBEsbm+T/tTUSBGb6mcwHgD5YM5aD2qujXTrxTWMCezrzHYVOeEr3ulNdM9GuGia6vN635XkpjoQnDOpeJVUBbzfSuQONk8Iho3VEOup9WFuz4Xk1ZvhuIcCQQCY4vZXO57fjksQgERH6LAoDVquqV+84511o60xY06urPUxUdU+5Pf5+F4vm23XCHg0wmL7iQAjA43bGQzhVWMXeIGtEc24S6cLzcj03OQgkLG5aKURW6lyqrszsnkqiVoIuq4nJpEKUG/ucfofhucnXAJguZzy57I/oShLp4b1y2zh1N/Lq8ediL6PjZNbui/9kJZTJQW8iMaVzBNBIIQv37fcSSoDhZNx1/Sc="
-    # DOCKER_PASS
-    - secure: "K0z63GLEOiuINvGsFSpz2uRQO5UlPn//F9vDFIIJOVlnocAxXpOo1qGeBRzPdWm6pmDHYnRKCXxQ2hlY1fpqZdT2ObCXZegHfMOCf22yIw/0Y2n2hea9lW5Bu3BFQMu36uo1EXrQm3xIjO7SvF5WNscWpYaosTQgKQKB+WdG5xbj0kokCtMS9zT4wLyggA01C/7USiRENoxJBi3UpTahcLfAkHz2Y1fV2d+b2uMC5s3H9fqpA9dhVOeOlqJQFjJ3ynIWMUxGVpoaJkuqXfoHG9o7xyG24rNYuwcTIjdTVTAbLTTeIzq5/NA1dZfOwyrXznUk1cX6cu7Gh+guR9xAN5g8vp7Vp0eZPY5/oFbizRkxMiQWVE5KGVDkDnLVF3W30DsAlW39+/B0RWdHgkRUCHO2ik2rzX/jsgv0SvQJ3qJsrO8tc2UiQLNDnympn37TQ+Pcb9eVs7wjNKQdqbH+7xbpozKWSypNgHqULmNU4inmvpv0Kw6orNfLUciLZmWZkmzGMz8q6A03IxiddmCRkpUe+Q8e7pvhrw9RH9qRi51g+q2DsehQxfTKV64qj/fNkAQWz8vTZ0PsrnkROSTENi0sznY88rPSroDz/1HTYPVRm3gxSuKtqze6y0QenffUHpKrHGImJZC+RviEI1GDTHUa0sTaqUA9YjP35Mex1IQ="
-
-    # deploy-tools settings
-    - BUILD_IMAGE_BRANCH=ALL
-    - DEPLOY_SYSTEMD_BRANCH=master
-    - SYSTEMD_SSH_HOST="webserver.kalbas.it"
-    - SYSTEMD_SSH_USER="core"
-    - SYSTEMD_SSH_IDENTITY_FILE="${HOME}/web_server_id_rsa"
-    - SYSTEMD_DOCKER_IMAGE="kalbasit/kalbas-it"
-    - SYSTEMD_USE_SUDO=yes
-    - SYSTEMD_UNIT=nginx-kalbas-it.service
-before_install:
-  - openssl aes-256-cbc -K $encrypted_8dc4e74fcf15_key -iv $encrypted_8dc4e74fcf15_iv -in .travis/web_server.enc -out $HOME/web_server_id_rsa -d
-script: true
-before_deploy:
-  - git clone https://github.com/kalbasit/deploy-tools.git $HOME/deploy-tools
+    # AWS_ACCESS_KEY_ID
+    - secure: "S5i9AVyLTdOPRE3vI2CAnKw77reKga9oe8JbFe7adSOjGRaRhPoiq6k6l11jdQqf/vNFxeJMXZWnLpXdLEdX/kp5i2HntLzFlErSd+0xWr8ZfVpQKraY2yl/UUxE78jihb48IOZdyVfp5CKRnu4DDHaFE5goOPakpkefmKyohn7R+W11NUsZnas+bOpV45QMc4j1UFvR00KjlJ/fNFot1nfRDW0/FG8pyM1qFZkKhlklAS97hpTDOwcM7yoYEBOlmrKeBakKtwr8/Nxl83tTEl8oMktd5+na4giAhfc9vw5h/D4Qyx5lVEd7znMXvcrTs7iLXGz/FCcMRrxrfmmSgw2XecLd3ldZ9bAIXolIFBI8LskWzdMtxZvvR+LwL9GZtxvFjnWZgwHAAC/uYSO/K0K/EWlX+H0Kn0Uuf3hnrlBH/A4BTn29eco5jSyR3smRFY83vu+V37t1ljYVMeoQNlPgOisEe+DMmYd10ADXEWisca0s/uq8YLAcsN61fwQ95yLP94CVczBK7gKuFFgAni+WvRIeTBjWQi3cllIq5ASiCPfFlUzX36uT4rMeftPWkV/docGkx3cDhV8PJhJMJa6y+kapqnlupbg2JxGUEs78/WBSNlHL1wlwJo/PabbnqqWiBXMMD/uo6F3w8eE1Kmghdre87ft3Gu4ekfA/DXU="
+    # AWS_SECRET_ACCESS_KEY
+    - secure: "qFVcPZI1z9KrHzjl8RexxlZD95n3CPH1qARZJvNLKBTzb0Fvv1p6uqnLmRGMsr+g9TuRovDP26Kaa3ggb9pYoNO3SWvKk80FFu4RKfDmelsnDoIbzMT3q59Dol7BMzKqTmc1YgOduepUvqeV3UraP7rPoo8s+xz6RDFDAx2ETWI5IV0FNIS5G00boE3UpMo/zfUdqH6VDTleLi+CCwIFSWDrD5bpFbnTtOVTDyIF4R9RNAQxuPyFWbG6zqXtSQKBeFwVQSPv2QWcE27sgZERjsJjlVURPK8rheGchmHxYCWzixxwSZVV/YmRRjKbMrhjrHz/CJtjSp2/uPGViZNwTQc3D2yr7aAuA2XXYpLj7QNLd6vjNeFwe9yc5FQFD4jBwIK2xRw/7p1yCVScIa/YK2NXwcU3eF1v/E/enuJQGeRULNl6ofjL0O7tufeb6LCWmN5ZP1Rp11qUFFqL/uSS/60Fi2VF6WbCDEHhwKrYm5ou1eqgR4ejc12VQNCsiPTOmc/oTxTTKE8YbL/lkJqyDE7M/QQUee65kC+OBQXq/V9HZhKEjN2kZqpkSRq5WFlbGiDhRAxNOtHnsFvFpS11dBUTVHbmtn+lRlNn3y0CNVCa3oS6hru+j7fVLfeCifFkMdTqkUVKVDaYDA0p5wj7JVjGiwGtAmczkMZvvSZ1R5o="
+    - HUGO_VERSION=v0.18.1
+install:
+  - ./scripts/install_hugo.sh
+script:
+  - hugo
 deploy:
-  - provider: script
-    script: $HOME/deploy-tools/deploy.sh
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY_ID
+    secret_access_key: $AWS_SECRET_ACCESS_KEY
+    bucket: kalbas.it
+    acl: private
+    local_dir: public
     skip_cleanup: true
     on:
-      all_branches: true
       repo: "kalbasit/kalbas.it"
+      branch: "deploy_to_s3"
