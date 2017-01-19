@@ -24,4 +24,4 @@ deploy:
     skip_cleanup: true
     on:
       repo: "kalbasit/kalbas.it"
-      branch: "deploy_to_s3"
+      branch: "master"
