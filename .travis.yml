@@ -1,6 +1,6 @@
 language: go
 go:
-  - 1.7
+  - 1.8
 services:
   - docker
 env:
@@ -11,7 +11,7 @@ env:
     - secure: "aYDcKMWLscAnkxudj6nHKaF4T0exJSi7BrEVDMoC1EbotqQulx0pQqImbn/kbsHDl0U5nMbEN1uIDQIr2S13TGg++UO7lLE+wEfTewRIm38SfjzmZ52hRuvIxgQ7ybCyGHzNob58GRkCGh2+1BPoX90XAv4Pfu/68YLqeSyRMRBbyuZwku4Oh83aTjmPCNN6Cq/vaFqs3IwbK9uwGdNY22Y2mZ28qNCJDqAAJW043MdkONncbRzXuWpBdVeve8jMelzwa7sesz7Tjle2Y/j/Wbk/Gl+QBPENv/6tDn0QYjoi6NFENF84MFBrTzOalIpwvrY4bU7HBSUjhZriXO5fAXaEDSvglJyfy8sHEOn6n+nmn+SeTsk8p67tfMrvEZQhbWl0EjdBC0JpyVo3A3M81C6jrQhVbgWxz9e5mSO8PQXQRRDRv8fGE4edZjFiMdIWwIy9GusCjF2HzngUciGehgxCPOhbDibaECzajcjqGFKcoSt/N//7ynY6wZet2GnEXxv9evr2v+867oI17h0XscVnOY6e/3vM/shA6hOShGvelb5uhW1zvlcC5QzDdUOW2IukndTuJm+qqqPY/5Y0eLjokTxpBRXuLGGtGlJuawmof5flp0kzxDRP81PuyLuUk9NRsHzhAZIlHqTGhzW6C1RjkvfqozU9l8+s6BwvF3U="
     # DISTRIBUTION_ID
     - secure: "FgK+jRSwbBLJWw53GIHkPkAdFLju1CYVs/DnOZ4lak8051arSyp9WYk4hSYP42OLOJpg6DX5Hxg9iV+q0uIvmyJIFB6gudGLAvFK3vLPgGgSjflizNvoXfM9RXATjtDWEzu5nz5HePwJ34s1jYZJ/mGHYG9kuZ89fBYc3euTqp8HOHdxEIthv5rYHRC77VpjfNck8Re4KYstb6iUFklwIJbQjuj4Ybv9qcaD7T5O1o6n1l9Pzd0t+tYIgG0uPnxq2T1VEQPT6Cgjd5esfGjgsqUIlB45t8OtQbWGRFVm2fCdRf77D4WXJPn7Is2i7tNFtw1cGUxKEH70XFSZfyx0zulxxS1uJDw5hrJQJHuw9TdRDat5OcfwxMStKsOgyHvj+cBAeawmJKTw3HpABIK9oNbCZWmCVXBqhq+fjBe8XmW7LUJwcI9SnFumxxi0TWNMmyFsJ7t+Eh55lIGYuU00/lXPT06g0GgHGjsNZmLjFSgR0pOWWjZt5aCFL6hbu9mqJjLr8jyjvZRXHjefTUjBpVXXKlFGCStIGOXojotPnEP9tp1DBzusJcLRBGNzu3w2iX4Z971dETPZnMDc+oEEBU+AJE17Df5pwSGoCA1xuTQlgTNmOH5FivzJx0u+7ctYnxjA9mzWY9xQI6oHTcbRC1IPuqG7fBPd2bVR4hc1hAw="
-    - HUGO_VERSION=v0.18.1
+    - HUGO_VERSION=v0.25
 install:
   - ./scripts/install_hugo.sh
 script:
