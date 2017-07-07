@@ -21,7 +21,7 @@ before_deploy:
   - aws configure set preview.cloudfront true
 deploy:
   - provider: script
-    script: aws s3 sync public s3://kalbas.it
+    script: aws s3 sync --acl public-read public s3://kalbas.it
     skip_cleanup: true
     on:
       repo: "kalbasit/kalbas.it"
