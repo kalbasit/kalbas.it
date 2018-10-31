@@ -9,7 +9,7 @@ paginate: 10
 params:
   author: Wael Nasredding
   avatar: images/kalbasit.jpg
-  bio: Blogger - Engineer - Gopher
+  bio: Entrepreneur - Engineer - Father
   copyright: Powered by [Hugo](//gohugo.io). Theme by [PPOffice](http://github.com/ppoffice).
   date_format: 2006-01-02
   location: San Francisco Bay Area
