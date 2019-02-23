@@ -1,7 +1,11 @@
 baseUrl: /
+enableRobotsTXT: true
+footnoteReturnLinkContents: ↩
+googleAnalytics: UA-82839578-2
 languageCode: en-us
-theme: terminal
+metaDataFormat: yaml
 paginate: 5
+theme: terminal
 
 params:
   # dir name of your blog content (default is `content/posts`)
@@ -13,8 +17,8 @@ params:
 
 languages:
   en:
-    title: Kalbasit
-    subtitle: Your site subtitle
+    title: Wael Nasreddine
+    subtitle: Father - Entrepreneur - Architect - Engineer
     keywords: ''
     menuMore: Show more
     readMore: Read more
