@@ -1,16 +1,12 @@
 let
-  # Look here for information about how to generate `nixpkgs-version.json`.
-  #  → https://nixos.wiki/wiki/FAQ/Pinning_Nixpkgs
   pinnedVersion = builtins.fromJSON (builtins.readFile ./.nixpkgs-version.json);
-  pinnedPkgs = import (builtins.fetchGit {
-    inherit (pinnedVersion) url rev;
-
-    ref = "nixos-unstable";
-  }) {};
+  pinnedPkgs = builtins.fetchTarball {
+    inherit (pinnedVersion) url sha256;
+  };
 in
 
 # This allows overriding pkgs by passing `--arg pkgs ...`
-{ pkgs ? pinnedPkgs }:
+{ pkgs ? import pinnedPkgs {} }:
 
 with pkgs;
 
