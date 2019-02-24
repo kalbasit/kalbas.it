@@ -1,0 +1,54 @@
+==================================================================
+https://keybase.io/kalbasit
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://kalbas.it
+  * I am kalbasit (https://keybase.io/kalbasit) on keybase.
+  * I have a public key ASDeFa6vnwQSpOrqcYdpcEmQme7IUkvKK_y3P3RIFyxLuAo
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "0120de15aeaf9f0412a4eaea71876970499099eec8524bca2bfcb73f7448172c4bb80a",
+            "host": "keybase.io",
+            "kid": "0120de15aeaf9f0412a4eaea71876970499099eec8524bca2bfcb73f7448172c4bb80a",
+            "uid": "90d3995e041c2500d3816f94a69c5d19",
+            "username": "kalbasit"
+        },
+        "service": {
+            "hostname": "kalbas.it",
+            "protocol": "https:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "client": {
+        "name": "keybase.io go client",
+        "version": "1.0.22"
+    },
+    "ctime": 1499152420,
+    "expire_in": 504576000,
+    "merkle_root": {
+        "ctime": 1499152396,
+        "hash": "12d69264b1d2c06ff35ab0a8aed6382cd70fb0235d02d4c946cf199de8a839b7e134e1893682c9331f2e5ed2b853c78d955f46ecef7cd20b77d2f6822693125f",
+        "seqno": 1208789
+    },
+    "prev": "b87e888d24efbc3073d22fc729eb6672a551b383875ddfb2c45e904cc0b38277",
+    "seqno": 36,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEg3hWur58EEqTq6nGHaXBJkJnuyFJLyiv8tz90SBcsS7gKp3BheWxvYWTFAvN7ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTIwZGUxNWFlYWY5ZjA0MTJhNGVhZWE3MTg3Njk3MDQ5OTA5OWVlYzg1MjRiY2EyYmZjYjczZjc0NDgxNzJjNGJiODBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwZGUxNWFlYWY5ZjA0MTJhNGVhZWE3MTg3Njk3MDQ5OTA5OWVlYzg1MjRiY2EyYmZjYjczZjc0NDgxNzJjNGJiODBhIiwidWlkIjoiOTBkMzk5NWUwNDFjMjUwMGQzODE2Zjk0YTY5YzVkMTkiLCJ1c2VybmFtZSI6ImthbGJhc2l0In0sInNlcnZpY2UiOnsiaG9zdG5hbWUiOiJrYWxiYXMuaXQiLCJwcm90b2NvbCI6Imh0dHBzOiJ9LCJ0eXBlIjoid2ViX3NlcnZpY2VfYmluZGluZyIsInZlcnNpb24iOjF9LCJjbGllbnQiOnsibmFtZSI6ImtleWJhc2UuaW8gZ28gY2xpZW50IiwidmVyc2lvbiI6IjEuMC4yMiJ9LCJjdGltZSI6MTQ5OTE1MjQyMCwiZXhwaXJlX2luIjo1MDQ1NzYwMDAsIm1lcmtsZV9yb290Ijp7ImN0aW1lIjoxNDk5MTUyMzk2LCJoYXNoIjoiMTJkNjkyNjRiMWQyYzA2ZmYzNWFiMGE4YWVkNjM4MmNkNzBmYjAyMzVkMDJkNGM5NDZjZjE5OWRlOGE4MzliN2UxMzRlMTg5MzY4MmM5MzMxZjJlNWVkMmI4NTNjNzhkOTU1ZjQ2ZWNlZjdjZDIwYjc3ZDJmNjgyMjY5MzEyNWYiLCJzZXFubyI6MTIwODc4OX0sInByZXYiOiJiODdlODg4ZDI0ZWZiYzMwNzNkMjJmYzcyOWViNjY3MmE1NTFiMzgzODc1ZGRmYjJjNDVlOTA0Y2MwYjM4Mjc3Iiwic2Vxbm8iOjM2LCJ0YWciOiJzaWduYXR1cmUifaNzaWfEQLDauHk81W1wzhKWZrTKxS+YNs1uhyMVipm2qAX+9JRVkAxJcB1WYGa44Hmi1UDinJZ24sulBwrB2ul+rNQ+5wCoc2lnX3R5cGUgpGhhc2iCpHR5cGUIpXZhbHVlxCDZar2XcQuHIQEzeAKjuU+edz9q1evJqdCYq5Mz2M51KKN0YWfNAgKndmVyc2lvbgE=
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/kalbasit
+
+==================================================================

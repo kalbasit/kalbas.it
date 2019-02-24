@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Infrastructure on kalbasit</title>
+    <link>https://kalbas.it/categories/infrastructure/</link>
+    <description>Recent content in Infrastructure on kalbasit</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 21 Aug 2016 18:21:02 -0700</lastBuildDate>
+    
+	<atom:link href="https://kalbas.it/categories/infrastructure/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>blogging with style</title>
+      <link>https://kalbas.it/2016/08/21/blogging-with-style/</link>
+      <pubDate>Sun, 21 Aug 2016 18:21:02 -0700</pubDate>
+      
+      <guid>https://kalbas.it/2016/08/21/blogging-with-style/</guid>
+      <description>&lt;h1 id=&#34;overview&#34;&gt;Overview&lt;/h1&gt;
+
+&lt;p&gt;It&amp;rsquo;s been quite some time since I shared my knowledge and the daily
+challenges that I overcome. I always wanted to get back into writing as
+it has always been therapeutic for me.&lt;/p&gt;
+
+&lt;p&gt;Today, I&amp;rsquo;m going to talk about how this blog is being hosted. We will
+start from the top down by looking first at the application level, then
+we will take a look at the hosting, the deployment, the server and
+finally the cloud provisioning.&lt;/p&gt;
+
+&lt;h1 id=&#34;micro-containerized-cluster&#34;&gt;Micro-Containerized cluster&lt;/h1&gt;
+
+&lt;p&gt;The most ideal stack today would be:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Etcd2 cluster with at least 5 nodes.&lt;/li&gt;
+&lt;li&gt;Kubernetes cluster with at least 3 master nodes and 2 minion nodes.&lt;/li&gt;
+&lt;li&gt;Let&amp;rsquo;s encrypt generated SSL certificates for all websites.&lt;/li&gt;
+&lt;li&gt;Route53 for managing the DNS zones.&lt;/li&gt;
+&lt;li&gt;All managed using Terraform.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;That&amp;rsquo;s exactly what I did for work, but it&amp;rsquo;s way overkill and
+financially unacceptable for a blog.&lt;/p&gt;
+
+&lt;p&gt;The stack I designed for this blog:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;One t2.micro instance running NginX containers with support for SSL
+certificates from Let&amp;rsquo;s encrypt.&lt;/li&gt;
+&lt;li&gt;Route53 for managing the DNS zones.&lt;/li&gt;
+&lt;li&gt;All managed using Terraform.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on kalbasit</title>
+    <link>https://kalbas.it/tags/</link>
+    <description>Recent content in Tags on kalbasit</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 21 Aug 2016 18:21:02 -0700</lastBuildDate>
+    
+	<atom:link href="https://kalbas.it/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Coreos</title>
+      <link>https://kalbas.it/tags/coreos/</link>
+      <pubDate>Sun, 21 Aug 2016 18:21:02 -0700</pubDate>
+      
+      <guid>https://kalbas.it/tags/coreos/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://kalbas.it/tags/docker/</link>
+      <pubDate>Sun, 21 Aug 2016 18:21:02 -0700</pubDate>
+      
+      <guid>https://kalbas.it/tags/docker/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Kubernetes</title>
+      <link>https://kalbas.it/tags/kubernetes/</link>
+      <pubDate>Sun, 21 Aug 2016 18:21:02 -0700</pubDate>
+      
+      <guid>https://kalbas.it/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Terraform</title>
+      <link>https://kalbas.it/tags/terraform/</link>
+      <pubDate>Sun, 21 Aug 2016 18:21:02 -0700</pubDate>
+      
+      <guid>https://kalbas.it/tags/terraform/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
