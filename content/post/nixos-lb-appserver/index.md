@@ -25,10 +25,10 @@ NixOPS.
 # System Design
 
 Let's first talk about the sytem design of our load-balanced
-application. We want to run three replicas of a hello world application
+application. We want to run two replicas of a hello world application
 (written in Go), behind a load balancer running NginX.
 
-![System Design](/assets/images/post/nixos-lb-appserver/design.svg#center)
+{{% figure position="center" src="/assets/images/post/nixos-lb-appserver/design.svg" %}}
 
 # Getting ready
 
@@ -54,8 +54,36 @@ Hello, World web application.
 
 Open up `hello-world/main.go` and type in the following contents:
 
-<{{content/post/nixos-lb-appserver/hello-world/main.go}}
+{{% code file="/content/post/nixos-lb-appserver/hello-world/main.go" language="go" %}}
 
 And create a `hello-world/default.nix` so we can deploy this application in NixOS.
 
-<{{content/post/nixos-lb-appserver/hello-world/default.nix}}
+{{% code file="/content/post/nixos-lb-appserver/hello-world/default.nix" language="nix" %}}
+
+### Servers
+
+Define the servers we will be running for this demonstration by creating
+the file `servers.nix` with the following content:
+
+{{% code file="/content/post/nixos-lb-appserver/servers.nix" language="nix" %}}
+
+This file defines our backends, as well as the the load balancer node.
+This definitions is not deployable by itself as it's missing the
+`deployment.target` declaration, this allows us to deploy the same set
+of servers to multiple targets such as VirtualBox and AWS.
+
+## Deployment
+
+### VirtualBox
+
+To deploy to VirtualBox, simply create the file `vbox.nix` with the
+following content
+
+{{% code file="/content/post/nixos-lb-appserver/vbox.nix" language="nix" %}}
+
+Create a deployment by running `nixops create -d hw-vbox
+servers.nix vbox.nix` and deploy it with `nixops deploy -d hw-vbox --force-reboot`
+
+**NOTE** that the `--force-reboot` should only be specified the first
+time the deployment was done. This is due to a [known
+bug](https://github.com/NixOS/nixops/issues/908).
