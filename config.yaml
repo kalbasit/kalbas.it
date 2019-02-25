@@ -10,7 +10,7 @@ metaDataFormat: yaml
 paginate: 10
 params:
   contentTypeName: "post"
-  themeColor: blue
+  themeColor: orange
   showMenuItems: 3
 languages:
   en:
