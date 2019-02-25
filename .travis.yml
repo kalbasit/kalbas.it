@@ -1,16 +1,14 @@
 language: nix
 
 script:
-  - nix-shell --run hugo --buildDrafts --buildExpired --buildFuture --stepAnalysis --templateMetrics --templateMetricsHints
+  - nix-shell -I nixpkgs="$( nix eval "(import ./nixpkgs.nix)" )" --run hugo --buildDrafts --buildExpired --buildFuture --stepAnalysis --templateMetrics --templateMetricsHints
+  - >
+    if [[ "$( git --no-pager status --short | awk '$2 ~ /^docs/' | wc -l )" -gt 0 ]]; then
+      echo ">>> Changes were detected after running \`hugo\`. Please run it, commit and push again"
+      echo; echo; echo;
+      git --no-pager diff
+      exit 1
+    fi
 
-  # XXX: This is failing even without changes for some reason on the CI, but not on my local machine.
-  # See the build here:
-  # https://travis-ci.org/kalbasit/kalbas.it/builds/497998311?utm_source=github_status&utm_medium=notification
-  #
-  # - >
-  #   if [[ "$( git --no-pager status --short | awk '$2 ~ /^docs/' | wc -l )" -gt 0 ]]; then
-  #     echo ">>> Changes were detected after running \`hugo\`. Please run it, commit and push again"
-  #     echo; echo; echo;
-  #     git --no-pager diff
-  #     exit 1
-  #   fi
+
+
