@@ -46,10 +46,16 @@ https://nixos.org/nix/install | sh` as a non-root user.
 Once you have installed Nix, you can install nixops by running `nix-env
 -f '<nixpkgs>' -iA nixops`.
 
-## Create the Hello World application 
+## Create the Hello World application
 
 This step guides you to create a hello world application in Go. It's
 O.K. if you are not familiar with Go as we only use it here to write a
 Hello, World web application.
 
 Open up `hello-world/main.go` and type in the following contents:
+
+<{{content/post/nixos-lb-appserver/hello-world/main.go}}
+
+And create a `hello-world/default.nix` so we can deploy this application in NixOS.
+
+<{{content/post/nixos-lb-appserver/hello-world/default.nix}}
