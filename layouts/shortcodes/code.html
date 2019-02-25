@@ -1,3 +1,8 @@
-{{ $file := .Get "file" | readFile }}
-{{ $lang := .Get "language" }}
-{{ (print "```" $lang "\n" $file "\n```") | markdownify }}
+{{$file := .Get "file"}}
+{{- if eq (.Get "markdown") "true" -}}
+{{- $file  | readFile | markdownify -}}
+{{- else if  (.Get "language") -}}
+{{-  highlight ($file  | readFile) (.Get "language") "" -}}
+{{- else -}}
+{{ $file  | readFile | safeHTML }}
+{{- end -}}
