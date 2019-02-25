@@ -1,0 +1,9 @@
+{{/* Source: https://github.com/gohugoio/hugoDocs/blob/00e4402605766a2f867f17f97116d11789f90dbd/layouts/shortcodes/readfile.html */}}
+{{$file := .Get "file"}}
+{{- if eq (.Get "markdown") "true" -}}
+{{- $file  | readFile | markdownify -}}
+{{- else if  (.Get "language") -}}
+{{-  highlight ($file  | readFile) (.Get "language") "" -}}
+{{- else -}}
+{{ $file  | readFile | safeHTML }}
+{{- end -}}
