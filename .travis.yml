@@ -1,0 +1,11 @@
+language: nix
+
+script:
+  - nix-shell --run hugo
+  - >
+    if [[ "$( git --no-pager status --short | awk '$2 ~ /^docs/' | wc -l )" -gt 0 ]]; then
+      echo ">>> Changes were detected after running \`hugo\`. Please run it, commit and push again"
+      echo; echo; echo;
+      git --no-pager diff
+      exit 1
+    fi
