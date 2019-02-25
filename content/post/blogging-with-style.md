@@ -9,7 +9,6 @@ categories:
   - Infrastructure
 description: "describing how I setup my blog with AWS, CoreOS and docker"
 menu: ""
-banner: "images/posts/home-office-336378_640.jpg"
 images:
 date: "2016-08-21T18:21:02-07:00"
 ---
