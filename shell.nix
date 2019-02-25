@@ -13,5 +13,7 @@ with pkgs;
 mkShell {
   buildInputs = [
     hugo
+
+    nixops
   ];
 }
