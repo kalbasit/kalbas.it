@@ -26,15 +26,9 @@ languages:
         logoHomeLink: /
     menu:
       main:
-      - identifier: categories
-        name: Categories
-        url: /categories
-      - identifier: hireme
-        name: Hire Me
-        url: /hireme
-      - identifier: tags
-        name: Tags
-        url: /tags
+      - identifier: about
+        name: About
+        url: /about
 permalinks:
   post: /:year/:month/:day/:slug
 theme: hugo-theme-terminal
