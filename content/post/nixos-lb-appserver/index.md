@@ -11,7 +11,6 @@ categories:
   - Infrastructure
 description: |
   How to use NixOPS to setup a web-server with automated Let's Encrypt
-draft: true
 ---
 
 # Overview
