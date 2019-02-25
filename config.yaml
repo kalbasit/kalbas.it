@@ -1,68 +1,41 @@
-baseurl: https://kalbas.it/
+author: "Wael Nasreddine"
+baseurl: "https://kalbas.it/"
 disqusShortname: kalbasit
 enableRobotsTXT: true
-footnotereturnlinkcontents: ↩
+footnoteReturnLinkContents: ↩
 googleAnalytics: UA-82839578-2
 publishDir: "docs"
 languageCode: en-us
 metaDataFormat: yaml
 paginate: 10
 params:
-  author: Wael Nasreddine
-  avatar: images/kalbasit.jpg
-  bio: Entrepreneur - Engineer - Father
-  copyright: Powered by [Hugo](//gohugo.io). Theme by [PPOffice](http://github.com/ppoffice).
-  date_format: 2006-01-02
-  location: San Francisco Bay Area
-  logo: images/logo.svg
-  menu:
-  - before: true
-    label: Home
-    link: /
-  - before: false
-    label: Tags
-    link: tags/
-  - before: false
-    label: Categories
-    link: categories/
-  profile:
-    follow_button: https://github.com/kalbasit
-  site_description: "Tech blog, by Wael"
-  widgets:
-    categories: true
-    recent_articles: true
-    tag_cloud: true
-    tags: true
+  contentTypeName: "post"
+  themeColor: blue
+  showMenuItems: 3
+languages:
+  en:
+    title: kalbasit
+    subtitle: Wael Nasreddine
+    keywords: ''
+    menuMore: Show more
+    readMore: Read more
+    readOtherPosts: Read other posts
+    params:
+      logo:
+        logoText: λ kalbas.it
+        logoHomeLink: /
+    menu:
+      main:
+      - identifier: categories
+        name: Categories
+        url: /categories
+      - identifier: hireme
+        name: Hire Me
+        url: /hireme
+      - identifier: tags
+        name: Tags
+        url: /tags
 permalinks:
   post: /:year/:month/:day/:slug
-social:
-  behance: ""
-  bitbucket: ""
-  codepen: ""
-  deviantart: ""
-  dribbble: ""
-  facebook: kalbasit
-  facebook_admin: ""
-  flickr: ""
-  foursquare: ""
-  github: kalbasit
-  gitlab: ""
-  googleplus: ""
-  instagram: ""
-  jsfiddle: ""
-  linkedin: "kalbasit"
-  medium: ""
-  pinterest: ""
-  reddit: kalbasit
-  slideshare: ""
-  stackoverflow: "301730"
-  tumblr: ""
-  twitter: kalbasit
-  twitter_domain: ""
-  vimeo: ""
-  vine: ""
-  wordpress: ""
-  xing: ""
-  youtube: ""
-theme: hugo-icarus-theme
+theme: hugo-theme-terminal
 title: kalbasit
