@@ -1,5 +1,5 @@
 ---
-title: "blogging with style"
+title: "Setup a website on AWS with CoreOS and Docker"
 tags:
   - coreos
   - kubernetes
@@ -7,7 +7,7 @@ tags:
   - docker
 categories:
   - Infrastructure
-description: "describing how I setup my blog with AWS, CoreOS and docker"
+description: "How to setup a blog on AWS with CoreOS and docker"
 menu: ""
 images:
 date: "2016-08-21T18:21:02-07:00"
