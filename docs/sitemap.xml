@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://kalbas.it/2019/02/24/website-with-nixos-nixops-with-automated-lets-encrypt/</loc>
+    <lastmod>2019-02-24T18:50:58-08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://kalbas.it/about/</loc>
     <lastmod>2019-02-24T17:29:59-08:00</lastmod>
   </url>
@@ -31,7 +36,7 @@
   
   <url>
     <loc>https://kalbas.it/categories/infrastructure/</loc>
-    <lastmod>2016-08-21T18:21:02-07:00</lastmod>
+    <lastmod>2019-02-24T18:50:58-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -42,8 +47,38 @@
   </url>
   
   <url>
+    <loc>https://kalbas.it/tags/letsencrypt/</loc>
+    <lastmod>2019-02-24T18:50:58-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kalbas.it/tags/nginx/</loc>
+    <lastmod>2019-02-24T18:50:58-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kalbas.it/tags/nix/</loc>
+    <lastmod>2019-02-24T18:50:58-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kalbas.it/tags/nixops/</loc>
+    <lastmod>2019-02-24T18:50:58-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kalbas.it/tags/nixos/</loc>
+    <lastmod>2019-02-24T18:50:58-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://kalbas.it/post/</loc>
-    <lastmod>2016-08-21T18:21:02-07:00</lastmod>
+    <lastmod>2019-02-24T18:50:58-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -61,7 +96,7 @@
   
   <url>
     <loc>https://kalbas.it/</loc>
-    <lastmod>2019-02-24T17:29:59-08:00</lastmod>
+    <lastmod>2019-02-24T18:50:58-08:00</lastmod>
     <priority>0</priority>
   </url>
   
