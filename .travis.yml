@@ -1,8 +1,9 @@
 language: nix
 
-script:
+install:
   - nix-env -f "$( nix eval --raw '(import ./nixpkgs.nix)' )" -iA hugo
   - hugo version
+script:
   - hugo --buildDrafts --buildExpired --buildFuture --stepAnalysis --templateMetrics --templateMetricsHints
   - >
     if [[ "$( git --no-pager status --short | awk '$2 ~ /^docs/' | wc -l )" -gt 0 ]]; then
