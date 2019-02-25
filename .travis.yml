@@ -1,11 +1,9 @@
 language: nix
 
 script:
-  - >
-    nix run -f "$( nix eval --raw '(import ./nixpkgs.nix)'  )" hugo -c \
-      hugo --buildDrafts --buildExpired --buildFuture \
-      --stepAnalysis --templateMetrics --templateMetricsHints
-
+  - nix-env -f "$( nix eval --raw '(import ./nixpkgs.nix)' )" -iA hugo
+  - hugo version
+  - hugo --buildDrafts --buildExpired --buildFuture --stepAnalysis --templateMetrics --templateMetricsHints
   - >
     if [[ "$( git --no-pager status --short | awk '$2 ~ /^docs/' | wc -l )" -gt 0 ]]; then
       echo ">>> Changes were detected after running \`hugo\`. Please run it, commit and push again"
@@ -13,6 +11,3 @@ script:
       git --no-pager diff
       exit 1
     fi
-
-
-
