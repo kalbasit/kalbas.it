@@ -1,0 +1,55 @@
+---
+title: "Website with NixOS/NixOPS, with automated let's encrypt"
+date: 2019-02-24T18:50:58-08:00
+tags:
+  - nix
+  - nixos
+  - nixops
+  - nginx
+  - letsencrypt
+categories:
+  - Infrastructure
+description: |
+  How to use NixOPS to setup a web-server with automated Let's Encrypt
+draft: true
+---
+
+# Overview
+
+Working with Let's Encrypt can sometimes be quite difficult, especially
+when setting up your own load balancer in front of your application
+servers. This article give you a step by step instructions on how to
+create a server, running [NixOS](https://nixos.org) and managed by
+NixOPS.
+
+# System Design
+
+Let's first talk about the sytem design of our load-balanced
+application. We want to run three replicas of a hello world application
+(written in Go), behind a load balancer running NginX.
+
+![System Design](/assets/images/post/nixos-lb-appserver/design.svg#center)
+
+# Getting ready
+
+Skip this step if you have already installed Nix and NixOPS.
+
+## Installing Nix
+
+Nix can be installed by following the instructions
+[here](https://nixos.org/nix/download.html). At the time of writing this
+guide, Nix can be installed by simply running `curl
+https://nixos.org/nix/install | sh` as a non-root user.
+
+## Installing NixOPS
+
+Once you have installed Nix, you can install nixops by running `nix-env
+-f '<nixpkgs>' -iA nixops`.
+
+## Create the Hello World application 
+
+This step guides you to create a hello world application in Go. It's
+O.K. if you are not familiar with Go as we only use it here to write a
+Hello, World web application.
+
+Open up `hello-world/main.go` and type in the following contents:
