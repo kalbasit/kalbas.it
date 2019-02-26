@@ -10,8 +10,17 @@ in
 
 with pkgs;
 
+let
+  hugo-theme-terminal = pkgs.callPackage ./pkgs/themes/terminal {};
+in
+
 mkShell {
   buildInputs = [
     hugo
   ];
+
+  shellHook = ''
+    mkdir -p themes
+    ln -snf "${hugo-theme-terminal}" themes/hugo-theme-terminal
+  '';
 }
