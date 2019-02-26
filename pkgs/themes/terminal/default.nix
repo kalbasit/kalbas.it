@@ -6,8 +6,7 @@ let
     inherit (pinnedVersion) url sha256;
   };
 
-  patches = [
-  ];
+  patches = [];
 
 in
   runCommand "hugo-theme-terminal-${pinnedVersion.rev}" {
