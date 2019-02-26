@@ -81,12 +81,12 @@ following content
 {{< code file="/content/post/nixos-lb-appserver/vbox.nix" language="nix" >}}
 
 Create a deployment by running `nixops create -d hw-vbox
-servers.nix vbox.nix` and deploy it with `nixops deploy -d hw-vbox --force-reboot`
+servers.nix vbox.nix` and deploy it with `nixops deploy -d hw-vbox`
 
-**NOTE** that the `--force-reboot` should only be specified the first
-time the deployment was done. This is due to a [known
-bug](https://github.com/NixOS/nixops/issues/908). This is not needed for
-nixops >= 1.6.2.
+**NOTE**: if you run into an issue where NixOPS fails to deploy with an
+error message matching `failed pre-init: VERR_INTERNAL_ERROR`, then you
+should re-deploy with the `--force-reboot` flag. This is due to a [known
+bug](https://github.com/NixOS/nixops/issues/908).
 
 ### AWS
 
