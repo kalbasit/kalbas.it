@@ -91,3 +91,45 @@ bug](https://github.com/NixOS/nixops/issues/908).
 ### AWS
 
 We're going to deploy this configuration on AWS now
+
+## Usage
+
+### VirtualBox
+
+If the deployment went through without any issues, then the Hello, World
+application should now be running on port 80 of the lb VirtualBox. You
+can find the IP by running
+
+{{< highlight console >}}
+$ nixops info -f hw-vbox
+Network name: hw-vbox
+Network UUID: f0a28563-399a-11e9-9c18-0242570e97f8
+Network description: Load-balanced Hello World web application
+Nix expressions: /yl/code/.../kalbas.it/content/post/nixos-lb-appserver/servers.nix /yl/code/.../kalbas.it/content/post/nixos-lb-appserver/vbox.nix
+Nix profile: /nix/var/nix/profiles/per-user/yl/nixops/f0a28563-399a-11e9-9c18-0242570e97f8
+
++----------+-----------------+------------+------------------------------------------------------+----------------+
+| Name     |      Status     | Type       | Resource Id                                          | IP address     |
++----------+-----------------+------------+------------------------------------------------------+----------------+
+| backend1 | Up / Up-to-date | virtualbox | nixops-f0a28563-399a-11e9-9c18-0242570e97f8-backend1 | 192.168.56.102 |
+| backend2 | Up / Up-to-date | virtualbox | nixops-f0a28563-399a-11e9-9c18-0242570e97f8-backend2 | 192.168.56.103 |
+| lb       | Up / Up-to-date | virtualbox | nixops-f0a28563-399a-11e9-9c18-0242570e97f8-lb       | 192.168.56.101 |
++----------+-----------------+------------+------------------------------------------------------+----------------+
+{{< /highlight >}}
+
+You can then use curl to watch load-balancing as it happens
+
+{{< highlight html >}}
+$ watch curl -qs http://192.168.56.101
+# you should see backend1 alternating with backend2
+<!DOCTYPE html>
+<html>
+        <head>
+                <title>Load-balanced application</title>
+        </head>
+        <body>
+                <h1>Hello, World!</h1>
+                <p>You are being serve this webpage from <strong>backend2</strong>.</p>
+        </body>
+</html>
+{{< /highlight >}}
