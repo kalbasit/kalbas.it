@@ -1,10 +1,8 @@
 language: nix
 
-install:
-  - nix-env -f "$( nix eval --raw '(import ./nixpkgs.nix)' )" -iA hugo
-  - hugo version
 script:
-  - hugo --cleanDestinationDir --buildDrafts --buildExpired --buildFuture --stepAnalysis --templateMetrics --templateMetricsHints
+  - nix-shell --run 'hugo version'
+  - nix-shell --run 'hugo --cleanDestinationDir --buildDrafts --buildExpired --buildFuture --stepAnalysis --templateMetrics --templateMetricsHints'
 
   # XXX: This is failing even without changes for some reason on the CI, but not on my local machine.
   # See the build here:
