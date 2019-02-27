@@ -1,3 +1,4 @@
 .direnv/
-themes/
 config.json
+layouts/partials
+themes/
