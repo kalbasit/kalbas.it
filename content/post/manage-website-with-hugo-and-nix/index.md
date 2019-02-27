@@ -24,6 +24,9 @@ time regardless of the host.
 
 # Installing Nix
 
+If you'd like to follow along this tutorial, then you should have
+installed [Nix](https://nixos.org/nix/) on your system.
+
 Nix can be installed by following the instructions
 [here](https://nixos.org/nix/download.html). At the time of writing this
 guide, Nix can be installed by simply running `curl
@@ -31,26 +34,29 @@ https://nixos.org/nix/install | sh` as a non-root user.
 
 # Reproducible environment
 
-For this, we will rely on the awesome command by nix named `nix-shell`.
-This command allows you to create a shell environment given a list of
-packages and shell hooks. Go ahead, try it with `nix-shell -p hello`;
-This should give you a shell with a modified `PATH` giving you access
-to the command `hello`.
+To archive reproducibility, we're going to rely on the awesome command
+by Nix named `nix-shell`.  This command allows you to create a shell
+environment given a list of packages and shell hooks. Go ahead, try it
+with `nix-shell -p hello`; This should give you a shell with a modified
+`PATH` giving you access to the command `hello`.
 
 {{< highlight console >}}
 # -f <nixpkgs> is not a required argument, but it's good to know about it
-$ nix-shell -f '<nixpkgs>'
+$ nix-shell -f '<nixpkgs>' -p hello
 $ hello
 Hello, world!
+$ EOF                   # Ctrl-D
+$ hello
+hello: command not found
 {{< /highlight >}}
 
 One can simply run `nix-shell -p hugo` to install and use Hugo. Using
 nix-shell like that has some limitations:
 
-- no guarentee that the same version of Hugo is going to be used.
-- no way to write shell hooks so you can install the theme at the
-    correct place, without relying on importing the theme as code or
-    submodule
+- no guarentee that the same version of Hugo is going to be used. Unless
+    you specify `-I nixpkgs=/path/to/fixed/nixpkgs`.
+- no way to write shell hooks to setup the theme at the correct place,
+  without relying on importing the theme as code or submodule
 
 These limitations can be avoided by expressing the desired environment
 in a nix expression automatically loaded by nix-shell. Create a file
@@ -69,8 +75,8 @@ Let's break the `shell.nix` into multiple pieces, so we can address them
 separately. But before we delve inside the shell.nix, please remember:
 
 - shell.nix is expected to be a nix expression returning a derivation.
-- The nix expression is expected to be a function, functions in nix
-    follow the following format `arg: body` when in this case the arg is
+- A nix expression is a function, functions in nix follow the following format
+  `arg: body` when in this case the arg is
     expected to be a set such as `{ pkgs }: body`
 
 So the expected barebones shell.nix should actually look like:
@@ -138,4 +144,23 @@ the hugo theme. Notice that I did not say **install** the theme, as the
 gets returned and assigned to `hugo-theme-terminal`.
 
 {{< highlight nix >}}
+mkShell {
+  buildInputs = [
+    hugo
+  ];
+
+  shellHook = ''
+    mkdir -p themes
+    ln -snf "${hugo-theme-terminal}" themes/hugo-theme-terminal
+  '';
+}
 {{< /highlight >}}
+
+And finally, we get to the shell declaration itself. `mkShell` is a
+function that returns a derivation, a derivation that can only be used
+with `nix-shell` but cannot be built with `nix-build`.
+
+The `shellHook` is a bash script that gets invoked within the same
+folder where the `shell.nix` is located. I'm using this shellHook here
+to create the themes folder and to symlink the theme we created earlier
+with the `runCommand` to `themes/hugo-theme-terminal`.
