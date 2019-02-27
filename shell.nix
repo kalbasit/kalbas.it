@@ -44,8 +44,8 @@ mkShell {
 
   shellHook = ''
     mkdir -p themes
-    ln -snf "${activeTheme.theme}" themes/hugo-theme-${theme}
-    ln -snf "${configFile}" config.json
+    ln -nsf "${activeTheme.theme}" themes/hugo-theme-${theme}
+    ln -nsf "${configFile}" config.json
   '' + lib.optionalString (activeTheme ? site) ''
     for sourcePath in $(find "${activeTheme.site}" -type f); do
       relativePath="''${sourcePath#${activeTheme.site}/}"
