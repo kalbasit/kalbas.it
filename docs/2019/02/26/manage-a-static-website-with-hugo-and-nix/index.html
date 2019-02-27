@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Manage a static website with Hugo and Nix :: kalbasit — Wael Nasreddine</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="Introduction Over the past couple of years, I&amp;rsquo;ve been using Hugo on and off for my blog, as well as for some static websites I maintain. On many occasions, I have started to hack on my site, only to realsize that my theme &amp;ndash; as submoduled into the repository &amp;ndash; is no longer compatible with the most recent version of Hugo that I have installed on my system.
+This blog post describes how to get from an environment controlled by the host operating system to an environment that&amp;rsquo;s reproducible at any time regardless of the host."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://kalbas.it/2019/02/26/manage-a-static-website-with-hugo-and-nix/" />
+
+
+<link rel="stylesheet" href="https://kalbas.it/assets/style.css">
+
+
+
+<link rel="stylesheet" href="https://kalbas.it/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://kalbas.it/img/apple-touch-icon-144-precomposed.png">
+
+  <link rel="shortcut icon" href="https://kalbas.it/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Manage a static website with Hugo and Nix :: kalbasit — Wael Nasreddine" />
+<meta name="twitter:description" content="Introduction Over the past couple of years, I&amp;rsquo;ve been using Hugo on and off for my blog, as well as for some static websites I maintain. On many occasions, I have started to hack on my site, only to realsize that my theme &amp;ndash; as submoduled into the repository &amp;ndash; is no longer compatible with the most recent version of Hugo that I have installed on my system.
+This blog post describes how to get from an environment controlled by the host operating system to an environment that&amp;rsquo;s reproducible at any time regardless of the host." />
+<meta name="twitter:site" content="https://kalbas.it/" />
+<meta name="twitter:creator" content="" />
+<meta name="twitter:image" content="">
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Manage a static website with Hugo and Nix :: kalbasit — Wael Nasreddine">
+<meta property="og:description" content="Introduction Over the past couple of years, I&amp;rsquo;ve been using Hugo on and off for my blog, as well as for some static websites I maintain. On many occasions, I have started to hack on my site, only to realsize that my theme &amp;ndash; as submoduled into the repository &amp;ndash; is no longer compatible with the most recent version of Hugo that I have installed on my system.
+This blog post describes how to get from an environment controlled by the host operating system to an environment that&amp;rsquo;s reproducible at any time regardless of the host." />
+<meta property="og:url" content="https://kalbas.it/2019/02/26/manage-a-static-website-with-hugo-and-nix/" />
+<meta property="og:site_name" content="Manage a static website with Hugo and Nix" />
+<meta property="og:image" content="">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2019-02-26 17:21:56 -0800 PST" />
+
+
+
+
+
+
+
+</head>
+<body class="">
+<div class="container">
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    λ kalbas.it
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+  <div class="post">
+    <h1 class="post-title"><a href="https://kalbas.it/2019/02/26/manage-a-static-website-with-hugo-and-nix/">Manage a static website with Hugo and Nix</a></h1>
+    <div class="post-meta">
+      <span class="post-date">
+        2019-02-26
+      </span>
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          #<a href="https://kalbas.it/tags/nix/">nix</a>&nbsp;
+        
+          #<a href="https://kalbas.it/tags/hugo/">hugo</a>&nbsp;
+        
+      </span>
+    
+
+    
+
+    <div class="post-content">
+      
+
+<h1 id="introduction">Introduction</h1>
+
+<p>Over the past couple of years, I&rsquo;ve been using Hugo on and off for my
+blog, as well as for some static websites I maintain. On many occasions,
+I have started to hack on my site, only to realsize that my theme &ndash; as
+submoduled into the repository &ndash; is no longer compatible with the
+most recent version of Hugo that I have installed on my system.</p>
+
+<p>This blog post describes how to get from an environment controlled by
+the host operating system to an environment that&rsquo;s reproducible at any
+time regardless of the host.</p>
+
+<h1 id="installing-nix">Installing Nix</h1>
+
+<p>If you&rsquo;d like to follow along this tutorial, then you should have
+installed <a href="https://nixos.org/nix/">Nix</a> on your system.</p>
+
+<p>Nix can be installed by following the instructions
+<a href="https://nixos.org/nix/download.html">here</a>. At the time of writing this
+guide, Nix can be installed by simply running <code>curl
+https://nixos.org/nix/install | sh</code> as a non-root user.</p>
+
+<h1 id="reproducible-environment">Reproducible environment</h1>
+
+<p>To archive reproducibility, we&rsquo;re going to rely on the awesome command
+by Nix named <code>nix-shell</code>.  This command allows you to create a shell
+environment given a list of packages and shell hooks. Go ahead, try it
+with <code>nix-shell -p hello</code>; This should give you a shell with a modified
+<code>PATH</code> giving you access to the command <code>hello</code>.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console"># -f &lt;nixpkgs&gt; is not a required argument, but it&#39;s good to know about it
+$ nix-shell -f &#39;&lt;nixpkgs&gt;&#39; -p hello
+$ hello
+Hello, world!
+$ EOF                   # Ctrl-D
+$ hello
+hello: command not found</code></pre></div>
+
+<p>One can simply run <code>nix-shell -p hugo</code> to install and use Hugo. Using
+nix-shell like that has some limitations:</p>
+
+<ul>
+<li>no guarentee that the same version of Hugo is going to be used. Unless
+you specify <code>-I nixpkgs=/path/to/fixed/nixpkgs</code>.</li>
+<li>no way to write shell hooks to setup the theme at the correct place,
+without relying on importing the theme as code or submodule</li>
+</ul>
+
+<p>These limitations can be avoided by expressing the desired environment
+in a nix expression automatically loaded by nix-shell. Create a file
+named <code>shell.nix</code> at the root of your website with the following
+contents:</p>
+
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nix" data-lang="nix"><span style="color:#66d9ef">let</span>
+
+  <span style="color:#75715e"># See https://nixos.wiki/wiki/FAQ/Pinning_Nixpkgs for more information on pinning</span>
+  nixpkgs <span style="color:#f92672">=</span> builtins<span style="color:#f92672">.</span>fetchTarball {
+    <span style="color:#75715e"># Descriptive name to make the store path easier to identify</span>
+    name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;nixpkgs-unstable-2019-02-26&#34;</span>;
+    <span style="color:#75715e"># Commit hash for nixos-unstable as of 2019-02-26</span>
+    url <span style="color:#f92672">=</span> <span style="color:#e6db74">https://github.com/NixOS/nixpkgs/archive/2e23d727d640f0a96b167d105157f6e7183d8f82.tar.gz</span>;
+    <span style="color:#75715e"># Hash obtained using `nix-prefetch-url --unpack &lt;url&gt;`</span>
+    sha256 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;15s7qjw4qm8mbimiv5fcg0nlgpx4gsws2kbx8z1qzqrid8jg76f8&#34;</span>;
+  };
+
+<span style="color:#66d9ef">in</span>
+
+{ pkgs <span style="color:#f92672">?</span> <span style="color:#f92672">import</span> nixpkgs {} }:
+
+<span style="color:#66d9ef">with</span> pkgs;
+
+<span style="color:#66d9ef">let</span>
+
+  hugo-theme-terminal <span style="color:#f92672">=</span> runCommand <span style="color:#e6db74">&#34;hugo-theme-terminal&#34;</span> {
+    pinned <span style="color:#f92672">=</span> builtins<span style="color:#f92672">.</span>fetchTarball {
+      <span style="color:#75715e"># Descriptive name to make the store path easier to identify</span>
+      name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hugo-theme-terminal-2019-02-25&#34;</span>;
+      <span style="color:#75715e"># Commit hash for hugo-theme-terminal as of 2019-02-25</span>
+      url <span style="color:#f92672">=</span> <span style="color:#e6db74">https://github.com/panr/hugo-theme-terminal/archive/487876daf1ebdf389f03a2dfdf6923cea5258e6e.tar.gz</span>;
+      <span style="color:#75715e"># Hash obtained using `nix-prefetch-url --unpack &lt;url&gt;`</span>
+      sha256 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;17gvqml1wl14gc0szk1kjxi0ya995bmpqqfcwn9jgqf3gdx316av&#34;</span>;
+    };
+
+    patches <span style="color:#f92672">=</span> [];
+
+    preferLocalBuild <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+  }
+  <span style="color:#e6db74">&#39;&#39;
+</span><span style="color:#e6db74">    cp -r $pinned $out
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    for p in $patches; do
+</span><span style="color:#e6db74">      echo &#34;Applying patch $p&#34;
+</span><span style="color:#e6db74">      patch -d $out -p1 &lt; &#34;$p&#34;
+</span><span style="color:#e6db74">    done
+</span><span style="color:#e6db74">  &#39;&#39;</span>;
+
+<span style="color:#66d9ef">in</span>
+
+mkShell {
+  buildInputs <span style="color:#f92672">=</span> [
+    hugo
+  ];
+
+  shellHook <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;
+</span><span style="color:#e6db74">    mkdir -p themes
+</span><span style="color:#e6db74">    ln -snf &#34;</span><span style="color:#e6db74">${</span>hugo-theme-terminal<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34; themes/hugo-theme-terminal
+</span><span style="color:#e6db74">  &#39;&#39;</span>;
+}
+</code></pre></div>
+
+<p>Now, simply run <code>nix-shell</code> to get access to Hugo version 0.54. You
+should also find the theme symlinked at <code>themes/hugo-theme-terminal</code> to
+a path in <code>/nix/store/...</code>.</p>
+
+<h2 id="understanding-the-shell-nix-expression">Understanding the shell nix expression</h2>
+
+<p>Let&rsquo;s break the <code>shell.nix</code> into multiple pieces, so we can address them
+separately. But before we delve inside the shell.nix, please remember:</p>
+
+<ul>
+<li>shell.nix is expected to be a nix expression returning a derivation.</li>
+<li>A nix expression is a function, functions in nix follow the following format
+<code>arg: body</code> when in this case the arg is
+expected to be a set such as <code>{ pkgs }: body</code></li>
+</ul>
+
+<p>So the expected barebones shell.nix should actually look like:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nix" data-lang="nix">{ pkgs <span style="color:#f92672">?</span> <span style="color:#f92672">import</span> <span style="color:#e6db74">&lt;nixpkgs&gt;</span> {} }:
+
+mkShell {
+  buildInputs <span style="color:#f92672">=</span> [
+    hugo
+  ];
+}</code></pre></div>
+
+<p>Now, let&rsquo;s talk about the first part of the script.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nix" data-lang="nix">  <span style="color:#75715e"># See https://nixos.wiki/wiki/FAQ/Pinning_Nixpkgs for more information on pinning</span>
+  nixpkgs <span style="color:#960050;background-color:#1e0010">=</span> builtins<span style="color:#f92672">.</span>fetchTarball {
+    <span style="color:#75715e"># Descriptive name to make the store path easier to identify</span>
+    name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;nixpkgs-unstable-2019-02-26&#34;</span>;
+    <span style="color:#75715e"># Commit hash for nixos-unstable as of 2019-02-26</span>
+    url <span style="color:#f92672">=</span> <span style="color:#e6db74">https://github.com/NixOS/nixpkgs/archive/2e23d727d640f0a96b167d105157f6e7183d8f82.tar.gz</span>;
+    <span style="color:#75715e"># Hash obtained using `nix-prefetch-url --unpack &lt;url&gt;`</span>
+    sha256 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;15s7qjw4qm8mbimiv5fcg0nlgpx4gsws2kbx8z1qzqrid8jg76f8&#34;</span>;
+  };</code></pre></div>
+
+<p>The above code block is defining a variable named <code>nixpkgs</code> to a
+function call <code>builtins.fetchTarball</code> with one argument: the set that is
+defining the <code>name</code>, <code>url</code> and the <code>sha256</code>. Nix is a lazy language, so
+nixpkgs will remain a function until it&rsquo;s actually invoked! Once
+invoked, the function will get evaluated and the return value is simply
+a path on your filesystem within the nix store.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nix" data-lang="nix">  hugo-theme-terminal <span style="color:#960050;background-color:#1e0010">=</span> runCommand <span style="color:#e6db74">&#34;hugo-theme-terminal&#34;</span> {
+    pinned <span style="color:#f92672">=</span> builtins<span style="color:#f92672">.</span>fetchTarball {
+      <span style="color:#75715e"># Descriptive name to make the store path easier to identify</span>
+      name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hugo-theme-terminal-2019-02-25&#34;</span>;
+      <span style="color:#75715e"># Commit hash for hugo-theme-terminal as of 2019-02-25</span>
+      url <span style="color:#f92672">=</span> <span style="color:#e6db74">https://github.com/panr/hugo-theme-terminal/archive/487876daf1ebdf389f03a2dfdf6923cea5258e6e.tar.gz</span>;
+      <span style="color:#75715e"># Hash obtained using `nix-prefetch-url --unpack &lt;url&gt;`</span>
+      sha256 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;17gvqml1wl14gc0szk1kjxi0ya995bmpqqfcwn9jgqf3gdx316av&#34;</span>;
+    };
+
+    patches <span style="color:#f92672">=</span> [];
+
+    preferLocalBuild <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+  }
+  <span style="color:#e6db74">&#39;&#39;
+</span><span style="color:#e6db74">    cp -r $pinned $out
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    for p in $patches; do
+</span><span style="color:#e6db74">      echo &#34;Applying patch $p&#34;
+</span><span style="color:#e6db74">      patch -d $out -p1 &lt; &#34;$p&#34;
+</span><span style="color:#e6db74">    done
+</span><span style="color:#e6db74">  &#39;&#39;</span>;</code></pre></div>
+
+<p>Much like the first section, this one is defining the variable
+<code>hugo-theme-terminal</code> to resolve to a simple derivation that provides
+the hugo theme. Notice that I did not say <strong>install</strong> the theme, as the
+<code>runCommand</code> barely downloads the theme and extracts it into a path that
+gets returned and assigned to <code>hugo-theme-terminal</code>.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nix" data-lang="nix">mkShell {
+  buildInputs <span style="color:#f92672">=</span> [
+    hugo
+  ];
+
+  shellHook <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;
+</span><span style="color:#e6db74">    mkdir -p themes
+</span><span style="color:#e6db74">    ln -snf &#34;</span><span style="color:#e6db74">${</span>hugo-theme-terminal<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34; themes/hugo-theme-terminal
+</span><span style="color:#e6db74">  &#39;&#39;</span>;
+}</code></pre></div>
+
+<p>And finally, we get to the shell declaration itself. <code>mkShell</code> is a
+function that returns a derivation, a derivation that can only be used
+with <code>nix-shell</code> but cannot be built with <code>nix-build</code>.</p>
+
+<p>The <code>shellHook</code> is a bash script that gets invoked within the same
+folder where the <code>shell.nix</code> is located. I&rsquo;m using this shellHook here
+to create the themes folder and to symlink the theme we created earlier
+with the <code>runCommand</code> to <code>themes/hugo-theme-terminal</code>.</p>
+
+    </div>
+    
+      <div class="pagination">
+        <div class="pagination__title">
+          <span class="pagination__title-h">Read other posts</span>
+          <hr />
+        </div>
+        <div class="pagination__buttons">
+          
+          
+            <span class="button next">
+              <a href="https://kalbas.it/2019/02/24/website-with-nixos-nixops-with-automated-lets-encrypt/">
+                <span class="button__text">Website with NixOS/NixOPS, with automated let&#39;s encrypt</span>
+                <span class="button__icon">→</span>
+              </a>
+            </span>
+          
+        </div>
+      </div>
+    
+
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "kalbasit" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2019 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="https://kalbas.it/assets/main.js"></script>
+<script src="https://kalbas.it/assets/prism.js"></script>
+
+  
+</div>
+
+</body>
+</html>

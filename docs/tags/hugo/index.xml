@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Nix on kalbasit</title>
-    <link>https://kalbas.it/tags/nix/</link>
-    <description>Recent content in Nix on kalbasit</description>
+    <title>Hugo on kalbasit</title>
+    <link>https://kalbas.it/tags/hugo/</link>
+    <description>Recent content in Hugo on kalbasit</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 26 Feb 2019 17:21:56 -0800</lastBuildDate>
     
-	<atom:link href="https://kalbas.it/tags/nix/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://kalbas.it/tags/hugo/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,16 +19,6 @@
       <guid>https://kalbas.it/2019/02/26/manage-a-static-website-with-hugo-and-nix/</guid>
       <description>Introduction Over the past couple of years, I&amp;rsquo;ve been using Hugo on and off for my blog, as well as for some static websites I maintain. On many occasions, I have started to hack on my site, only to realsize that my theme &amp;ndash; as submoduled into the repository &amp;ndash; is no longer compatible with the most recent version of Hugo that I have installed on my system.
 This blog post describes how to get from an environment controlled by the host operating system to an environment that&amp;rsquo;s reproducible at any time regardless of the host.</description>
-    </item>
-    
-    <item>
-      <title>Website with NixOS/NixOPS, with automated let&#39;s encrypt</title>
-      <link>https://kalbas.it/2019/02/24/website-with-nixos-nixops-with-automated-lets-encrypt/</link>
-      <pubDate>Sun, 24 Feb 2019 18:50:58 -0800</pubDate>
-      
-      <guid>https://kalbas.it/2019/02/24/website-with-nixos-nixops-with-automated-lets-encrypt/</guid>
-      <description>Overview Working with Let&amp;rsquo;s Encrypt can sometimes be quite difficult, especially when setting up your own load balancer in front of your application servers. This article give you a step by step instructions on how to create a server, running NixOS and managed by NixOPS.
-System Design Let&amp;rsquo;s first talk about the sytem design of our load-balanced application. We want to run two replicas of a hello world application (written in Go), behind a load balancer running NginX.</description>
     </item>
     
   </channel>
