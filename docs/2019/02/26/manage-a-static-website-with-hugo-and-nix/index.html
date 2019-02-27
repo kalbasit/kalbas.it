@@ -135,6 +135,9 @@ time regardless of the host.</p>
 
 <h1 id="installing-nix">Installing Nix</h1>
 
+<p>If you&rsquo;d like to follow along this tutorial, then you should have
+installed <a href="https://nixos.org/nix/">Nix</a> on your system.</p>
+
 <p>Nix can be installed by following the instructions
 <a href="https://nixos.org/nix/download.html">here</a>. At the time of writing this
 guide, Nix can be installed by simply running <code>curl
@@ -142,25 +145,28 @@ https://nixos.org/nix/install | sh</code> as a non-root user.</p>
 
 <h1 id="reproducible-environment">Reproducible environment</h1>
 
-<p>For this, we will rely on the awesome command by nix named <code>nix-shell</code>.
-This command allows you to create a shell environment given a list of
-packages and shell hooks. Go ahead, try it with <code>nix-shell -p hello</code>;
-This should give you a shell with a modified <code>PATH</code> giving you access
-to the command <code>hello</code>.</p>
+<p>To archive reproducibility, we&rsquo;re going to rely on the awesome command
+by Nix named <code>nix-shell</code>.  This command allows you to create a shell
+environment given a list of packages and shell hooks. Go ahead, try it
+with <code>nix-shell -p hello</code>; This should give you a shell with a modified
+<code>PATH</code> giving you access to the command <code>hello</code>.</p>
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console"># -f &lt;nixpkgs&gt; is not a required argument, but it&#39;s good to know about it
-$ nix-shell -f &#39;&lt;nixpkgs&gt;&#39;
+$ nix-shell -f &#39;&lt;nixpkgs&gt;&#39; -p hello
 $ hello
-Hello, world!</code></pre></div>
+Hello, world!
+$ EOF                   # Ctrl-D
+$ hello
+hello: command not found</code></pre></div>
 
 <p>One can simply run <code>nix-shell -p hugo</code> to install and use Hugo. Using
 nix-shell like that has some limitations:</p>
 
 <ul>
-<li>no guarentee that the same version of Hugo is going to be used.</li>
-<li>no way to write shell hooks so you can install the theme at the
-correct place, without relying on importing the theme as code or
-submodule</li>
+<li>no guarentee that the same version of Hugo is going to be used. Unless
+you specify <code>-I nixpkgs=/path/to/fixed/nixpkgs</code>.</li>
+<li>no way to write shell hooks to setup the theme at the correct place,
+without relying on importing the theme as code or submodule</li>
 </ul>
 
 <p>These limitations can be avoided by expressing the desired environment
@@ -237,8 +243,8 @@ separately. But before we delve inside the shell.nix, please remember:</p>
 
 <ul>
 <li>shell.nix is expected to be a nix expression returning a derivation.</li>
-<li>The nix expression is expected to be a function, functions in nix
-follow the following format <code>arg: body</code> when in this case the arg is
+<li>A nix expression is a function, functions in nix follow the following format
+<code>arg: body</code> when in this case the arg is
 expected to be a set such as <code>{ pkgs }: body</code></li>
 </ul>
 
@@ -300,7 +306,25 @@ the hugo theme. Notice that I did not say <strong>install</strong> the theme, as
 <code>runCommand</code> barely downloads the theme and extracts it into a path that
 gets returned and assigned to <code>hugo-theme-terminal</code>.</p>
 
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nix" data-lang="nix"></code></pre></div>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nix" data-lang="nix">mkShell {
+  buildInputs <span style="color:#f92672">=</span> [
+    hugo
+  ];
+
+  shellHook <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;
+</span><span style="color:#e6db74">    mkdir -p themes
+</span><span style="color:#e6db74">    ln -snf &#34;</span><span style="color:#e6db74">${</span>hugo-theme-terminal<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34; themes/hugo-theme-terminal
+</span><span style="color:#e6db74">  &#39;&#39;</span>;
+}</code></pre></div>
+
+<p>And finally, we get to the shell declaration itself. <code>mkShell</code> is a
+function that returns a derivation, a derivation that can only be used
+with <code>nix-shell</code> but cannot be built with <code>nix-build</code>.</p>
+
+<p>The <code>shellHook</code> is a bash script that gets invoked within the same
+folder where the <code>shell.nix</code> is located. I&rsquo;m using this shellHook here
+to create the themes folder and to symlink the theme we created earlier
+with the <code>runCommand</code> to <code>themes/hugo-theme-terminal</code>.</p>
 
     </div>
     
