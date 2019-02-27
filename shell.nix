@@ -1,8 +1,8 @@
-# This allows overriding pkgs by passing `--arg pkgs ...`
 let
   nixpkgs = import ./nixpkgs.nix;
 in
 
+# This allows overriding pkgs by passing `--arg pkgs ...`
 { pkgs ? import nixpkgs {}, theme ? "terminal" }:
 
 with pkgs;
