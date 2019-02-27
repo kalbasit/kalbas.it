@@ -30,11 +30,29 @@
     </item>
     
     <item>
+      <title>Hugo</title>
+      <link>https://kalbas.it/tags/hugo/</link>
+      <pubDate>Tue, 26 Feb 2019 17:21:56 -0800</pubDate>
+      
+      <guid>https://kalbas.it/tags/hugo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Kubernetes</title>
       <link>https://kalbas.it/tags/kubernetes/</link>
       <pubDate>Sun, 21 Aug 2016 18:21:02 -0700</pubDate>
       
       <guid>https://kalbas.it/tags/kubernetes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Nix</title>
+      <link>https://kalbas.it/tags/nix/</link>
+      <pubDate>Tue, 26 Feb 2019 17:21:56 -0800</pubDate>
+      
+      <guid>https://kalbas.it/tags/nix/</guid>
       <description></description>
     </item>
     
