@@ -1,6 +1,6 @@
 ---
-title: "Website with NixOS/NixOPS, with automated let's encrypt"
-date: 2019-02-24T18:50:58-08:00
+title: "Website with NixOS/NixOPS. TLS automated with Let's Encrypt!"
+date: 2019-02-27T18:50:58-08:00
 tags:
   - nix
   - nixos

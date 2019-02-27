@@ -6,20 +6,10 @@
     <description>Recent content in Infrastructure on kalbasit</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 24 Feb 2019 18:50:58 -0800</lastBuildDate>
+    <lastBuildDate>Sun, 21 Aug 2016 18:21:02 -0700</lastBuildDate>
     
 	<atom:link href="https://kalbas.it/categories/infrastructure/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Website with NixOS/NixOPS, with automated let&#39;s encrypt</title>
-      <link>https://kalbas.it/2019/02/24/website-with-nixos-nixops-with-automated-lets-encrypt/</link>
-      <pubDate>Sun, 24 Feb 2019 18:50:58 -0800</pubDate>
-      
-      <guid>https://kalbas.it/2019/02/24/website-with-nixos-nixops-with-automated-lets-encrypt/</guid>
-      <description>Overview Working with Let&amp;rsquo;s Encrypt can sometimes be quite difficult, especially when setting up your own load balancer in front of your application servers. This article give you a step by step instructions on how to create a server, running NixOS and managed by NixOPS.
-System Design Let&amp;rsquo;s first talk about the sytem design of our load-balanced application. We want to run two replicas of a hello world application (written in Go), behind a load balancer running NginX.</description>
-    </item>
     
     <item>
       <title>Setup a website on AWS with CoreOS and Docker</title>
