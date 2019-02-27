@@ -86,11 +86,22 @@ servers.nix vbox.nix` and deploy it with `nixops deploy -d hw-vbox`
 **NOTE**: if you run into an issue where NixOPS fails to deploy with an
 error message matching `failed pre-init: VERR_INTERNAL_ERROR`, then you
 should re-deploy with the `--force-reboot` flag. This is due to a [known
-bug](https://github.com/NixOS/nixops/issues/908).
+bug](https://github.com/NixOS/nixops/issues/908) that was fixed and
+released in NixOS 19.03.
 
 ### AWS
 
-We're going to deploy this configuration on AWS now
+We're going to deploy this configuration on AWS now. For AWS we need the
+following resources:
+
+- EC2 Security Groups:
+  - ssh-in ingress TCP port 22 from 0.0.0.0/0.
+  - http-in: ingress TCP port 80/443 from 0.0.0.0/0.
+  - backend-http-in: ingress TCP port 8080 from rule http-in.
+- EC2 instances:
+  - 1x Load Balancer node attached to the http-in ec2 group.
+  - 2x Backend nodes attached to the backend-http-in ec2 group.
+
 
 ## Usage
 
@@ -121,7 +132,7 @@ You can then use curl to watch load-balancing as it happens
 
 {{< highlight html >}}
 $ watch curl -qs http://192.168.56.101
-# you should see backend1 alternating with backend2
+# you should see backend1 alternating with backend2 in the following HTML output:
 <!DOCTYPE html>
 <html>
         <head>
