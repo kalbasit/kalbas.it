@@ -11,6 +11,12 @@ let
   hugo-theme-gruvbox = pkgs.callPackage ./pkgs/themes/gruvbox {};
   hugo-theme-terminal = pkgs.callPackage ./pkgs/themes/terminal {};
 
+  # TODO: Get rid of the if condition!
+  activeTheme =
+    if theme == "gruvbox" then hugo-theme-gruvbox
+    else if theme == "terminal" then hugo-theme-terminal
+    else null;
+
   hugoConfig = {
     theme = "hugo-theme-${theme}";
     author = "Wael Nasreddine";
@@ -25,75 +31,7 @@ let
     paginate = "10";
     title = "kalbasit";
     permalinks.post = "/:year/:month/:day/:slug";
-  } // lib.optionalAttrs (theme == "gruvbox") {
-    params = {
-      author = "Wael Nasreddine";
-      description = "Father - Entrepreneur - Architect - Engineer";
-      keywords = [
-        "blog"
-        "golang"
-        "gopher"
-        "kalbasit"
-        "programmer"
-        "software architect"
-        "software engineering"
-      ];
-      titlePrefix = "";
-      titleSuffix = " | kalbas.it";
-      dateFormat = "2006-01-02";
-      menuItemPrefix = "~/";
-      postTruncateLength = 250;
-      hideGopher = false;
-      disqusAutoLoad = true;
-      disqusAutoLoadCount = true;
-      googleAnalyticsTrackingId = "UA-82839578-2";
-
-      menu = {
-        links = {
-          name = "CV";
-          identifier = "cv.pdf";
-          url = "https://rawgit.com/bbrks/cv/master/cv.pdf";
-          weight = 9999;
-        };
-        social = {
-          name = "LinkedIn";
-          url = "https://uk.linkedin.com/in/bbrks";
-          weight = 100;
-        };
-      };
-    };
-  } // lib.optionalAttrs (theme == "terminal") {
-    params = {
-      contentTypeName = "post";
-      themeColor = "orange";
-      showMenuItems = 3;
-    };
-    languages = {
-      en = {
-        title = "kalbasit";
-        subtitle = "Wael Nasreddine";
-        keywords = "";
-        menuMore = "Show more";
-        readMore = "Read more";
-        readOtherPosts = "Read other posts";
-        params = {
-          logo = {
-            logoText = "λ kalbas.it";
-            logoHomeLink = "/";
-          };
-        };
-        menu = {
-          main = [
-            {
-              identifier = "about";
-              name = "About";
-              url = "/about";
-            }
-          ];
-        };
-      };
-    };
-  };
+  } // activeTheme.config;
 
   configFile = writeText "config.json" (builtins.toJSON hugoConfig);
 
@@ -106,8 +44,14 @@ mkShell {
 
   shellHook = ''
     mkdir -p themes
-    ln -snf "${hugo-theme-gruvbox}" themes/hugo-theme-gruvbox
-    ln -snf "${hugo-theme-terminal}" themes/hugo-theme-terminal
+    ln -snf "${activeTheme.theme}" themes/hugo-theme-${theme}
     ln -snf "${configFile}" config.json
+  '' + lib.optionalString (activeTheme ? site) ''
+    for sourcePath in $(find "${activeTheme.site}" -type f); do
+      relativePath="''${sourcePath#${activeTheme.site}/}"
+      targetPath="$PWD/$relativePath"
+      mkdir -p "$(dirname "$targetPath")"
+      ln -nsf "$sourcePath" "$targetPath"
+    done
   '';
-}
+ }
