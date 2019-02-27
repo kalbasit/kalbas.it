@@ -6,10 +6,20 @@
     <description>Recent content on kalbasit</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 26 Feb 2019 17:21:56 -0800</lastBuildDate>
+    <lastBuildDate>Wed, 27 Feb 2019 18:50:58 -0800</lastBuildDate>
     
 	<atom:link href="https://kalbas.it/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Website with NixOS/NixOPS. TLS automated with Let&#39;s Encrypt!</title>
+      <link>https://kalbas.it/2019/02/27/website-with-nixos-nixops.-tls-automated-with-lets-encrypt/</link>
+      <pubDate>Wed, 27 Feb 2019 18:50:58 -0800</pubDate>
+      
+      <guid>https://kalbas.it/2019/02/27/website-with-nixos-nixops.-tls-automated-with-lets-encrypt/</guid>
+      <description>Overview Working with Let&amp;rsquo;s Encrypt can sometimes be quite difficult, especially when setting up your own load balancer in front of your application servers. This article give you a step by step instructions on how to create a server, running NixOS and managed by NixOPS.
+System Design Let&amp;rsquo;s first talk about the sytem design of our load-balanced application. We want to run two replicas of a hello world application (written in Go), behind a load balancer running NginX.</description>
+    </item>
     
     <item>
       <title>Manage a static website with Hugo and Nix</title>
