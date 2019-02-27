@@ -21,7 +21,20 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 		log.Printf("error getting the hostname: %s", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
-	if err := indexTemplate.Execute(w, struct{ Hostname string }{Hostname: host}); err != nil {
+
+	// create the data that is going to be used for the template. This might look
+	// confusing, but it's creating a struct value from an anonymous struct.
+	// it can also be written on one line, more preferrable:
+	//
+	//   data := struct{ Hostname string }{Hostname: host}
+	//
+	data := struct {
+		Hostname string
+	}{
+		Hostname: host,
+	}
+
+	if err := indexTemplate.Execute(w, data); err != nil {
 		log.Printf("error executing the index template: %s", err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
