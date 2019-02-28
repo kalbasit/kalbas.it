@@ -59,5 +59,5 @@ in
     };
   };
 
-  site = ./site;
+  layouts = ./layouts;
 }

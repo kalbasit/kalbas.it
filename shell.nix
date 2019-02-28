@@ -8,8 +8,19 @@ in
 with pkgs;
 
 let
-  hugo-theme-gruvbox = pkgs.callPackage ./pkgs/themes/gruvbox {};
-  hugo-theme-terminal = pkgs.callPackage ./pkgs/themes/terminal {};
+  themes = {
+    gruvbox = pkgs.callPackage ./pkgs/themes/gruvbox {};
+    terminal = pkgs.callPackage ./pkgs/themes/terminal {};
+  };
+
+  themesDir = runCommand "hugo-themes"
+    {
+      preferLocalBuild = true;
+    }
+    ''
+      mkdir $out
+      ${builtins.concatStringsSep ";" (lib.mapAttrsToList (name: value: "ln -s ${value.theme} $out/${name}") themes)}
+    '';
 
   # TODO: Get rid of the if condition!
   activeTheme =
@@ -18,20 +29,31 @@ let
     else null;
 
   hugoConfig = {
-    theme = "hugo-theme-${theme}";
+    inherit themesDir theme;
+
     author = "Wael Nasreddine";
     baseURL = "https://kalbas.it/";
     disqusShortname = "kalbasit";
     enableRobotsTXT = "true";
     footnoteReturnLinkContents = "↩";
     googleAnalytics = "UA-82839578-2";
-    publishDir = "docs";
     languageCode = "en-us";
     metaDataFormat = "yaml";
     paginate = "10";
-    title = "kalbasit";
     permalinks.post = "/:year/:month/:day/:slug";
-  } // activeTheme.config;
+    publishDir = "docs";
+    title = "kalbasit";
+  }
+  # include the configuration that's specific for the theme
+  // lib.optionalAttrs (themes."${theme}" ? config) themes."${theme}".config
+  # include the layouts declared by the theme
+  // lib.optionalAttrs (themes."${theme}" ? layouts) {
+    layouts = [ "layouts" themes."${theme}".layouts ];
+  }
+  # include the static files declared by the theme
+  // lib.optionalAttrs (themes."${theme}" ? static) {
+    static = [ "static" themes."${theme}".static ];
+  };
 
   configFile = writeText "config.json" (builtins.toJSON hugoConfig);
 
@@ -44,14 +66,6 @@ mkShell {
 
   shellHook = ''
     mkdir -p themes
-    ln -nsf "${activeTheme.theme}" themes/hugo-theme-${theme}
     ln -nsf "${configFile}" config.json
-  '' + lib.optionalString (activeTheme ? site) ''
-    for sourcePath in $(find "${activeTheme.site}" -type f); do
-      relativePath="''${sourcePath#${activeTheme.site}/}"
-      targetPath="$PWD/$relativePath"
-      mkdir -p "$(dirname "$targetPath")"
-      ln -nsf "$sourcePath" "$targetPath"
-    done
   '';
  }
