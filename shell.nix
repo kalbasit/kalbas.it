@@ -20,7 +20,7 @@ let
   hugoConfig = {
     theme = "hugo-theme-${theme}";
     author = "Wael Nasreddine";
-    baseurl = "https://kalbas.it/";
+    baseURL = "https://kalbas.it/";
     disqusShortname = "kalbasit";
     enableRobotsTXT = "true";
     footnoteReturnLinkContents = "↩";

@@ -56,3 +56,33 @@ Below is the updated `shell.nix`
 And the newly created `pkgs/themes/terminal/default.nix`:
 
 {{< code file="/content/post/manage-website-with-hugo-and-nix-part-2/pkgs/themes/terminal/default-theme-only.nix" language="nix" >}}
+
+## Writing the configuration through Nix
+
+In order for us to write the Hugo configuration, we must represent this
+in Nix. For the sake of simplifying the configuration, we're going to
+consider only the required settings in this section. We are then going
+to use a function provided by nixpkgs called `writeText` to write the
+configuration in a JSON format. To be clear, writeText takes two
+arguments, the file name and the file contents as a string, so we have
+to use a builtin function called `builtins.toJSON` to convert the set
+into a JSON string that's fed to `writeText`.
+
+{{< highlight nix >}}
+{ pkgs ? import nixpkgs {}, theme ? "terminal" }:
+
+let
+
+  hugoConfig = {
+    theme = "hugo-theme-${theme}"
+    baseURL = "https://kalbas.it/";
+  };
+
+  configFile = writeText "config.json" (builtins.toJSON hugoConfig);
+in
+
+  ...
+{{< /highlight >}}
+
+Next, we should modify the shellHook to create a symbolic link of the
+config by adding `ln -nsf "${configFile}" config.json` to it.
