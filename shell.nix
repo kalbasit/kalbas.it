@@ -61,7 +61,6 @@ mkShell {
   ];
 
   shellHook = ''
-    mkdir -p themes
     ln -nsf "${configFile}" config.json
   '';
  }

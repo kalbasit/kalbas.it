@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Manage Hugo themes with Nix :: kalbasit — Wael Nasreddine</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="description" content="If you have not read the previous article, please do so before reading this article.
+Introduction In this article, I&amp;rsquo;m going to explore how to manage Hugo themes with Nix. But before I talk about how Nix can help here, let me lay out the problems I find with Hugo themes.
+A Hugo theme requires one or more of the following resources:
+ The configuration located at config.{json,toml,yaml} must be modified with theme-specific configuration:  The name of the theme set with the key theme."/>
+<meta name="keywords" content=""/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="https://kalbas.it/2019/02/27/manage-hugo-themes-with-nix/" />
+
+
+<link rel="stylesheet" href="https://kalbas.it/assets/style.css">
+
+
+
+<link rel="stylesheet" href="https://kalbas.it/style.css">
+
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://kalbas.it/img/apple-touch-icon-144-precomposed.png">
+
+  <link rel="shortcut icon" href="https://kalbas.it/img/favicon/orange.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Manage Hugo themes with Nix :: kalbasit — Wael Nasreddine" />
+<meta name="twitter:description" content="If you have not read the previous article, please do so before reading this article.
+Introduction In this article, I&amp;rsquo;m going to explore how to manage Hugo themes with Nix. But before I talk about how Nix can help here, let me lay out the problems I find with Hugo themes.
+A Hugo theme requires one or more of the following resources:
+ The configuration located at config.{json,toml,yaml} must be modified with theme-specific configuration:  The name of the theme set with the key theme." />
+<meta name="twitter:site" content="https://kalbas.it/" />
+<meta name="twitter:creator" content="" />
+<meta name="twitter:image" content="">
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Manage Hugo themes with Nix :: kalbasit — Wael Nasreddine">
+<meta property="og:description" content="If you have not read the previous article, please do so before reading this article.
+Introduction In this article, I&amp;rsquo;m going to explore how to manage Hugo themes with Nix. But before I talk about how Nix can help here, let me lay out the problems I find with Hugo themes.
+A Hugo theme requires one or more of the following resources:
+ The configuration located at config.{json,toml,yaml} must be modified with theme-specific configuration:  The name of the theme set with the key theme." />
+<meta property="og:url" content="https://kalbas.it/2019/02/27/manage-hugo-themes-with-nix/" />
+<meta property="og:site_name" content="Manage Hugo themes with Nix" />
+<meta property="og:image" content="">
+<meta property="og:image:width" content="2048">
+<meta property="og:image:height" content="1024">
+
+<meta property="article:published_time" content="2019-02-27 00:00:00 -0800 PST" />
+
+
+
+
+
+
+
+</head>
+<body class="">
+<div class="container">
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    λ kalbas.it
+  </div>
+</a>
+
+    </div>
+    <div class="menu-trigger">menu</div>
+  </div>
+  
+    <nav class="menu">
+  <ul class="menu__inner menu__inner--desktop">
+    
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+      
+    
+  </ul>
+
+  <ul class="menu__inner menu__inner--mobile">
+    
+      
+        <li><a href="/about">About</a></li>
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+  <div class="post">
+    <h1 class="post-title"><a href="https://kalbas.it/2019/02/27/manage-hugo-themes-with-nix/">Manage Hugo themes with Nix</a></h1>
+    <div class="post-meta">
+      <span class="post-date">
+        2019-02-27
+      </span>
+      
+    </div>
+
+    
+      <span class="post-tags">
+        
+          #<a href="https://kalbas.it/tags/nix/">nix</a>&nbsp;
+        
+          #<a href="https://kalbas.it/tags/hugo/">hugo</a>&nbsp;
+        
+      </span>
+    
+
+    
+
+    <div class="post-content">
+      
+
+<p>If you have not read the <a href="https://kalbas.it/2019/02/26/manage-a-static-website-with-hugo-and-nix/">previous article</a>, please do so before reading
+this article.</p>
+
+<h1 id="introduction">Introduction</h1>
+
+<p>In this article, I&rsquo;m going to explore how to manage Hugo themes with
+Nix. But before I talk about how Nix can help here, let me lay out the
+problems I find with Hugo themes.</p>
+
+<p>A Hugo theme requires one or more of the following resources:</p>
+
+<ul>
+<li>The configuration located at <code>config.{json,toml,yaml}</code> must be
+modified with theme-specific configuration:
+
+<ul>
+<li>The name of the theme set with the key <code>theme</code>.</li>
+<li>The parametes of the theme set with the key <code>params</code>.</li>
+</ul></li>
+<li>Any custom element, be it a layout override or a static asset that is
+theme specific must also live with the content specific assets.</li>
+</ul>
+
+<h1 id="proposed-design">Proposed design</h1>
+
+<p>I&rsquo;m going to discuss the solution I created to keep all the
+configurations and all the files related to theme within the theme
+folder.</p>
+
+<p>My proposol is to store all of the configuration, the assets of the site
+as well as the theme itself within the theme declaration. Modify the
+<code>shell.nix</code> to generate the Hugo configuration from the global (or
+content) configuration mixed with the configuration from the theme. And
+to create symbolic links to all the files declared by the theme.</p>
+
+<h1 id="implementation">Implementation</h1>
+
+<h2 id="extract-the-theme">Extract the theme</h2>
+
+<p>In the previous article, I had the theme in-line in the
+shell.nix. While this is usually fine, it can become a problem as you
+extend the theme and it&rsquo;s recommended to put the themes in a new file.</p>
+
+<p>Let&rsquo;s extract the <code>runCommand &quot;hugo-theme-terminal&quot;</code> into a file located
+at <code>pkgs/themes/terminal</code>.</p>
+
+<p>Below is the updated <code>shell.nix</code></p>
+
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nix" data-lang="nix"><span style="color:#66d9ef">let</span>
+
+  <span style="color:#75715e"># See https://nixos.wiki/wiki/FAQ/Pinning_Nixpkgs for more information on pinning</span>
+  nixpkgs <span style="color:#f92672">=</span> builtins<span style="color:#f92672">.</span>fetchTarball {
+    <span style="color:#75715e"># Descriptive name to make the store path easier to identify</span>
+    name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;nixpkgs-unstable-2019-02-26&#34;</span>;
+    <span style="color:#75715e"># Commit hash for nixos-unstable as of 2019-02-26</span>
+    url <span style="color:#f92672">=</span> <span style="color:#e6db74">https://github.com/NixOS/nixpkgs/archive/2e23d727d640f0a96b167d105157f6e7183d8f82.tar.gz</span>;
+    <span style="color:#75715e"># Hash obtained using `nix-prefetch-url --unpack &lt;url&gt;`</span>
+    sha256 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;15s7qjw4qm8mbimiv5fcg0nlgpx4gsws2kbx8z1qzqrid8jg76f8&#34;</span>;
+  };
+
+<span style="color:#66d9ef">in</span>
+
+{ pkgs <span style="color:#f92672">?</span> <span style="color:#f92672">import</span> nixpkgs {} }:
+
+<span style="color:#66d9ef">with</span> pkgs;
+
+<span style="color:#66d9ef">let</span>
+
+  hugo-theme-terminal <span style="color:#f92672">=</span> <span style="color:#f92672">import</span> <span style="color:#e6db74">./pkgs/themes/hugo-theme-terminal</span>;
+
+<span style="color:#66d9ef">in</span>
+
+mkShell {
+  buildInputs <span style="color:#f92672">=</span> [
+    hugo
+  ];
+
+  shellHook <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;
+</span><span style="color:#e6db74">    mkdir -p themes
+</span><span style="color:#e6db74">    ln -snf &#34;</span><span style="color:#e6db74">${</span>hugo-theme-terminal<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34; themes/hugo-theme-terminal
+</span><span style="color:#e6db74">  &#39;&#39;</span>;
+}
+</code></pre></div>
+
+<p>And the newly created <code>pkgs/themes/terminal/default.nix</code>:</p>
+
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nix" data-lang="nix">{ runCommand }:
+
+{
+  theme <span style="color:#f92672">=</span> runCommand <span style="color:#e6db74">&#34;hugo-theme-terminal&#34;</span>
+    {
+      pinned <span style="color:#f92672">=</span> builtins<span style="color:#f92672">.</span>fetchTarball {
+        <span style="color:#75715e"># Descriptive name to make the store path easier to identify</span>
+        name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;hugo-theme-terminal-2019-02-25&#34;</span>;
+        <span style="color:#75715e"># Commit hash for hugo-theme-terminal as of 2019-02-25</span>
+        url <span style="color:#f92672">=</span> <span style="color:#e6db74">https://github.com/panr/hugo-theme-terminal/archive/487876daf1ebdf389f03a2dfdf6923cea5258e6e.tar.gz</span>;
+        <span style="color:#75715e"># Hash obtained using `nix-prefetch-url --unpack &lt;url&gt;`</span>
+        sha256 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;17gvqml1wl14gc0szk1kjxi0ya995bmpqqfcwn9jgqf3gdx316av&#34;</span>;
+      };
+
+      patches <span style="color:#f92672">=</span> [];
+
+      preferLocalBuild <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+    }
+    <span style="color:#e6db74">&#39;&#39;
+</span><span style="color:#e6db74">      cp -r $pinned $out
+</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">      for p in $patches; do
+</span><span style="color:#e6db74">        echo &#34;Applying patch $p&#34;
+</span><span style="color:#e6db74">        patch -d $out -p1 &lt; &#34;$p&#34;
+</span><span style="color:#e6db74">      done
+</span><span style="color:#e6db74">    &#39;&#39;</span>;
+}
+</code></pre></div>
+
+<h2 id="writing-the-configuration-through-nix">Writing the configuration through Nix</h2>
+
+<p>In order for us to write the Hugo configuration, we must represent this
+in Nix. For the sake of simplifying the configuration, we&rsquo;re going to
+consider only the required settings in this section. I&rsquo;m going to use a
+function provided by nixpkgs called <code>writeText</code> to write the
+configuration in a JSON format into a file. To be clear, writeText takes
+two arguments, the file name and the file contents as a string, so we
+have to use a builtin function called <code>builtins.toJSON</code> to convert the
+set from Nix into a JSON string.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nix" data-lang="nix">{ pkgs <span style="color:#f92672">?</span> <span style="color:#f92672">import</span> nixpkgs {}<span style="color:#f92672">,</span> theme <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;terminal&#34;</span> }:
+
+<span style="color:#66d9ef">let</span>
+
+  hugoConfig <span style="color:#f92672">=</span> {
+    <span style="color:#66d9ef">inherit</span> theme;
+
+    baseURL <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://kalbas.it/&#34;</span>;
+  };
+
+  configFile <span style="color:#f92672">=</span> writeText <span style="color:#e6db74">&#34;config.json&#34;</span> (builtins<span style="color:#f92672">.</span>toJSON hugoConfig);
+<span style="color:#66d9ef">in</span>
+
+  <span style="color:#f92672">...</span></code></pre></div>
+
+<p>Next, we should modify the shellHook to create a symbolic link of the
+config by adding <code>ln -nsf &quot;${configFile}&quot; config.json</code> to it.</p>
+
+<h2 id="writing-all-themes-to-hugo-theme-folder">Writing all themes to Hugo theme folder</h2>
+
+<p>Hugo looks for themes in the folder named <code>themes</code> at the root of your
+project, but this is actually configurable with the setting named
+<code>themesDir</code>. We want to extend on our previous article by placing all
+the themes in a specific folder somewhere in the nix store and tell Hugo
+to point to that directory instead of looking in the site. This way, we
+do not have to pollute the site with symbolic links to themes that might
+get accidentaly versioned.</p>
+
+<p>We&rsquo;re going to again rely on the <code>runCommand</code> function in nixpkgs to
+create a directory and create a symbolic link to all the themes we have
+defined.</p>
+
+<p>Let&rsquo;s start off by putting all the themes in a set</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nix" data-lang="nix">themes <span style="color:#960050;background-color:#1e0010">=</span> {
+  terminal <span style="color:#f92672">=</span> pkgs<span style="color:#f92672">.</span>callPackage <span style="color:#e6db74">./pkgs/themes/terminal</span> {};
+};</code></pre></div>
+
+<p>Now we can simply iterate over the name/value of the themes set to
+create the symbolic links:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nix" data-lang="nix">themesDir <span style="color:#960050;background-color:#1e0010">=</span> runCommand <span style="color:#e6db74">&#34;hugo-themes&#34;</span>
+  {
+    preferLocalBuild <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+  }
+  <span style="color:#e6db74">&#39;&#39;
+</span><span style="color:#e6db74">    mkdir $out
+</span><span style="color:#e6db74">    </span><span style="color:#e6db74">${</span>builtins<span style="color:#f92672">.</span>concatStringsSep <span style="color:#e6db74">&#34;;&#34;</span> (lib<span style="color:#f92672">.</span>mapAttrsToList
+				      (name: value: <span style="color:#e6db74">&#34;ln -s </span><span style="color:#e6db74">${</span>value<span style="color:#f92672">.</span>theme<span style="color:#e6db74">}</span><span style="color:#e6db74"> $out/</span><span style="color:#e6db74">${</span>name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+				      themes)<span style="color:#e6db74">}</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    &#39;&#39;</span>;</code></pre></div>
+
+<p>Let&rsquo;s discuss the code above in more details.</p>
+
+<h3 id="lib-mapattrstolist">lib.mapAttrsToList</h3>
+
+<p>The <code>lib.mapAttrsToList</code> takes two arguments, a function and a set. It
+calls the function with the name and value of each item of the set and
+returns the list of return values from the function.</p>
+
+<h3 id="builtins-concatstringssep">builtins.concatStringsSep</h3>
+
+<p>The <code>builtins.concatStringsSep</code> function, it takes two arguments a
+string and a list.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">  λ  nix repl
+ Welcome to Nix version 2.2. Type :? for help.
+
+ nix-repl&gt; builtins.concatStringsSep &#34; &#34; [&#34;Hello,&#34; &#34;World!&#34;]
+ &#34;Hello, World!&#34;</code></pre></div>
+
+<h2 id="final-shell-nix">Final shell.nix</h2>
+
+<p>Putting this together, we should end up with the following <code>shell.nix</code>
+that&rsquo;s capable of generating Hugo configuration once you enter nix-shell.</p>
+
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nix" data-lang="nix"><span style="color:#66d9ef">let</span>
+
+  <span style="color:#75715e"># See https://nixos.wiki/wiki/FAQ/Pinning_Nixpkgs for more information on pinning</span>
+  nixpkgs <span style="color:#f92672">=</span> builtins<span style="color:#f92672">.</span>fetchTarball {
+    <span style="color:#75715e"># Descriptive name to make the store path easier to identify</span>
+    name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;nixpkgs-unstable-2019-02-26&#34;</span>;
+    <span style="color:#75715e"># Commit hash for nixos-unstable as of 2019-02-26</span>
+    url <span style="color:#f92672">=</span> <span style="color:#e6db74">https://github.com/NixOS/nixpkgs/archive/2e23d727d640f0a96b167d105157f6e7183d8f82.tar.gz</span>;
+    <span style="color:#75715e"># Hash obtained using `nix-prefetch-url --unpack &lt;url&gt;`</span>
+    sha256 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;15s7qjw4qm8mbimiv5fcg0nlgpx4gsws2kbx8z1qzqrid8jg76f8&#34;</span>;
+  };
+
+<span style="color:#66d9ef">in</span>
+
+{ pkgs <span style="color:#f92672">?</span> <span style="color:#f92672">import</span> nixpkgs {}<span style="color:#f92672">,</span> theme <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;terminal&#34;</span> }:
+
+<span style="color:#66d9ef">with</span> pkgs;
+
+<span style="color:#66d9ef">let</span>
+
+  themes <span style="color:#f92672">=</span> {
+    terminal <span style="color:#f92672">=</span> pkgs<span style="color:#f92672">.</span>callPackage <span style="color:#e6db74">./pkgs/themes/terminal</span> {};
+  };
+
+  themesDir <span style="color:#f92672">=</span> runCommand <span style="color:#e6db74">&#34;hugo-themes&#34;</span>
+    {
+      preferLocalBuild <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+    }
+    <span style="color:#e6db74">&#39;&#39;
+</span><span style="color:#e6db74">      mkdir $out
+</span><span style="color:#e6db74">      </span><span style="color:#e6db74">${</span>builtins<span style="color:#f92672">.</span>concatStringsSep <span style="color:#e6db74">&#34;;&#34;</span> (lib<span style="color:#f92672">.</span>mapAttrsToList
+                                        (name: value: <span style="color:#e6db74">&#34;ln -s </span><span style="color:#e6db74">${</span>value<span style="color:#f92672">.</span>theme<span style="color:#e6db74">}</span><span style="color:#e6db74"> $out/</span><span style="color:#e6db74">${</span>name<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+                                        themes)<span style="color:#e6db74">}</span><span style="color:#e6db74">
+</span><span style="color:#e6db74">    &#39;&#39;</span>;
+
+  hugoConfig <span style="color:#f92672">=</span> {
+    <span style="color:#66d9ef">inherit</span> themesDir theme;
+
+    baseURL <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://kalbas.it/&#34;</span>;
+  };
+
+  configFile <span style="color:#f92672">=</span> writeText <span style="color:#e6db74">&#34;config.json&#34;</span> (builtins<span style="color:#f92672">.</span>toJSON hugoConfig);
+
+<span style="color:#66d9ef">in</span>
+
+mkShell {
+  buildInputs <span style="color:#f92672">=</span> [
+    hugo
+  ];
+
+  shellHook <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;
+</span><span style="color:#e6db74">    ln -nsf &#34;</span><span style="color:#e6db74">${</span>configFile<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34; config.json
+</span><span style="color:#e6db74">  &#39;&#39;</span>;
+}
+</code></pre></div>
+
+<p>This should generate Hugo configuration that&rsquo;s quite similar to the
+following:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+    <span style="color:#f92672">&#34;baseURL&#34;</span>: <span style="color:#e6db74">&#34;https://kalbas.it/&#34;</span>,
+    <span style="color:#f92672">&#34;theme&#34;</span>: <span style="color:#e6db74">&#34;terminal&#34;</span>,
+    <span style="color:#f92672">&#34;themesDir&#34;</span>: <span style="color:#e6db74">&#34;/nix/store/8nyvm0hjwl029f7y5b0gf22bhcf8ndm0-hugo-themes&#34;</span>
+}</code></pre></div>
+
+    </div>
+    
+      <div class="pagination">
+        <div class="pagination__title">
+          <span class="pagination__title-h">Read other posts</span>
+          <hr />
+        </div>
+        <div class="pagination__buttons">
+          
+          
+            <span class="button next">
+              <a href="https://kalbas.it/2019/02/26/manage-a-static-website-with-hugo-and-nix/">
+                <span class="button__text">Manage a static website with Hugo and Nix</span>
+                <span class="button__icon">→</span>
+              </a>
+            </span>
+          
+        </div>
+      </div>
+    
+
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "kalbasit" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+  </div>
+
+  </div>
+
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2019 Powered by <a href="http://gohugo.io">Hugo</a></span>
+        <span>:: Theme made by <a href="https://twitter.com/panr">panr</a></span>
+      </div>
+    
+  </div>
+</footer>
+
+<script src="https://kalbas.it/assets/main.js"></script>
+<script src="https://kalbas.it/assets/prism.js"></script>
+
+  
+</div>
+
+</body>
+</html>

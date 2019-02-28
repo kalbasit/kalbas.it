@@ -61,12 +61,12 @@ And the newly created `pkgs/themes/terminal/default.nix`:
 
 In order for us to write the Hugo configuration, we must represent this
 in Nix. For the sake of simplifying the configuration, we're going to
-consider only the required settings in this section. We are then going
-to use a function provided by nixpkgs called `writeText` to write the
-configuration in a JSON format. To be clear, writeText takes two
-arguments, the file name and the file contents as a string, so we have
-to use a builtin function called `builtins.toJSON` to convert the set
-into a JSON string that's fed to `writeText`.
+consider only the required settings in this section. I'm going to use a
+function provided by nixpkgs called `writeText` to write the
+configuration in a JSON format into a file. To be clear, writeText takes
+two arguments, the file name and the file contents as a string, so we
+have to use a builtin function called `builtins.toJSON` to convert the
+set from Nix into a JSON string.
 
 {{< highlight nix >}}
 { pkgs ? import nixpkgs {}, theme ? "terminal" }:
@@ -74,7 +74,8 @@ into a JSON string that's fed to `writeText`.
 let
 
   hugoConfig = {
-    theme = "hugo-theme-${theme}"
+    inherit theme;
+
     baseURL = "https://kalbas.it/";
   };
 
@@ -86,3 +87,80 @@ in
 
 Next, we should modify the shellHook to create a symbolic link of the
 config by adding `ln -nsf "${configFile}" config.json` to it.
+
+## Writing all themes to Hugo theme folder
+
+Hugo looks for themes in the folder named `themes` at the root of your
+project, but this is actually configurable with the setting named
+`themesDir`. We want to extend on our previous article by placing all
+the themes in a specific folder somewhere in the nix store and tell Hugo
+to point to that directory instead of looking in the site. This way, we
+do not have to pollute the site with symbolic links to themes that might
+get accidentaly versioned.
+
+We're going to again rely on the `runCommand` function in nixpkgs to
+create a directory and create a symbolic link to all the themes we have
+defined.
+
+Let's start off by putting all the themes in a set
+
+{{< highlight nix >}}
+themes = {
+  terminal = pkgs.callPackage ./pkgs/themes/terminal {};
+};
+{{< /highlight >}}
+
+Now we can simply iterate over the name/value of the themes set to
+create the symbolic links:
+
+{{< highlight nix >}}
+themesDir = runCommand "hugo-themes"
+  {
+    preferLocalBuild = true;
+  }
+  ''
+    mkdir $out
+    ${builtins.concatStringsSep ";" (lib.mapAttrsToList
+				      (name: value: "ln -s ${value.theme} $out/${name}")
+				      themes)}
+    '';
+{{< /highlight >}}
+
+Let's discuss the code above in more details.
+
+### lib.mapAttrsToList
+
+The `lib.mapAttrsToList` takes two arguments, a function and a set. It
+calls the function with the name and value of each item of the set and
+returns the list of return values from the function.
+
+### builtins.concatStringsSep
+
+The `builtins.concatStringsSep` function, it takes two arguments a
+string and a list.
+
+{{< highlight console >}}
+  λ  nix repl
+ Welcome to Nix version 2.2. Type :? for help.
+
+ nix-repl> builtins.concatStringsSep " " ["Hello," "World!"]
+ "Hello, World!"
+{{< /highlight >}}
+
+## Final shell.nix
+
+Putting this together, we should end up with the following `shell.nix`
+that's capable of generating Hugo configuration once you enter nix-shell.
+
+{{< code file="/content/post/manage-website-with-hugo-and-nix-part-2/shell-with-config.nix" language="nix" >}}
+
+This should generate Hugo configuration that's quite similar to the
+following:
+
+{{< highlight json >}}
+{
+    "baseURL": "https://kalbas.it/",
+    "theme": "terminal",
+    "themesDir": "/nix/store/8nyvm0hjwl029f7y5b0gf22bhcf8ndm0-hugo-themes"
+}
+{{< /highlight >}}
