@@ -47,4 +47,12 @@ shell.nix. While this is usually fine, it can become a problem as you
 extend the theme and it's recommended to put the themes in a new file.
 
 Let's extract the `runCommand "hugo-theme-terminal"` into a file located
-at `pkgs/themes/terminal`
+at `pkgs/themes/terminal`.
+
+Below is the updated `shell.nix`
+
+{{< code file="/content/post/manage-website-with-hugo-and-nix-part-2/shell-without-theme.nix" language="nix" >}}
+
+And the newly created `pkgs/themes/terminal/default.nix`:
+
+{{< code file="/content/post/manage-website-with-hugo-and-nix-part-2/pkgs/themes/terminal/default-theme-only.nix" language="nix" >}}
