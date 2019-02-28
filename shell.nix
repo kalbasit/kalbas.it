@@ -19,14 +19,10 @@ let
     }
     ''
       mkdir $out
-      ${builtins.concatStringsSep ";" (lib.mapAttrsToList (name: value: "ln -s ${value.theme} $out/${name}") themes)}
+      ${builtins.concatStringsSep ";" (lib.mapAttrsToList
+                                        (name: value: "ln -s ${value.theme} $out/${name}")
+                                        themes)}
     '';
-
-  # TODO: Get rid of the if condition!
-  activeTheme =
-    if theme == "gruvbox" then hugo-theme-gruvbox
-    else if theme == "terminal" then hugo-theme-terminal
-    else null;
 
   hugoConfig = {
     inherit themesDir theme;
