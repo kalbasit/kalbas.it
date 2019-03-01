@@ -25,19 +25,25 @@ A Hugo theme requires one or more of the following resources:
   - The name of the theme set with the key `theme`.
   - The parametes of the theme set with the key `params`.
 - Any custom element, be it a layout override or a static asset that is
-  theme specific must also live with the content specific assets.
+  theme specific must also live at the root of your project along with
+  your content.
+
+This coupling of the theme to your content makes it hard to switch
+themes without having to remove all of the custom layouts, static assets
+and configuration.
 
 # Proposed design
 
-I'm going to discuss the solution I created to keep all the
-configurations and all the files related to theme within the theme
-folder.
+My proposal is to rely on Nix to create the theme, mix-in the
+configuration with the global one and expose the static assets for the
+theme. All without having to pollute then content, by keeping all of
+these files in the nix store and telling Hugo where to find them.
 
-My proposol is to store all of the configuration, the assets of the site
-as well as the theme itself within the theme declaration. Modify the
-`shell.nix` to generate the Hugo configuration from the global (or
-content) configuration mixed with the configuration from the theme. And
-to create symbolic links to all the files declared by the theme.
+We're going to have to generate the entire configuration from Nix, so we
+can control which theme to render and allow themes to override the
+global configuration. We're also going to have to figure out a way to
+store the theme, the layouts and static as well as the configuration for
+it. We can use Nix sets to store all of these information.
 
 # Implementation
 
