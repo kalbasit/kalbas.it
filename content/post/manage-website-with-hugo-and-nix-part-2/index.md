@@ -7,6 +7,7 @@ tags:
 description: "Manage Hugo themes with Nix"
 ---
 
+This is the second article in the series of articles about Hugo and Nix.
 If you have not read the [previous article]({{< ref
 "manage-website-with-hugo-and-nix" >}}), please do so before reading
 this article.

@@ -18,9 +18,9 @@ I have started to hack on my site, only to realsize that my theme -- as
 submoduled into the repository -- is no longer compatible with the
 most recent version of Hugo that I have installed on my system.
 
-This blog post describes how to get from an environment controlled by
-the host operating system to an environment that's reproducible at any
-time regardless of the host.
+This blog post describes how to migrate from an environment controlled
+by the host operating system to a reproducible environment regardless of
+the host.
 
 # Installing Nix
 
@@ -32,9 +32,24 @@ Nix can be installed by following the instructions
 guide, Nix can be installed by simply running `curl
 https://nixos.org/nix/install | sh` as a non-root user.
 
+Please note that if you would like to uninstall nix, simply remove the
+directory `/nix`.
+
 # Reproducible environment
 
-To archive reproducibility, we're going to rely on the awesome command
+## I just want to copy/paste
+
+If you're in a hurry and just want to copy/paste this environment to
+your own Hugo-based project then you're going to need:
+
+- [shell.nix](https://github.com/kalbasit/kalbas.it/blob/master/shell.nix)
+- [nixpkgs.nix](https://github.com/kalbasit/kalbas.it/blob/master/nixpkgs.nix)
+- [.nixpkgs-version.json](https://github.com/kalbasit/kalbas.it/blob/master/.nixpkgs-version.json)
+- And all the files/folders in [pkgs/](https://github.com/kalbasit/kalbas.it/tree/master/pkgs)
+
+## Describing the environment
+
+To achieve reproducibility, we're going to rely on the awesome command
 by Nix named `nix-shell`.  This command allows you to create a shell
 environment given a list of packages and shell hooks. Go ahead, try it
 with `nix-shell -p hello`; This should give you a shell with a modified
@@ -53,13 +68,13 @@ hello: command not found
 One can simply run `nix-shell -p hugo` to install and use Hugo. Using
 nix-shell like that has some limitations:
 
-- no guarentee that the same version of Hugo is going to be used. Unless
-    you specify `-I nixpkgs=/path/to/fixed/nixpkgs`.
-- no way to write shell hooks to setup the theme at the correct place,
-  without relying on importing the theme as code or submodule
+- There's no guarentee that the same version of Hugo is going to be
+  used. Unless you specify `-I nixpkgs=/path/to/fixed/nixpkgs`.
+- There's no way to write shell hooks to setup the theme at the correct
+  place.
 
 These limitations can be avoided by expressing the desired environment
-in a nix expression automatically loaded by nix-shell. Create a file
+in a Nix expression, automatically loaded by nix-shell. Create a file
 named `shell.nix` at the root of your website with the following
 contents:
 
@@ -72,17 +87,20 @@ a path in `/nix/store/...`.
 ## Understanding the shell nix expression
 
 Let's break the `shell.nix` into multiple pieces, so we can address them
-separately. But before we delve inside the shell.nix, please remember:
+separately. But before we dive in, keep in mind the following:
 
-- shell.nix is expected to be a nix expression returning a derivation.
-- A nix expression is a function, functions in nix follow the following format
-  `arg: body` when in this case the arg is
-    expected to be a set such as `{ pkgs }: body`
+- shell.nix is expected to be a Nix expression returning a derivation.
+- A derivation is a description of building something from other stuff.
+- A Nix expression is a function. Functions in Nix follow the following format
+  `arg: body` when in this case the arg is expected to be a set such as
+  `{ pkgs }: body`
 
 So the expected barebones shell.nix should actually look like:
 
 {{< highlight nix >}}
 { pkgs ? import <nixpkgs> {} }:
+
+with pkgs;
 
 mkShell {
   buildInputs = [
