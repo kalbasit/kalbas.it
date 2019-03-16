@@ -15,7 +15,7 @@ let
     mkdir $out
     ${builtins.concatStringsSep
       ";"
-      (mapAttrsToList (name: value: "ln -s ${value.theme} $out/${name}") themes)}
+      (mapAttrsToList (name: value: "ln -s ${value} $out/${name}") themes)}
   '';
 
   defaultOptions.options = {

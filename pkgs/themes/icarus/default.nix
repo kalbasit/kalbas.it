@@ -8,21 +8,17 @@ let
 
   patches = [];
 
-in
+in runCommand "hugo-theme-icarus-${pinnedVersion.rev}"
+  {
+    inherit pinned patches;
 
-{
-  theme = runCommand "hugo-theme-icarus-${pinnedVersion.rev}"
-    {
-      inherit pinned patches;
+    preferLocalBuild = true;
+  }
+  ''
+    cp -r $pinned $out
 
-      preferLocalBuild = true;
-    }
-    ''
-      cp -r $pinned $out
-
-      for p in $patches; do
-      echo "Applying patch $p"
-      patch -d $out -p1 < "$p"
-      done
-    '';
-}
+    for p in $patches; do
+    echo "Applying patch $p"
+    patch -d $out -p1 < "$p"
+    done
+  ''
