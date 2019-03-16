@@ -9,74 +9,10 @@ with pkgs;
 with lib;
 
 let
-  themes = {
-    gruvbox = pkgs.callPackage ./pkgs/themes/gruvbox {};
-    terminal = pkgs.callPackage ./pkgs/themes/terminal {};
-    icarus = pkgs.callPackage ./pkgs/themes/icarus {};
-  };
 
-  themesDir = runCommand "hugo-themes"
-    {
-      preferLocalBuild = true;
-    }
-    ''
-      mkdir $out
-      ${builtins.concatStringsSep ";" (lib.mapAttrsToList
-                                        (name: value: "ln -s ${value.theme} $out/${name}")
-                                        themes)}
-    '';
+  hugoConfig = builtins.removeAttrs (pkgs.callPackage ./config { inherit pkgs theme; }).config [ "_module" ];
 
-  defaultOptions.options = {
-    author = mkOption { type = types.str; };
-    baseURL = mkOption { type = types.str; };
-    disqusShortname = mkOption { type = types.str; };
-    enableRobotsTXT = mkOption { type = types.str; };
-    footnoteReturnLinkContents = mkOption { type = types.str; };
-    googleAnalytics = mkOption { type = types.str; };
-    languageCode = mkOption { type = types.str; };
-    languages = mkOption { type = with types; nullOr attrs; };
-    layouts = mkOption { type = with types; listOf (either str path); };
-    metaDataFormat = mkOption { type = types.str; };
-    paginate = mkOption { type = types.str; };
-    params = mkOption { type = with types; nullOr attrs; };
-    permalinks.post = mkOption { type = types.str; };
-    publishDir = mkOption { type = types.str; };
-    social = mkOption { type = with types; nullOr attrs; };
-    static  = mkOption { type = with types; listOf (either str path); };
-    theme = mkOption { type = types.str; };
-    themesDir = mkOption { type = types.path; };
-    title = mkOption { type = types.str; };
-  };
-
-  defaultConfig.config = {
-    inherit themesDir theme;
-
-    author = "Wael Nasreddine";
-    baseURL = "https://kalbas.it/";
-    disqusShortname = "kalbasit";
-    enableRobotsTXT = "true";
-    footnoteReturnLinkContents = "↩";
-    googleAnalytics = "UA-82839578-2";
-    languageCode = "en-us";
-    languages = {};
-    layouts = [ "layouts" ];
-    metaDataFormat = "yaml";
-    paginate = "10";
-    permalinks.post = "/:year/:month/:day/:slug";
-    publishDir = "docs";
-    static = [ "static" ];
-    title = "kalbasit";
-  };
-
-  hugoConfig = lib.evalModules {
-    modules = [
-      defaultOptions
-      defaultConfig
-      { imports = [ ./config ]; }
-    ];
-  };
-
-  configFile = writeText "config.json" (builtins.toJSON hugoConfig.config);
+  configFile = writeText "config.json" (builtins.toJSON hugoConfig);
 in
 
 mkShell {

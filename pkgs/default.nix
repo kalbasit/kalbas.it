@@ -1,0 +1,5 @@
+{ callPackage }:
+
+{
+  themes = callPackage ./themes {};
+}
