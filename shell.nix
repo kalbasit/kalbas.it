@@ -56,6 +56,7 @@ let
     footnoteReturnLinkContents = "↩";
     googleAnalytics = "UA-82839578-2";
     languageCode = "en-us";
+    languages = {};
     layouts = [ "layouts" ];
     metaDataFormat = "yaml";
     paginate = "10";
