@@ -6,21 +6,10 @@
     <description>Recent content in Posts on kalbasit</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 27 Feb 2019 00:00:00 -0800</lastBuildDate>
+    <lastBuildDate>Tue, 26 Feb 2019 17:21:56 -0800</lastBuildDate>
     
 	<atom:link href="https://kalbas.it/post/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Manage Hugo themes with Nix</title>
-      <link>https://kalbas.it/2019/02/27/manage-hugo-themes-with-nix/</link>
-      <pubDate>Wed, 27 Feb 2019 00:00:00 -0800</pubDate>
-      
-      <guid>https://kalbas.it/2019/02/27/manage-hugo-themes-with-nix/</guid>
-      <description>This is the second article in the series of articles about Hugo and Nix. If you have not read the previous article, please do so before reading this article.
-Introduction In this article, I&amp;rsquo;m going to explore how to manage Hugo themes with Nix. But before I talk about how Nix can help here, let me lay out the problems I find with Hugo themes.
-A Hugo theme requires one or more of the following resources:</description>
-    </item>
     
     <item>
       <title>Manage a static website with Hugo and Nix</title>
