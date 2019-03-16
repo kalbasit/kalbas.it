@@ -7,7 +7,7 @@
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 <meta name="description" content="Introduction Over the past couple of years, I&amp;rsquo;ve been using Hugo on and off for my blog, as well as for some static websites I maintain. On many occasions, I have started to hack on my site, only to realsize that my theme &amp;ndash; as submoduled into the repository &amp;ndash; is no longer compatible with the most recent version of Hugo that I have installed on my system.
-This blog post describes how to get from an environment controlled by the host operating system to an environment that&amp;rsquo;s reproducible at any time regardless of the host."/>
+This blog post describes how to migrate from an environment controlled by the host operating system to a reproducible environment regardless of the host."/>
 <meta name="keywords" content=""/>
 <meta name="robots" content="noodp"/>
 <link rel="canonical" href="https://kalbas.it/2019/02/26/manage-a-static-website-with-hugo-and-nix/" />
@@ -29,7 +29,7 @@ This blog post describes how to get from an environment controlled by the host o
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:title" content="Manage a static website with Hugo and Nix :: kalbasit — Wael Nasreddine" />
 <meta name="twitter:description" content="Introduction Over the past couple of years, I&amp;rsquo;ve been using Hugo on and off for my blog, as well as for some static websites I maintain. On many occasions, I have started to hack on my site, only to realsize that my theme &amp;ndash; as submoduled into the repository &amp;ndash; is no longer compatible with the most recent version of Hugo that I have installed on my system.
-This blog post describes how to get from an environment controlled by the host operating system to an environment that&amp;rsquo;s reproducible at any time regardless of the host." />
+This blog post describes how to migrate from an environment controlled by the host operating system to a reproducible environment regardless of the host." />
 <meta name="twitter:site" content="https://kalbas.it/" />
 <meta name="twitter:creator" content="" />
 <meta name="twitter:image" content="">
@@ -39,7 +39,7 @@ This blog post describes how to get from an environment controlled by the host o
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Manage a static website with Hugo and Nix :: kalbasit — Wael Nasreddine">
 <meta property="og:description" content="Introduction Over the past couple of years, I&amp;rsquo;ve been using Hugo on and off for my blog, as well as for some static websites I maintain. On many occasions, I have started to hack on my site, only to realsize that my theme &amp;ndash; as submoduled into the repository &amp;ndash; is no longer compatible with the most recent version of Hugo that I have installed on my system.
-This blog post describes how to get from an environment controlled by the host operating system to an environment that&amp;rsquo;s reproducible at any time regardless of the host." />
+This blog post describes how to migrate from an environment controlled by the host operating system to a reproducible environment regardless of the host." />
 <meta property="og:url" content="https://kalbas.it/2019/02/26/manage-a-static-website-with-hugo-and-nix/" />
 <meta property="og:site_name" content="Manage a static website with Hugo and Nix" />
 <meta property="og:image" content="">
@@ -129,9 +129,9 @@ I have started to hack on my site, only to realsize that my theme &ndash; as
 submoduled into the repository &ndash; is no longer compatible with the
 most recent version of Hugo that I have installed on my system.</p>
 
-<p>This blog post describes how to get from an environment controlled by
-the host operating system to an environment that&rsquo;s reproducible at any
-time regardless of the host.</p>
+<p>This blog post describes how to migrate from an environment controlled
+by the host operating system to a reproducible environment regardless of
+the host.</p>
 
 <h1 id="installing-nix">Installing Nix</h1>
 
@@ -143,9 +143,26 @@ installed <a href="https://nixos.org/nix/">Nix</a> on your system.</p>
 guide, Nix can be installed by simply running <code>curl
 https://nixos.org/nix/install | sh</code> as a non-root user.</p>
 
+<p>Please note that if you would like to uninstall nix, simply remove the
+directory <code>/nix</code>.</p>
+
 <h1 id="reproducible-environment">Reproducible environment</h1>
 
-<p>To archive reproducibility, we&rsquo;re going to rely on the awesome command
+<h2 id="i-just-want-to-copy-paste">I just want to copy/paste</h2>
+
+<p>If you&rsquo;re in a hurry and just want to copy/paste this environment to
+your own Hugo-based project then you&rsquo;re going to need:</p>
+
+<ul>
+<li><a href="https://github.com/kalbasit/kalbas.it/blob/master/shell.nix">shell.nix</a></li>
+<li><a href="https://github.com/kalbasit/kalbas.it/blob/master/nixpkgs.nix">nixpkgs.nix</a></li>
+<li><a href="https://github.com/kalbasit/kalbas.it/blob/master/.nixpkgs-version.json">.nixpkgs-version.json</a></li>
+<li>And all the files/folders in <a href="https://github.com/kalbasit/kalbas.it/tree/master/pkgs">pkgs/</a></li>
+</ul>
+
+<h2 id="describing-the-environment">Describing the environment</h2>
+
+<p>To achieve reproducibility, we&rsquo;re going to rely on the awesome command
 by Nix named <code>nix-shell</code>.  This command allows you to create a shell
 environment given a list of packages and shell hooks. Go ahead, try it
 with <code>nix-shell -p hello</code>; This should give you a shell with a modified
@@ -163,14 +180,14 @@ hello: command not found</code></pre></div>
 nix-shell like that has some limitations:</p>
 
 <ul>
-<li>no guarentee that the same version of Hugo is going to be used. Unless
-you specify <code>-I nixpkgs=/path/to/fixed/nixpkgs</code>.</li>
-<li>no way to write shell hooks to setup the theme at the correct place,
-without relying on importing the theme as code or submodule</li>
+<li>There&rsquo;s no guarentee that the same version of Hugo is going to be
+used. Unless you specify <code>-I nixpkgs=/path/to/fixed/nixpkgs</code>.</li>
+<li>There&rsquo;s no way to write shell hooks to setup the theme at the correct
+place.</li>
 </ul>
 
 <p>These limitations can be avoided by expressing the desired environment
-in a nix expression automatically loaded by nix-shell. Create a file
+in a Nix expression, automatically loaded by nix-shell. Create a file
 named <code>shell.nix</code> at the root of your website with the following
 contents:</p>
 
@@ -239,18 +256,21 @@ a path in <code>/nix/store/...</code>.</p>
 <h2 id="understanding-the-shell-nix-expression">Understanding the shell nix expression</h2>
 
 <p>Let&rsquo;s break the <code>shell.nix</code> into multiple pieces, so we can address them
-separately. But before we delve inside the shell.nix, please remember:</p>
+separately. But before we dive in, keep in mind the following:</p>
 
 <ul>
-<li>shell.nix is expected to be a nix expression returning a derivation.</li>
-<li>A nix expression is a function, functions in nix follow the following format
-<code>arg: body</code> when in this case the arg is
-expected to be a set such as <code>{ pkgs }: body</code></li>
+<li>shell.nix is expected to be a Nix expression returning a derivation.</li>
+<li>A derivation is a description of building something from other stuff.</li>
+<li>A Nix expression is a function. Functions in Nix follow the following format
+<code>arg: body</code> when in this case the arg is expected to be a set such as
+<code>{ pkgs }: body</code></li>
 </ul>
 
 <p>So the expected barebones shell.nix should actually look like:</p>
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nix" data-lang="nix">{ pkgs <span style="color:#f92672">?</span> <span style="color:#f92672">import</span> <span style="color:#e6db74">&lt;nixpkgs&gt;</span> {} }:
+
+<span style="color:#66d9ef">with</span> pkgs;
 
 mkShell {
   buildInputs <span style="color:#f92672">=</span> [
@@ -354,26 +374,7 @@ with the <code>runCommand</code> to <code>themes/hugo-theme-terminal</code>.</p>
       </div>
     
 
-    <div id="disqus_thread"></div>
-<script type="application/javascript">
-    var disqus_config = function () {
     
-    
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "kalbasit" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
 
   </div>
 

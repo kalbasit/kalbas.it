@@ -6,6 +6,7 @@ in
 { pkgs ? import nixpkgs {}, theme ? "terminal" }:
 
 with pkgs;
+with lib;
 
 let
   themes = {
@@ -24,32 +25,60 @@ let
                                         themes)}
     '';
 
-  hugoConfig = lib.mkMerge [
-    {
-      inherit themesDir theme;
+  defaultOptions.options = {
+    author = mkOption { type = types.str; };
+    baseURL = mkOption { type = types.str; };
+    disqusShortname = mkOption { type = types.str; };
+    enableRobotsTXT = mkOption { type = types.str; };
+    footnoteReturnLinkContents = mkOption { type = types.str; };
+    googleAnalytics = mkOption { type = types.str; };
+    languageCode = mkOption { type = types.str; };
+    languages = mkOption { type = with types; nullOr attrs; };
+    layouts = mkOption { type = with types; listOf (either str path); };
+    metaDataFormat = mkOption { type = types.str; };
+    paginate = mkOption { type = types.str; };
+    params = mkOption { type = with types; nullOr attrs; };
+    permalinks.post = mkOption { type = types.str; };
+    publishDir = mkOption { type = types.str; };
+    static = mkOption { type = with types; listOf str; };
+    theme = mkOption { type = types.str; };
+    themesDir = mkOption { type = types.path; };
+    title = mkOption { type = types.str; };
+  };
 
-      author = "Wael Nasreddine";
-      baseURL = "https://kalbas.it/";
-      disqusShortname = "kalbasit";
-      enableRobotsTXT = "true";
-      footnoteReturnLinkContents = "↩";
-      googleAnalytics = "UA-82839578-2";
-      languageCode = "en-us";
-      layouts = [ "layouts" ];
-      metaDataFormat = "yaml";
-      paginate = "10";
-      permalinks.post = "/:year/:month/:day/:slug";
-      publishDir = "docs";
-      static = [ "static" ];
-      title = "kalbasit";
-    }
+  defaultConfig.config = {
+    inherit themesDir theme;
 
-    # include the configuration that's specific for the theme
-    (lib.optionalAttrs (themes."${theme}" ? config) themes."${theme}".config)
-  ];
+    author = "Wael Nasreddine";
+    baseURL = "https://kalbas.it/";
+    disqusShortname = "kalbasit";
+    enableRobotsTXT = "true";
+    footnoteReturnLinkContents = "↩";
+    googleAnalytics = "UA-82839578-2";
+    languageCode = "en-us";
+    layouts = [ "layouts" ];
+    metaDataFormat = "yaml";
+    paginate = "10";
+    permalinks.post = "/:year/:month/:day/:slug";
+    publishDir = "docs";
+    static = [ "static" ];
+    title = "kalbasit";
+  };
 
-  configFile = writeText "config.json" (builtins.toJSON hugoConfig);
+  hugoConfig = lib.evalModules {
+    modules = [
+      defaultOptions
+      defaultConfig
+      {
+        imports = [
+          ./config/themes/gruvbox
+          ./config/themes/terminal
+        ];
+      }
+    ];
+  };
 
+  configFile = writeText "config.json" (builtins.toJSON hugoConfig.config);
 in
 
 mkShell {
