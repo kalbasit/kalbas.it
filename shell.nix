@@ -12,6 +12,7 @@ let
   themes = {
     gruvbox = pkgs.callPackage ./pkgs/themes/gruvbox {};
     terminal = pkgs.callPackage ./pkgs/themes/terminal {};
+    icarus = pkgs.callPackage ./pkgs/themes/icarus {};
   };
 
   themesDir = runCommand "hugo-themes"
@@ -40,7 +41,8 @@ let
     params = mkOption { type = with types; nullOr attrs; };
     permalinks.post = mkOption { type = types.str; };
     publishDir = mkOption { type = types.str; };
-    static = mkOption { type = with types; listOf str; };
+    social = mkOption { type = with types; nullOr attrs; };
+    static  = mkOption { type = with types; listOf (either str path); };
     theme = mkOption { type = types.str; };
     themesDir = mkOption { type = types.path; };
     title = mkOption { type = types.str; };
@@ -70,12 +72,7 @@ let
     modules = [
       defaultOptions
       defaultConfig
-      {
-        imports = [
-          ./config/themes/gruvbox
-          ./config/themes/terminal
-        ];
-      }
+      { imports = [ ./config ]; }
     ];
   };
 
