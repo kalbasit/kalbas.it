@@ -126,9 +126,7 @@ in evalModules {
     defaultConfig
     {
       imports = [
-        ./themes/gruvbox
-        ./themes/icarus
-        ./themes/terminal
+        ./themes
       ];
     }
   ];
