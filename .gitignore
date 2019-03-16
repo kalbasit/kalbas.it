@@ -1,6 +1,4 @@
 .direnv/
 config.json
-layouts/partials
-themes/
 
 !pkgs/*
