@@ -24,32 +24,29 @@ let
                                         themes)}
     '';
 
-  hugoConfig = {
-    inherit themesDir theme;
+  hugoConfig = lib.mkMerge [
+    {
+      inherit themesDir theme;
 
-    author = "Wael Nasreddine";
-    baseURL = "https://kalbas.it/";
-    disqusShortname = "kalbasit";
-    enableRobotsTXT = "true";
-    footnoteReturnLinkContents = "↩";
-    googleAnalytics = "UA-82839578-2";
-    languageCode = "en-us";
-    metaDataFormat = "yaml";
-    paginate = "10";
-    permalinks.post = "/:year/:month/:day/:slug";
-    publishDir = "docs";
-    title = "kalbasit";
-  }
-  # include the configuration that's specific for the theme
-  // lib.optionalAttrs (themes."${theme}" ? config) themes."${theme}".config
-  # include the layouts declared by the theme
-  // lib.optionalAttrs (themes."${theme}" ? layouts) {
-    layouts = [ "layouts" themes."${theme}".layouts ];
-  }
-  # include the static files declared by the theme
-  // lib.optionalAttrs (themes."${theme}" ? static) {
-    static = [ "static" themes."${theme}".static ];
-  };
+      author = "Wael Nasreddine";
+      baseURL = "https://kalbas.it/";
+      disqusShortname = "kalbasit";
+      enableRobotsTXT = "true";
+      footnoteReturnLinkContents = "↩";
+      googleAnalytics = "UA-82839578-2";
+      languageCode = "en-us";
+      layouts = [ "layouts" ];
+      metaDataFormat = "yaml";
+      paginate = "10";
+      permalinks.post = "/:year/:month/:day/:slug";
+      publishDir = "docs";
+      static = [ "static" ];
+      title = "kalbasit";
+    }
+
+    # include the configuration that's specific for the theme
+    (lib.optionalAttrs (themes."${theme}" ? config) themes."${theme}".config)
+  ];
 
   configFile = writeText "config.json" (builtins.toJSON hugoConfig);
 
