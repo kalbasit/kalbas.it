@@ -27,8 +27,6 @@ in
     '';
 
   config = {
-    layouts = [ ./layouts ];
-
     params = {
       contentTypeName = "post";
       themeColor = "orange";
@@ -61,4 +59,5 @@ in
     };
   };
 
+  layouts = ./layouts;
 }
