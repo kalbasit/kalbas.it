@@ -82,7 +82,7 @@ let
       default = {};
     };
 
-    static  = mkOption {
+    staticDir = mkOption {
       type = with types; listOf (either str path);
       default = [];
     };
@@ -116,7 +116,7 @@ let
     paginate = "10";
     permalinks.post = "/:year/:month/:day/:slug";
     publishDir = "docs";
-    static = [ "static" ];
+    staticDir = [ "static" ];
     title = "kalbasit";
   };
 
