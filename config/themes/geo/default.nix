@@ -8,7 +8,7 @@ with lib;
 
     params = {
       # Render the rotating globe in the sidebar
-      showglobe = true;
+      showglobe = false;
 
       # Include favicon
       favicon = "favicon.ico";
