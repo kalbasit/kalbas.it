@@ -4,13 +4,14 @@ with lib;
 
 {
   config = mkIf (config.theme == "terminal") {
-    layouts = [ ./layouts ];
+    layoutDirectories = [ ./layouts ];
 
     params = {
       contentTypeName = "post";
       themeColor = "orange";
       showMenuItems = 3;
     };
+
     languages = {
       en = {
         title = "kalbasit";

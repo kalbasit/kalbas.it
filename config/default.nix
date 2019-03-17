@@ -1,4 +1,4 @@
-{ theme, pkgs }:
+{ config, theme, pkgs }:
 
 with pkgs.lib;
 
@@ -52,9 +52,14 @@ let
       default = {};
     };
 
-    layouts = mkOption {
+    layoutDirectories = mkOption {
       type = with types; listOf (either str path);
       default = [];
+    };
+
+    layoutDir = mkOption {
+      type = types.path;
+      default = pkgs.symlinkJoin { name = "layoutDir"; paths = config.layoutDirectories; };
     };
 
     metaDataFormat = mkOption {
@@ -111,7 +116,7 @@ let
     googleAnalytics = "UA-82839578-2";
     languageCode = "en-us";
     languages = {};
-    layouts = [ "layouts" ];
+    layoutDirectories = [ "layouts" ];
     metaDataFormat = "yaml";
     paginate = "10";
     permalinks.post = "/:year/:month/:day/:slug";
