@@ -45,7 +45,8 @@ your own Hugo-based project then you're going to need:
 - [shell.nix](https://github.com/kalbasit/kalbas.it/blob/master/shell.nix)
 - [nixpkgs.nix](https://github.com/kalbasit/kalbas.it/blob/master/nixpkgs.nix)
 - [.nixpkgs-version.json](https://github.com/kalbasit/kalbas.it/blob/master/.nixpkgs-version.json)
-- And all the files/folders in [pkgs/](https://github.com/kalbasit/kalbas.it/tree/master/pkgs)
+- All the files/folders in [pkgs/](https://github.com/kalbasit/kalbas.it/tree/master/pkgs)
+- And all the files/folders in [config/](https://github.com/kalbasit/kalbas.it/tree/master/config)
 
 ## Describing the environment
 
