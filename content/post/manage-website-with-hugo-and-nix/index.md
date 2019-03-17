@@ -8,6 +8,7 @@ description: "We use Nix, a reproducible package manager, to provide a
 fixed environment with Hugo and the Hugo theme we want to use. This
 method does not require us to copy the theme into our repository or to
 add it as a submodule."
+highlight: true
 ---
 
 # Introduction
