@@ -16,6 +16,7 @@ in runCommand "hugo-theme-geo-${pinnedVersion.rev}"
   }
   ''
     cp -r $pinned $out
+    chmod -R u+w $out
 
     for p in $patches; do
     echo "Applying patch $p"
