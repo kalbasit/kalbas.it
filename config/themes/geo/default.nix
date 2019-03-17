@@ -59,6 +59,11 @@ with lib;
         }
 
         {
+          name = "Tags";
+          url = "tags/";
+        }
+
+        {
           name = "Tutorials";
           url = "tutorial/";
         }
