@@ -53,17 +53,9 @@ let
     };
 
     layoutDir = mkOption {
-      type = mkOptionType {
-        name = "layoutDir";
-        check = types.path.check;
-        merge = loc: defs:
-          let
-            isPath = x: builtins.substring 0 1 (toString x) == "/";
-            paths = (singleton loc) ++ defs;
-          in
-            pkgs.symlinkJoin { name = "layouts"; inherit paths; };
-      };
-      default = "layouts";
+      type = with types; listOf path;
+      default = ["layouts"];
+      apply = paths: pkgs.symlinkJoin { name = "layouts"; inherit paths; };
     };
 
     metaDataFormat = mkOption {
@@ -120,7 +112,7 @@ let
     googleAnalytics = "UA-82839578-2";
     languageCode = "en-us";
     languages = {};
-    layoutDir = ./layouts;
+    layoutDir = [ ../layouts ];
     metaDataFormat = "yaml";
     paginate = "10";
     permalinks.post = "/:year/:month/:day/:slug";
