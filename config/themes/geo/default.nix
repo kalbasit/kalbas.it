@@ -4,6 +4,8 @@ with lib;
 
 {
   config = mkIf (config.theme == "geo") {
+    layoutDir = [ ./layouts ];
+
     params = {
       # Render the rotating globe in the sidebar
       showglobe = true;
