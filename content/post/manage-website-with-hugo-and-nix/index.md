@@ -93,7 +93,7 @@ separately. But before we dive in, keep in mind the following:
 - A derivation is a description of building something from other stuff.
 - A Nix expression is a function. Functions in Nix follow the following format
   `arg: body` when in this case the arg is expected to be a set such as
-  `{ pkgs }: body`
+  `{ pkgs }: body`.
 
 So the expected barebones shell.nix should actually look like:
 
@@ -108,6 +108,9 @@ mkShell {
   ];
 }
 {{< /highlight >}}
+
+The `?` operator seen in `pkgs ? import <nixpkgs> {}` above specifies the
+default value of the pkgs argument.
 
 Now, let's talk about the first part of the script.
 
