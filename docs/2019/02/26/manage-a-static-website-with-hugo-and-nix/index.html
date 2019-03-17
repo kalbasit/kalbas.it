@@ -157,7 +157,8 @@ your own Hugo-based project then you&rsquo;re going to need:</p>
 <li><a href="https://github.com/kalbasit/kalbas.it/blob/master/shell.nix">shell.nix</a></li>
 <li><a href="https://github.com/kalbasit/kalbas.it/blob/master/nixpkgs.nix">nixpkgs.nix</a></li>
 <li><a href="https://github.com/kalbasit/kalbas.it/blob/master/.nixpkgs-version.json">.nixpkgs-version.json</a></li>
-<li>And all the files/folders in <a href="https://github.com/kalbasit/kalbas.it/tree/master/pkgs">pkgs/</a></li>
+<li>All the files/folders in <a href="https://github.com/kalbasit/kalbas.it/tree/master/pkgs">pkgs/</a></li>
+<li>And all the files/folders in <a href="https://github.com/kalbasit/kalbas.it/tree/master/config">config/</a></li>
 </ul>
 
 <h2 id="describing-the-environment">Describing the environment</h2>
@@ -263,7 +264,7 @@ separately. But before we dive in, keep in mind the following:</p>
 <li>A derivation is a description of building something from other stuff.</li>
 <li>A Nix expression is a function. Functions in Nix follow the following format
 <code>arg: body</code> when in this case the arg is expected to be a set such as
-<code>{ pkgs }: body</code></li>
+<code>{ pkgs }: body</code>.</li>
 </ul>
 
 <p>So the expected barebones shell.nix should actually look like:</p>
@@ -277,6 +278,9 @@ mkShell {
     hugo
   ];
 }</code></pre></div>
+
+<p>The <code>?</code> operator seen in <code>pkgs ? import &lt;nixpkgs&gt; {}</code> above specifies the
+default value of the pkgs argument.</p>
 
 <p>Now, let&rsquo;s talk about the first part of the script.</p>
 
