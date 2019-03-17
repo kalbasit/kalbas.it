@@ -8,16 +8,17 @@ let
 
   patches = [];
 
-in
-  runCommand "hugo-theme-terminal-${pinnedVersion.rev}" {
+in runCommand "hugo-theme-terminal-${pinnedVersion.rev}"
+  {
     inherit pinned patches;
 
     preferLocalBuild = true;
-  } ''
-  cp -r $pinned $out
+  }
+  ''
+    cp -r $pinned $out
 
-  for p in $patches; do
+    for p in $patches; do
     echo "Applying patch $p"
     patch -d $out -p1 < "$p"
-  done
-''
+    done
+  ''

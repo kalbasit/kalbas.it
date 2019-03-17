@@ -1,0 +1,5 @@
+{ callPackage }:
+
+{
+  terminal = callPackage ./terminal {};
+}

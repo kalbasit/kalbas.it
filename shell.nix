@@ -1,14 +1,18 @@
-# This allows overriding pkgs by passing `--arg pkgs ...`
 let
   nixpkgs = import ./nixpkgs.nix;
 in
 
-{ pkgs ? import nixpkgs {} }:
+# This allows overriding pkgs by passing `--arg pkgs ...`
+{ pkgs ? import nixpkgs {}, theme ? "terminal" }:
 
 with pkgs;
+with lib;
 
 let
-  hugo-theme-terminal = pkgs.callPackage ./pkgs/themes/terminal {};
+
+  hugoConfig = builtins.removeAttrs (pkgs.callPackage ./config { inherit pkgs theme; }).config [ "_module" ];
+
+  configFile = writeText "config.json" (builtins.toJSON hugoConfig);
 in
 
 mkShell {
@@ -17,7 +21,6 @@ mkShell {
   ];
 
   shellHook = ''
-    mkdir -p themes
-    ln -snf "${hugo-theme-terminal}" themes/hugo-theme-terminal
+    ln -nsf "${configFile}" config.json
   '';
-}
+ }
