@@ -6,7 +6,11 @@ let
     inherit (pinnedVersion) url sha256;
   };
 
-  patches = [];
+  patches = [
+    # Add support for large and x-large screens by limiting the numbers of
+    # columns the sidebar is allowed to take to just two.
+    ./add-support-for-large-and-xlarge-monitors.patch
+  ];
 
 in runCommand "hugo-theme-geo-${pinnedVersion.rev}"
   {
