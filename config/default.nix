@@ -72,6 +72,7 @@ let
 
     params = mkOption {
       type = with types; nullOr attrs;
+      default = {};
     };
 
     permalinks.post = mkOption {
@@ -94,6 +95,14 @@ let
 
     tagLine = mkOption {
       type = types.str;
+    };
+
+    taxonomies = mkOption {
+      type = with types; nullOr attrs;
+      default = {
+        category = "categories";
+        tag = "tags";
+      };
     };
 
     theme = mkOption {
