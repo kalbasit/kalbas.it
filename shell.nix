@@ -14,6 +14,8 @@ in
 mkShell {
   buildInputs = [
     hugo
+
+    nixops
   ];
 
   shellHook = ''
