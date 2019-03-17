@@ -3,7 +3,7 @@ let
 in
 
 # This allows overriding pkgs by passing `--arg pkgs ...`
-{ pkgs ? import nixpkgs {}, theme ? "terminal" }:
+{ pkgs ? import nixpkgs {}, theme ? "geo" }:
 
 with pkgs;
 with lib;
