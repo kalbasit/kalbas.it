@@ -4,7 +4,7 @@ with lib;
 
 {
   config = mkIf (config.theme == "terminal") {
-    layoutDirectories = [ ./layouts ];
+    layoutDir = ./layouts;
 
     params = {
       contentTypeName = "post";
