@@ -6,6 +6,7 @@ tags:
   - hugo
 description: "Manage Hugo themes with Nix"
 draft: true
+highlight: true
 ---
 
 This is the second article in the series of articles about Hugo and Nix.

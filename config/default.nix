@@ -23,6 +23,10 @@ let
       type = types.str;
     };
 
+    authorEmail = mkOption {
+      type = types.str;
+    };
+
     baseURL = mkOption {
       type = types.str;
     };
@@ -68,6 +72,7 @@ let
 
     params = mkOption {
       type = with types; nullOr attrs;
+      default = {};
     };
 
     permalinks.post = mkOption {
@@ -88,6 +93,18 @@ let
       default = [];
     };
 
+    tagLine = mkOption {
+      type = types.str;
+    };
+
+    taxonomies = mkOption {
+      type = with types; nullOr attrs;
+      default = {
+        category = "categories";
+        tag = "tags";
+      };
+    };
+
     theme = mkOption {
       type = types.str;
     };
@@ -105,6 +122,7 @@ let
     inherit themesDir theme;
 
     author = "Wael Nasreddine";
+    authorEmail = "me@kalbas.it";
     baseURL = "https://kalbas.it/";
     disqusShortname = "kalbasit";
     enableRobotsTXT = "true";
@@ -118,6 +136,7 @@ let
     permalinks.post = "/:year/:month/:day/:slug";
     publishDir = "docs";
     staticDir = [ "static" ];
+    tagLine = "Father - Entreprenur - Architect - Engineer";
     title = "kalbasit";
   };
 
