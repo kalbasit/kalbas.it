@@ -9,13 +9,6 @@ draft: true
 highlight: true
 ---
 
-This is the second article in the series of articles about Hugo and Nix.
-If you have not read the [previous article]({{< ref
-"manage-website-with-hugo-and-nix" >}}), please do so before reading
-this article.
-
-# Introduction
-
 In this article, I'm going to explore how to manage Hugo themes with
 Nix. But before I talk about how Nix can help here, let me lay out the
 problems I find with Hugo themes.
@@ -33,6 +26,13 @@ A Hugo theme requires one or more of the following resources:
 This coupling of the theme to your content makes it hard to switch
 themes without having to remove all of the custom layouts, static assets
 and configuration.
+
+<!--more-->
+
+This is the second article in the series of articles about Hugo and Nix.
+If you have not read the [previous article]({{< ref
+"manage-website-with-hugo-and-nix" >}}), please do so before reading
+this article.
 
 # Proposed design
 

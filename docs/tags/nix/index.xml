@@ -17,8 +17,17 @@
       <pubDate>Tue, 26 Feb 2019 17:21:56 -0800</pubDate>
       
       <guid>https://kalbas.it/2019/02/26/manage-a-static-website-with-hugo-and-nix/</guid>
-      <description>Introduction Over the past couple of years, I&amp;rsquo;ve been using Hugo on and off for my blog, as well as for some static websites I maintain. On many occasions, I have started to hack on my site, only to realsize that my theme &amp;ndash; as submoduled into the repository &amp;ndash; is no longer compatible with the most recent version of Hugo that I have installed on my system.
-This blog post describes how to migrate from an environment controlled by the host operating system to a reproducible environment regardless of the host.</description>
+      <description>&lt;p&gt;Over the past couple of years, I&amp;rsquo;ve been using Hugo on and off for my
+blog, as well as for some static websites I maintain. On many occasions,
+I have started to hack on my site, only to realsize that my theme &amp;ndash; as
+submoduled into the repository &amp;ndash; is no longer compatible with the
+most recent version of Hugo that I have installed on my system.&lt;/p&gt;
+
+&lt;p&gt;This blog post describes how to migrate from an environment controlled
+by the host operating system to a reproducible environment regardless of
+the host.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
   </channel>
