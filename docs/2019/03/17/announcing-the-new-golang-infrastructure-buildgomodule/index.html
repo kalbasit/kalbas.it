@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="buildGoModule is a new infrastructure in Nixpkgs that relies on Go&#39;s module reproducibility to make it simpler to package Go modules">
+    <meta property="og:title" content="Announcing the new Golang infrastructure: buildGoModule">
+    
+    <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2019-03-17">
+    
+    <meta property="og:description" content="buildGoModule is a new infrastructure in Nixpkgs that relies on Go&#39;s module reproducibility to make it simpler to package Go modules">
+    <meta property="og:url" content="https://kalbas.it/2019/03/17/announcing-the-new-golang-infrastructure-buildgomodule/">
+    <meta property="og:site_name" content="kalbasit">
+    
+    <meta property="og:tags" content="nix">
+    
+    <meta property="og:tags" content="nixpkgs">
+    
+    <meta property="og:tags" content="golang">
+    
+    <meta name="generator" content="Hugo 0.50" />
+    <title>Announcing the new Golang infrastructure: buildGoModule &middot; kalbasit</title>
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/default.min.css">
+    
+    <link rel="stylesheet" href="https://kalbas.it/css/style.css">
+    
+    <link href="https://kalbas.it/index.xml" rel="alternate" type="application/rss+xml" title="kalbasit" />
+    
+    
+    <link rel="icon" href="https://kalbas.it/favicon.ico" />
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://kalbas.it/">Wael Nasreddine</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+					<li><a href="https://kalbas.it/about/">About</a></li>
+				
+					<li><a href="https://kalbas.it/post/">Blog</a></li>
+				
+					<li><a href="https://kalbas.it/tags/">Tags</a></li>
+				
+					<li><a href="https://kalbas.it/tutorial/">Tutorials</a></li>
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3 col-lg-2 col-xl-2">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://kalbas.it/">Wael Nasreddine</a></h1>
+		
+
+		
+			<small class="text-center center-block">Father - Entreprenur - Architect - Engineer</small>
+		
+
+		
+			<img id="profile-pic" src="https://kalbas.it//img/me.jpg" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/kalbasit"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/ylcodes"><i class="fa fa-twitter fa-2x"></i></a>
+			
+				<a href="https://www.linkedin.com/in/kalbasit"><i class="fa fa-linkedin fa-2x"></i></a>
+			
+
+			<a href="mailto:me@kalbas.it"><i class="fa fa-envelope-o fa-2x"></i></a>
+		</div>
+		<div id="links" class="text-center">
+			
+			
+				<a href="https://kalbas.it/about/">About</a>
+			
+				<a href="https://kalbas.it/post/">Blog</a>
+			
+				<a href="https://kalbas.it/tags/">Tags</a>
+			
+				<a href="https://kalbas.it/tutorial/">Tutorials</a>
+			
+		</div>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9 col-lg-10 col-xl-10">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-9 col-xl-9">
+
+
+<main>
+	<header>
+		<h1>Announcing the new Golang infrastructure: buildGoModule</h1>
+	</header>
+
+	<article>
+		<p>I recently introduced a new function in Nixpkgs named <code>buildGoModule</code>. The new
+function allows you to package Go application (or modules) with ease, provided
+the modules have added support for <a href="https://github.com/golang/go/wiki/Modules">Go
+modules</a> upstream.</p>
+
+<p></p>
+
+<p>The build happens in two phases:</p>
+
+<ol>
+<li>An intermediate fetcher derivation. This derivation will be used to fetch
+all of the dependencies of the Go module. The checksum of the dependencies
+will be compared against the <code>modSha256</code> attribute that is passed in.</li>
+<li>A final derivation will use the output of the intermediate derivation to
+build the binaries and produce the final output.</li>
+</ol>
+
+<p>The following derivation demonstrate how to package <a href="https://github.com/knqyf263/pet">pet</a>:</p>
+
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nix" data-lang="nix">{ buildGoModule<span style="color:#f92672">,</span> fetchFromGitHub<span style="color:#f92672">,</span> lib }:
+
+buildGoModule <span style="color:#66d9ef">rec</span> {
+  name <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;pet-</span><span style="color:#e6db74">${</span>version<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>;
+  version <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0.3.4&#34;</span>;
+
+  src <span style="color:#f92672">=</span> fetchFromGitHub {
+    owner <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;knqyf263&#34;</span>;
+    repo <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;pet&#34;</span>;
+    rev <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;v</span><span style="color:#e6db74">${</span>version<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>;
+    sha256 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;0m2fzpqxk7hrbxsgqplkg7h2p7gv6s1miymv3gvw0cz039skag0s&#34;</span>;
+  };
+
+  modSha256 <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;1879j77k96684wi554rkjxydrj8g3hpp0kvxz03sd8dmwr3lh83j&#34;</span>;
+
+  meta <span style="color:#f92672">=</span> <span style="color:#66d9ef">with</span> lib; {
+    description <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Simple command-line snippet manager, written in Go&#34;</span>;
+    homepage <span style="color:#f92672">=</span> <span style="color:#e6db74">https://github.com/knqyf263/pet</span>;
+    license <span style="color:#f92672">=</span> licenses<span style="color:#f92672">.</span>mit;
+    maintainers <span style="color:#f92672">=</span> <span style="color:#66d9ef">with</span> maintainers; [ kalbasit ];
+    platforms <span style="color:#f92672">=</span> platforms<span style="color:#f92672">.</span>linux <span style="color:#f92672">++</span> platforms<span style="color:#f92672">.</span>darwin;
+  };
+}
+</code></pre></div>
+
+<p>Notice that we did not have to specify <code>deps</code> nor <code>goPackagePath</code> for this to
+work, as with the legacy <code>buildGoPackage</code>.</p>
+
+<h2 id="how-does-it-work">How does it work</h2>
+
+<p>The first phase is referred to as <code>go-modules</code> and the second is referred to as
+<code>package</code>. The former prepares the dependencies white the latter uses the
+dependencies in order to compile the final output.</p>
+
+<h3 id="go-modules">go-modules</h3>
+
+<p>The go-modules derivation starts by setting up the environment necessary to
+allow Go to have network access (even from within the sandbox). It does so by
+setting the attributes <code>outputHashAlgo</code> and <code>outputHash</code> as is the case with
+any other fetcher. At the end of the derivation, the hash computed according to
+<code>outputHashAlgo</code> will be expected to match the hash found in <code>outputHash</code> with
+is coming from the <code>modSha256</code> attribute.</p>
+
+<p>The derivation would also set up <code>GOPATH</code> and the <code>GOCACHE</code> in a temporary
+writable location.</p>
+
+<p>During the build phase, the <code>src</code> will be unpacked and patched with <code>patches</code>,
+if any. The derivation then executes the command <code>go mod download</code> from within
+the root directory of the module. This command will download all of the
+dependencies recursively and store them in <code>$GOPATH/pkg/mod</code>.</p>
+
+<p>During the install phase, it takes the entire <code>$GOPATH/pkg/mod/cache/download</code>
+as the output <code>$out</code>. The hash verification will now be performed before
+returning <code>$out</code> to the caller.</p>
+
+<p>One might wonder why does the derivation only use
+<code>$GOPATH/pkg/mod/cache/download</code> instead of the entire <code>$GOPATH/pkg/mod</code>
+directory. This is because the directory <code>$GOPATH/pkg/mod/cache/vcs</code> is impure
+as it reflects the repositories upstream as they were seen at the time of
+the cloning. Checkout the thread over on
+<a href="https://groups.google.com/forum/#!topic/golang-nuts/i0_yZ7CellI">golang-nuts</a>
+for more information.</p>
+
+<h3 id="package">package</h3>
+
+<p>This derivation will start similarly to the above one, by setting up the
+environment in order to have Go find all the necessary modules <strong>without
+network access</strong>. The lack of network access is very important here, and it
+allows us to build the module within an off-line sandbox. This step relies on
+setting <code>GOPROXY</code> environment variable to the output of the <code>go-modules</code>
+derivation we&rsquo;ve built earlier. Go will use this information to locate the
+repositories of all the dependencies and construct the entire
+<code>$GOPATH/pkg/mod</code>.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">export GOPROXY<span style="color:#f92672">=</span>file://<span style="color:#e6db74">${</span>go-modules<span style="color:#e6db74">}</span></code></pre></div>
+	</article>
+</main>
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://kalbas.it/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "kalbasit" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-82839578-2', 'auto');
+    ga('send', 'pageview');
+    window.baseURL = "https:\/\/kalbas.it\/";
+  </script>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+  
+  <script src="https://kalbas.it//js/App.js"></script>
+  
+</body>
+</html>

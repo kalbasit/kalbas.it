@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://kalbas.it/2019/03/17/announcing-the-new-golang-infrastructure-buildgomodule/</loc>
+    <lastmod>2019-03-17T19:53:00-08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://kalbas.it/2019/02/26/manage-a-static-website-with-hugo-and-nix/</loc>
     <lastmod>2019-02-26T17:21:56-08:00</lastmod>
   </url>
@@ -35,6 +40,12 @@
   </url>
   
   <url>
+    <loc>https://kalbas.it/tags/golang/</loc>
+    <lastmod>2019-03-17T19:53:00-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://kalbas.it/tags/hugo/</loc>
     <lastmod>2019-02-26T17:21:56-08:00</lastmod>
     <priority>0</priority>
@@ -54,13 +65,19 @@
   
   <url>
     <loc>https://kalbas.it/tags/nix/</loc>
-    <lastmod>2019-02-26T17:21:56-08:00</lastmod>
+    <lastmod>2019-03-17T19:53:00-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kalbas.it/tags/nixpkgs/</loc>
+    <lastmod>2019-03-17T19:53:00-08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://kalbas.it/post/</loc>
-    <lastmod>2019-02-26T17:21:56-08:00</lastmod>
+    <lastmod>2019-03-17T19:53:00-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -78,7 +95,7 @@
   
   <url>
     <loc>https://kalbas.it/</loc>
-    <lastmod>2019-02-26T17:21:56-08:00</lastmod>
+    <lastmod>2019-03-17T19:53:00-08:00</lastmod>
     <priority>0</priority>
   </url>
   
