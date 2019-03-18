@@ -44,7 +44,6 @@ The stack I designed for this blog:
 - Route53 for managing the DNS zones.
 - All managed using Terraform.
 
-
 <!--more-->
 
 # The blog

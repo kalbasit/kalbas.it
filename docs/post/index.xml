@@ -6,10 +6,24 @@
     <description>Recent content in Posts on kalbasit</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 26 Feb 2019 17:21:56 -0800</lastBuildDate>
+    <lastBuildDate>Sun, 17 Mar 2019 19:53:00 -0800</lastBuildDate>
     
 	<atom:link href="https://kalbas.it/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Announcing the new Golang infrastructure: buildGoModule</title>
+      <link>https://kalbas.it/2019/03/17/announcing-the-new-golang-infrastructure-buildgomodule/</link>
+      <pubDate>Sun, 17 Mar 2019 19:53:00 -0800</pubDate>
+      
+      <guid>https://kalbas.it/2019/03/17/announcing-the-new-golang-infrastructure-buildgomodule/</guid>
+      <description>&lt;p&gt;I recently introduced a new function in Nixpkgs named &lt;code&gt;buildGoModule&lt;/code&gt;. The new
+function allows you to package Go application (or modules) with ease, provided
+the modules have added support for &lt;a href=&#34;https://github.com/golang/go/wiki/Modules&#34;&gt;Go
+modules&lt;/a&gt; upstream.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Manage a static website with Hugo and Nix</title>
@@ -17,8 +31,17 @@
       <pubDate>Tue, 26 Feb 2019 17:21:56 -0800</pubDate>
       
       <guid>https://kalbas.it/2019/02/26/manage-a-static-website-with-hugo-and-nix/</guid>
-      <description>Introduction Over the past couple of years, I&amp;rsquo;ve been using Hugo on and off for my blog, as well as for some static websites I maintain. On many occasions, I have started to hack on my site, only to realsize that my theme &amp;ndash; as submoduled into the repository &amp;ndash; is no longer compatible with the most recent version of Hugo that I have installed on my system.
-This blog post describes how to migrate from an environment controlled by the host operating system to a reproducible environment regardless of the host.</description>
+      <description>&lt;p&gt;Over the past couple of years, I&amp;rsquo;ve been using Hugo on and off for my
+blog, as well as for some static websites I maintain. On many occasions,
+I have started to hack on my site, only to realsize that my theme &amp;ndash; as
+submoduled into the repository &amp;ndash; is no longer compatible with the
+most recent version of Hugo that I have installed on my system.&lt;/p&gt;
+
+&lt;p&gt;This blog post describes how to migrate from an environment controlled
+by the host operating system to a reproducible environment regardless of
+the host.&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
     </item>
     
     <item>

@@ -11,8 +11,6 @@ add it as a submodule."
 highlight: true
 ---
 
-# Introduction
-
 Over the past couple of years, I've been using Hugo on and off for my
 blog, as well as for some static websites I maintain. On many occasions,
 I have started to hack on my site, only to realsize that my theme -- as
@@ -22,6 +20,8 @@ most recent version of Hugo that I have installed on my system.
 This blog post describes how to migrate from an environment controlled
 by the host operating system to a reproducible environment regardless of
 the host.
+
+<!--more-->
 
 # Installing Nix
 
