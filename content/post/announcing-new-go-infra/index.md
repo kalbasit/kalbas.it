@@ -15,10 +15,21 @@ support for [Go modules](https://github.com/golang/go/wiki/Modules) upstream.
 
 <!--more-->
 
-The build happens in two phases:
+Go, starting at version 1.11, has shipped with an internal solution for
+vendoring dependencies named: [Go
+Modules](https://github.com/golang/go/wiki/Modules). This feature provides a
+pseudo-lockfile-based implementation for vendoring dependencies, with one
+guarentee: Reproducible build. This means that all the dependencies are
+guarenteed to be the same.
+
+This new infrastructure takes advantage of this reproducibility approach to
+fetch all the dependencies in a special fetcher, validate them against a fixed
+known hash, and finally use them to build the package.
+
+This happens in two phases:
 
 1. An intermediate fetcher derivation. This derivation will be used to fetch
-   all of the dependencies of the Go module. The checksum of the dependencies
+   all the dependencies of the Go module. The checksum of the dependencies
    will be compared against the `modSha256` attribute that is passed in.
 2. A final derivation will use the output of the intermediate derivation to
    build the binaries and produce the final output.
@@ -50,7 +61,7 @@ writable location.
 
 During the build phase, the `src` will be unpacked and patched with `patches`,
 if any. The derivation then executes the command `go mod download` from within
-the root directory of the module. This command will download all of the
+the root directory of the module. This command will download all the
 dependencies recursively and store them in `$GOPATH/pkg/mod`.
 
 During the install phase, it takes the entire `$GOPATH/pkg/mod/cache/download`
@@ -79,3 +90,9 @@ repositories of all the dependencies and construct the entire
 {{< highlight shell >}}
 export GOPROXY=file://${go-modules}
 {{< /highlight >}}
+
+## When to use `buildGoModule`?
+
+You should use `buildGoModule` to build any package containing the files
+`go.mod` and `go.sum` at the root of `src`. Otherwise, you must use the legacy
+`buildGoPackage` infrastructure as the dependencies cannot be reproduced.

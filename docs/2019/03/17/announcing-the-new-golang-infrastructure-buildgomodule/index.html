@@ -127,11 +127,22 @@ support for <a href="https://github.com/golang/go/wiki/Modules">Go modules</a> u
 
 <p></p>
 
-<p>The build happens in two phases:</p>
+<p>Go, starting at version 1.11, has shipped with an internal solution for
+vendoring dependencies named: <a href="https://github.com/golang/go/wiki/Modules">Go
+Modules</a>. This feature provides a
+pseudo-lockfile-based implementation for vendoring dependencies, with one
+guarentee: Reproducible build. This means that all the dependencies are
+guarenteed to be the same.</p>
+
+<p>This new infrastructure takes advantage of this reproducibility approach to
+fetch all the dependencies in a special fetcher, validate them against a fixed
+known hash, and finally use them to build the package.</p>
+
+<p>This happens in two phases:</p>
 
 <ol>
 <li>An intermediate fetcher derivation. This derivation will be used to fetch
-all of the dependencies of the Go module. The checksum of the dependencies
+all the dependencies of the Go module. The checksum of the dependencies
 will be compared against the <code>modSha256</code> attribute that is passed in.</li>
 <li>A final derivation will use the output of the intermediate derivation to
 build the binaries and produce the final output.</li>
@@ -188,7 +199,7 @@ writable location.</p>
 
 <p>During the build phase, the <code>src</code> will be unpacked and patched with <code>patches</code>,
 if any. The derivation then executes the command <code>go mod download</code> from within
-the root directory of the module. This command will download all of the
+the root directory of the module. This command will download all the
 dependencies recursively and store them in <code>$GOPATH/pkg/mod</code>.</p>
 
 <p>During the install phase, it takes the entire <code>$GOPATH/pkg/mod/cache/download</code>
@@ -215,6 +226,12 @@ repositories of all the dependencies and construct the entire
 <code>$GOPATH/pkg/mod</code>.</p>
 
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">export GOPROXY<span style="color:#f92672">=</span>file://<span style="color:#e6db74">${</span>go-modules<span style="color:#e6db74">}</span></code></pre></div>
+
+<h2 id="when-to-use-buildgomodule">When to use <code>buildGoModule</code>?</h2>
+
+<p>You should use <code>buildGoModule</code> to build any package containing the files
+<code>go.mod</code> and <code>go.sum</code> at the root of <code>src</code>. Otherwise, you must use the legacy
+<code>buildGoPackage</code> infrastructure as the dependencies cannot be reproduced.</p>
 	</article>
 </main>
 
