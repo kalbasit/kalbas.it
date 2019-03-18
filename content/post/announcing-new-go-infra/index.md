@@ -8,10 +8,10 @@ css = []
 scripts = []
 +++
 
-I recently introduced a new function in Nixpkgs named `buildGoModule`. The new
-function allows you to package Go application (or modules) with ease, provided
-the modules have added support for [Go
-modules](https://github.com/golang/go/wiki/Modules) upstream.
+I [recently introduced](https://github.com/NixOS/nixpkgs/pull/57080) a new
+function in Nixpkgs named `buildGoModule`. The new function allows you to
+package Go application (or modules) with ease, provided the modules have added
+support for [Go modules](https://github.com/golang/go/wiki/Modules) upstream.
 
 <!--more-->
 
