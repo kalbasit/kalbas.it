@@ -152,6 +152,7 @@ a path on your filesystem within the nix store.
   }
   ''
     cp -r $pinned $out
+    chmod -R u+w $out
 
     for p in $patches; do
       echo "Applying patch $p"

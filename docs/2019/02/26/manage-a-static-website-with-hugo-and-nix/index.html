@@ -228,6 +228,7 @@ contents:</p>
   }
   <span style="color:#e6db74">&#39;&#39;
 </span><span style="color:#e6db74">    cp -r $pinned $out
+</span><span style="color:#e6db74">    chmod -R u+w $out
 </span><span style="color:#e6db74">
 </span><span style="color:#e6db74">    for p in $patches; do
 </span><span style="color:#e6db74">      echo &#34;Applying patch $p&#34;
@@ -316,6 +317,7 @@ a path on your filesystem within the nix store.</p>
   }
   <span style="color:#e6db74">&#39;&#39;
 </span><span style="color:#e6db74">    cp -r $pinned $out
+</span><span style="color:#e6db74">    chmod -R u+w $out
 </span><span style="color:#e6db74">
 </span><span style="color:#e6db74">    for p in $patches; do
 </span><span style="color:#e6db74">      echo &#34;Applying patch $p&#34;
