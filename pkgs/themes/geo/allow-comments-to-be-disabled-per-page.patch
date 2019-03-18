@@ -1,0 +1,14 @@
+diff -Naur a/layouts/_default/single.html b/layouts/_default/single.html
+--- a/layouts/_default/single.html	2019-03-17 21:16:51.540913148 -0700
++++ b/layouts/_default/single.html	2019-03-17 21:19:37.801637154 -0700
+@@ -15,8 +15,8 @@
+ 	<a href=" {{ .Site.BaseURL }}" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+ </div>
+ 
+-{{ if .Site.DisqusShortname }}
+-  {{ template "_internal/disqus.html" . }}
++{{ if (not (eq .Site.DisqusShortname "")) | and (not .Params.disableComments) }}
++	{{ template "_internal/disqus.html" . }}
+ {{ end }}
+ 
+ {{ partial "footer.html" . }}
