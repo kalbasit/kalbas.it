@@ -17,10 +17,10 @@
       <pubDate>Sun, 17 Mar 2019 19:53:00 -0800</pubDate>
       
       <guid>https://kalbas.it/2019/03/17/announcing-the-new-golang-infrastructure-buildgomodule/</guid>
-      <description>&lt;p&gt;I recently introduced a new function in Nixpkgs named &lt;code&gt;buildGoModule&lt;/code&gt;. The new
-function allows you to package Go application (or modules) with ease, provided
-the modules have added support for &lt;a href=&#34;https://github.com/golang/go/wiki/Modules&#34;&gt;Go
-modules&lt;/a&gt; upstream.&lt;/p&gt;
+      <description>&lt;p&gt;I &lt;a href=&#34;https://github.com/NixOS/nixpkgs/pull/57080&#34;&gt;recently introduced&lt;/a&gt; a new
+function in Nixpkgs named &lt;code&gt;buildGoModule&lt;/code&gt;. The new function allows you to
+package Go application (or modules) with ease, provided the modules have added
+support for &lt;a href=&#34;https://github.com/golang/go/wiki/Modules&#34;&gt;Go modules&lt;/a&gt; upstream.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
     </item>
