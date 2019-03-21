@@ -9,8 +9,8 @@ disableComments: true
 Hi there! My name is Wael Nasreddine, a Lebanese-born Sillicon Valley Software
 Engineer (or SWE), Site Reliability Engineer (or SRE) and Software Architect.
 I'm currently employed by [KeepTruckin](https://KeepTruckin.com) as a Principal
-Architect in the Platform team, in charge of the core products and the
-infrastructure.
+Architect in the Platform team, in charge of the overall architecture of the
+product, and the infrastructure orchestrating it.
 
 # Background
 
