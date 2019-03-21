@@ -12,6 +12,14 @@ I'm currently employed by [KeepTruckin](https://KeepTruckin.com) as a Principal
 Architect in the Platform team, in charge of the overall architecture of the
 product, and the infrastructure orchestrating it.
 
+# Profile
+
+Passionate, responsible and committed leader, with a get-it-done, on-time
+spirit, and more than a decade of experiencedesigning, planning and achieving
+goals. Implementing and adapting technically sophisticated applications using
+Go,Ruby on Rails, Python, Java, JavaScript and more. Proficient in language
+standards, functional programming andobject-oriented technologies
+
 # Background
 
 # Career Biography
