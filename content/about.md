@@ -1,6 +1,5 @@
 ---
 title: "About Me!"
-date: 2019-02-24T17:29:59-08:00
 disableComments: true
 ---
 
