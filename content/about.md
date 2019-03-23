@@ -4,9 +4,7 @@ date: 2019-02-24T17:29:59-08:00
 disableComments: true
 ---
 
-# Introduction
-
-Hi there! My name is Wael Nasreddine, a Lebanese-born Sillicon Valley Software
+Hi there! It's Wael. I'm a Lebanese-born Sillicon Valley Software
 Engineer (or SWE), Site Reliability Engineer (or SRE) and Software Architect.
 I'm currently employed by [KeepTruckin](https://KeepTruckin.com) as a Principal
 Architect in the Platform team, in charge of the overall architecture of the
@@ -15,12 +13,14 @@ product, and the infrastructure orchestrating it.
 # Profile
 
 Passionate, responsible and committed leader, with a get-it-done, on-time
-spirit, and more than a decade of experiencedesigning, planning and achieving
+spirit, and more than a decade of experience designing, planning and achieving
 goals. Implementing and adapting technically sophisticated applications using
-Go,Ruby on Rails, Python, Java, JavaScript and more. Proficient in language
-standards, functional programming andobject-oriented technologies
+Go, Ruby on Rails, Python, Java, JavaScript and more. Proficient in language
+standards, functional programming and object-oriented technologies.
 
 # Background
+
+You can read about my professional background on my [résumé](https://kalbas.it/cv-en.pdf).
 
 # Career Biography
 
