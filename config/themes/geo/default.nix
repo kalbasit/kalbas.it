@@ -65,10 +65,11 @@ with lib;
           url = "tags/";
         }
 
-        {
-          name = "Tutorials";
-          url = "tutorial/";
-        }
+        # XXX: Enable this once I have some tutorials
+        # {
+        #   name = "Tutorials";
+        #   url = "tutorial/";
+        # }
       ];
     };
   };
