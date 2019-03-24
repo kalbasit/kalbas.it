@@ -18,9 +18,7 @@ In my free time, I like to spend time with my family.
 
 # Background
 
-You can read about my professional background on my [résumé][cv-en].
-
-# Career Biography
+## Early Career
 
 I've started learning development at the age 12. I owned a Casio Graph 100 back
 then, and I've learned C and assembly in order to write programs for it --
@@ -36,7 +34,13 @@ follow. And one day, in the late '90s, I got exposed to Linux, my operating
 system of choice since 2001. Please read all about my [Linux/Unix
 history][linux-unix-history].
 
-At the age of 19, I moved to France for University. Soon after I landed my first job at Te.
+At the age of 19, I moved to France for University, and I worked at Telcos to
+help me pay the bills. After my graduation, I started working for Weem followed
+by Agence Durable and soon after I moved to the US.
+
+# Career
+
+You can read about my professional background on my [résumé][cv-en].
 
 [os-contribs]: https://github.com/pulls?q=author%3Akalbasit+sort%3Aupdated-desc
 [my-github]: https://github.com/kalbasit
