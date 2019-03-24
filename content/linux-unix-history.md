@@ -6,7 +6,9 @@ description = "My personal history of using operating systems, most notably Unix
 Linux, in many ways, has had an important impact on my career. Below, you can
 find the timeline of my linux history:
 
-- 2001: After trying many different distributions, I've settled on using Debian.
+- 2001: After trying many different distributions, I've settled on using
+        Debian. I never really liked RPM-based distributions. Debian taught me
+        a lot about Linux, knowledge that I cherish to this day.
 - 2005: Ubuntu has just recently came out, and delivered a much nice interface
         than Debian. I became quite invested in the project, and took on the
         task of a beta tester and a forum moderator.
@@ -31,7 +33,7 @@ find the timeline of my linux history:
         Arch because I've been running it on my Server and Desktop at Home and seemed
         to be an easier switch.
 - 2018: I switched all of my machines (workstations and servers) over to NixOS.
-        Please read [Why I switched to NixOS]({{< ref "why-i-switched-to-nixos" >}}) for a .
+        Please read [Why I use NixOS]({{< ref "why-i-use-nixos" >}}).
 
 <!--
  References:

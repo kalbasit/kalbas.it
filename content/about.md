@@ -5,21 +5,20 @@ disableComments = true
 
 Hi there! My name is Wael. I'm a Lebanese-born Software Engineer (or SWE), Site
 Reliability Engineer (or SRE) and Software Architect living in San Francisco
-Bay Area. I'm currently employed by [KeepTruckin](https://KeepTruckin.com) as a
-Principal Architect in the Platform team, leading the team in charge of the
-overall architecture of the product, and the infrastructure orchestrating it.
+Bay Area. I'm currently employed by [KeepTruckin][keeptruckin] as a Principal
+Architect in the Platform team, leading the team in charge of the overall
+architecture of the product, and the infrastructure orchestrating it.
 
-I have made [many Open-Source
-contributions](https://github.com/pulls?q=author%3Akalbasit+sort%3Aupdated-desc),
-and I strive to give back to the community to the best of my abilities. All of
-my personal projects, be it a one-off script or a large project, are available
-on my [GitHub account](https://github.com/kalbasit).
+I have made [many Open-Source contributions][os-contribs], and I strive to give
+back to the community to the best of my abilities. All of my personal projects,
+be it a one-off script or a large project, are available on my [GitHub
+account][my-github].
 
-In my free time, I like to spend time with my kids, and work with my hands.
+In my free time, I like to spend time with my family.
 
 # Background
 
-You can read about my professional background on my [résumé](https://kalbas.it/cv-en.pdf).
+You can read about my professional background on my [résumé][cv-en].
 
 # Career Biography
 
@@ -34,7 +33,13 @@ As a teenager, I worked as a computer technician at a local company. That
 taught me a lot about the machine at the hardware level, and allowed me to
 expand my understanding of a typical program and the path such program must
 follow. And one day, in the late '90s, I got exposed to Linux, my operating
-system of choice since 2001. Read about my [Linux history]({{< ref "linux-unix-history" >}}).
+system of choice since 2001. Read about my [Linux history]({{< ref
+"linux-unix-history" >}}).
 
 At the age of 18, I moved to France to get my education done
 
+
+[os-contribs]: https://github.com/pulls?q=author%3Akalbasit+sort%3Aupdated-desc
+[my-github]: https://github.com/kalbasit
+[keeptruckin]: https://KeepTruckin.com
+[cv-en]: /cv-en.pdf
