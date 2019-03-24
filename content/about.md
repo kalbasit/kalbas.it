@@ -14,8 +14,6 @@ back to the community to the best of my abilities. All of my personal projects,
 be it a one-off script or a large project, are available on my [GitHub
 account][my-github].
 
-In my free time, I like to spend time with my family.
-
 # Background
 
 I've started learning development at the age 12 in Lebanon. I owned a Casio
