@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="In this article, I go over why I use NixOS">
+    <meta property="og:title" content="Why I use NixOS">
+    
+    <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2019-03-24">
+    
+    <meta property="og:description" content="In this article, I go over why I use NixOS">
+    <meta property="og:url" content="https://kalbas.it/2019/03/24/why-i-use-nixos/">
+    <meta property="og:site_name" content="kalbasit">
+    
+    <meta property="og:tags" content="nixos">
+    
+    <meta name="generator" content="Hugo 0.50" />
+    <title>Why I use NixOS &middot; kalbasit</title>
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/default.min.css">
+    
+    <link rel="stylesheet" href="https://kalbas.it/css/style.css">
+    
+    <link href="https://kalbas.it/index.xml" rel="alternate" type="application/rss+xml" title="kalbasit" />
+    
+    
+    <link rel="icon" href="https://kalbas.it/favicon.ico" />
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://kalbas.it/">Wael Nasreddine</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+					<li><a href="https://kalbas.it/about/">About</a></li>
+				
+					<li><a href="https://kalbas.it/post/">Blog</a></li>
+				
+					<li><a href="https://kalbas.it/tags/">Tags</a></li>
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3 col-lg-2 col-xl-2">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://kalbas.it/">Wael Nasreddine</a></h1>
+		
+
+		
+			<small class="text-center center-block">Father - Entreprenur - Architect - Engineer</small>
+		
+
+		
+			<img id="profile-pic" src="https://kalbas.it//img/me.jpg" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/kalbasit"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/ylcodes"><i class="fa fa-twitter fa-2x"></i></a>
+			
+				<a href="https://www.linkedin.com/in/kalbasit"><i class="fa fa-linkedin fa-2x"></i></a>
+			
+
+			<a href="mailto:me@kalbas.it"><i class="fa fa-envelope-o fa-2x"></i></a>
+		</div>
+		<div id="links" class="text-center">
+			
+			
+				<a href="https://kalbas.it/about/">About</a>
+			
+				<a href="https://kalbas.it/post/">Blog</a>
+			
+				<a href="https://kalbas.it/tags/">Tags</a>
+			
+		</div>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9 col-lg-10 col-xl-10">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-9 col-xl-9">
+
+
+<main>
+	<header>
+		<h1>Why I use NixOS</h1>
+	</header>
+
+	<article>
+		<p>This post highlights my reasoning behind switching to NixOS.</p>
+
+<p></p>
+
+<p><em>This was originally posted as a <a href="https://www.reddit.com/r/archlinux/comments/b2jkrp/anyone_tried_nixos_what_are_your_thoughts/eixbwu6">Reddit comment</a>.</em></p>
+
+<h2 id="linux-unix-history">Linux/Unix History</h2>
+
+<p>Please head over to read all about my <a href="https://kalbas.it/linux-unix-history/">Linux/Unix history</a>.
+In a Gist: I have about 20 years experience in using and managing Linux and
+Unix machines ranging from various Linux distributions, as well as *BSD and by
+extension Darwin (a.k.a Mac).</p>
+
+<h1 id="why-did-i-switch-to-nixos">Why did I switch to NixOS?</h1>
+
+<p>Last year &ndash; 2018 &ndash; I was still working as a co-founder of a small Ad-related
+startup. I used to have crazy long days (averaging about 12-16 hours), and I
+used to do about ten different things (in parallel). The reliability of my
+machine to say the least is of utmost importance as my day (and thus my
+productivity) depends on it.  One day early May of last year, I wanted to
+install a new Vim plugin (can&rsquo;t remember the exact plugin) and I inadvertently
+ran <code>:PlugUpdate</code> which updated all of my Vim plugins to the latest version and
+this has broken my entire <a href="https://github.com/fatih/vim-go">Go</a> setup. Not only I could no longer get
+auto-completion as I was typing, but I was also greeted with a multi-line error
+every time I open a Go file, attempted to edit something or save it. I had to
+disable most of my plugins just to get by. By the end of that day, I was very
+much late on my tasks and extremely frustrated, I decided to take the weekend
+off and look for a solution!</p>
+
+<p>My search term was very simple: <a href="https://www.google.com/search?q=Reproducible+Vim+distribution"><code>Reproducible Vim
+distribution</code></a>.  And that&rsquo;s how I found out about Nix.
+It took me a good month of learn/test-on-vm/get-help/repeat until I was finally
+ready to dual boot with Arch. Most of that time was spent trying to get the
+work tools (Bazel with Proto/Go/Java/Javascript/TypeScript support) to work on
+Nix.</p>
+
+<p>My frustration with my setup was not caused necessarily by Arch, but by every
+distribution that is not built with reproducibility in mind! I&rsquo;ve attempted
+different solutions over the years to solve this issue, and one that worked
+half-well for me was to symlink the configuration of every application I use
+from a Git (or SVN early-on). You can check out the pre-nix version of my
+dotfiles <a href="https://github.com/kalbasit/shabka/tree/pre-nix">here</a>.</p>
+
+<h1 id="what-did-nixos-provide-me">What did NixOS provide me</h1>
+
+<ul>
+<li>Reliability! Reliability! Reliability! Yes, it&rsquo;s that important to me! I&rsquo;d
+rather have to <a href="https://github.com/NixOS/nixpkgs/pulls?q=is%3Apr+sort%3Aupdated-desc+author%3Akalbasit+is%3Aclosed+label%3A%228.has%3A+package+%28new%29%22">contrinube new packages</a> than
+showing up at work with a broken system.</li>
+<li>Reproducibality: I use different computers for different purposes. When I fix
+something (say a bug in <a href="https://github.com/kalbasit/shabka/pull/178">my Vim workflow</a>), I like to know that
+it has been fixed everywhere.</li>
+<li>Consistency: I can&rsquo;t describe how good it feels to set up unrelated software
+using the same syntax. Of course, it&rsquo;s doing all the hard work behind the
+scenes for you, and you might have to get your hands dirty to fix something,
+but in your day to day use it&rsquo;s just perfect.</li>
+<li>Recovery: If I lose or break my computer, I no longer have to worry about my
+config. I can just clone <a href="https://github.com/kalbasit/shabka">shabka</a> on a new NixOS installation and run
+<code>./scripts/nixos-rebuild -h &lt;host&gt; switch</code> to get my entire system back.</li>
+<li>Reproducible development environment: We&rsquo;re about 40 engineers with mixed Mac
+and Linux workstations, yet we are all using the same reproducible
+environment. No more of &ldquo;Where do I get libv8 again?&rdquo;! Nix provide us a
+complete Bazel environment (for one repository) and a complete Rails env (for
+the other repository).</li>
+</ul>
+
+<p>One minor improvement: For some reason, I could never get a cryptsetup/LUKS in
+Arch to work in such a way that I have a Key partition used as the
+password-file for decrypting other partitions. Because Nix is a lazy language
+that allows you to determine the order of dependencies, I was <a href="https://github.com/kalbasit/shabka/blob/4b93eac50623779bb71deed3e57cb3db6b85423c/hosts/hades/hardware-configuration.nix#L36-L41">easily able to
+achive this in
+NixOS</a>.</p>
+
+<p>Please note that I use NixOS a bit differently than other people. I have only
+one repo, named <a href="https://github.com/kalbasit/shabka">shabka</a>, for setting up my
+entire network (laptops, servers, VPN and soon router). It has support for
+NixOS as well as Mac. I currently have 7 hosts: 2 Mac laptops, 3 NixOS laptops,
+a VPN server on AWS and a baremetal server hosting a Windows server as well as
+some internal sites to my home. Although the repo is public, it&rsquo;s not really
+meant for anyone to use it as-is; It&rsquo;s customized to my setup but I am working
+on an opinated multi-language multi-operating-system distribution (at the
+design phase still).</p>
+
+<h1 id="areas-that-need-improvement">Areas that need improvement</h1>
+
+<p>It&rsquo;s now time to discuss the cons/bad/ugly: Essentially what we must improve in
+NixOS. I&rsquo;m a member of the project, but by <em>we</em> I really mean the open source
+community and not just the members.</p>
+
+<ol>
+<li>Lack of consise and up to date documentation. This has been discussed at
+length by other commenters, and is a very valid point. I&rsquo;m considering
+writing a book given I still have a fresh noob perspective, more on that
+later.</li>
+<li>Steep learning curve to the Nix concept, the language and Nixpkgs. I
+recently released a new <a href="https://kalbas.it/2019/03/17/announcing-the-new-golang-infrastructure-buildgomodule/">infrastructure for packaging Go modules</a>
+after actively contributing to the project for the past 9 months and I still
+feel like a noob in many areas.</li>
+<li>Difficulty attempting to use something that is not packaged in NixOS:
+
+<ol>
+<li>At work, we have a repository using Ansible and I can&rsquo;t figure out how
+to make it work on NixOS. I spent about an hour on it before giving up.
+I have an Ubuntu VM to deal with it now.</li>
+<li>I use i3wm. When I was using Arch, I used to use
+<a href="https://aur.archlinux.org/packages/whatsapp-nativefier/">whatsapp-nativefier</a>
+from AUR and I can&rsquo;t figure out how to package it due to lack of
+documentation around packaging Electron applications. I could also be
+looking at the wrong place for documentation (back to point 1 here).</li>
+<li>It&rsquo;s difficult to run a pre-compiled binary. None of the dependencies
+are available at the location hardcoded in the binary (usually at
+/usr/lib). Using patchelf might work, but in my experience, it&rsquo;s easier
+to just create a package for it. You can see where Nix falls of short of
+other distros where you can just download a binary and run it.</li>
+</ol></li>
+<li>Re-design NixOPS. Currently, It assume all servers are <a href="https://medium.com/@Joachim8675309/devops-concepts-pets-vs-cattle-2380b5aab313">pets instead of
+cattle</a>.
+It also hardcode all the paths in a sqlite database where the state of the
+servers (and the SSH keys) are stored, so most SRE end up creating a deploy
+server (only one). And finally, it should be able to work alongside and not
+replacing Terraform IMO, this solves the pet/kettle as well as the deploy
+concept.</li>
+<li>Inconsistent command line tools: nix-shell, nix-build, nix-env and
+nix-instantiate all expect a slightly different arguments and it&rsquo;s
+frustrating to have to remember them all. Nix 2.0 does include a <code>nix</code>
+command line to help standarize the flags, but it&rsquo;s still early-on and does
+not yet fully replace the old tools.</li>
+</ol>
+
+<h1 id="conclusion">Conclusion</h1>
+
+<p>Nix is an amazing concept developed by a small community of amazing people.
+IMO, it has long way to go, and does need support from a larger company to be a
+successful project. I can see this a reality one day.</p>
+
+<p>If it makes sense for you to use it, I say by all means. It&rsquo;s a win-win for you
+as a user and for us as maintainers if the community grew larger by one new
+member :)</p>
+	</article>
+</main>
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://kalbas.it/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+
+	<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "kalbasit" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-82839578-2', 'auto');
+    ga('send', 'pageview');
+    window.baseURL = "https:\/\/kalbas.it\/";
+  </script>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+  
+  <script src="https://kalbas.it//js/App.js"></script>
+  
+</body>
+</html>
