@@ -23,23 +23,23 @@ You can read about my professional background on my [résumé][cv-en].
 # Career Biography
 
 I've started learning development at the age 12. I owned a Casio Graph 100 back
-then, and I've learned C and assembly in order to write programs for it. As
-someone who yearns for knowledge, I've experimented with many different angles
-of Software development. I've hacked mobile phones, designed and wrote
-websites, wrote backend applications and APIs, and managed servers as pets and
-cattle.
+then, and I've learned C and assembly in order to write programs for it --
+unconventional programs in a sense. As someone who yearns for knowledge, I've
+experimented with many different angles of Software development. I've hacked
+mobile phones, designed and wrote websites, wrote backend applications and
+APIs, and managed servers as pets and cattle.
 
 As a teenager, I worked as a computer technician at a local company. That
 taught me a lot about the machine at the hardware level, and allowed me to
 expand my understanding of a typical program and the path such program must
 follow. And one day, in the late '90s, I got exposed to Linux, my operating
-system of choice since 2001. Read about my [Linux history]({{< ref
-"linux-unix-history" >}}).
+system of choice since 2001. Please read all about my [Linux/Unix
+history][linux-unix-history].
 
-At the age of 18, I moved to France to get my education done
-
+At the age of 19, I moved to France for University. Soon after I landed my first job at Te.
 
 [os-contribs]: https://github.com/pulls?q=author%3Akalbasit+sort%3Aupdated-desc
 [my-github]: https://github.com/kalbasit
 [keeptruckin]: https://KeepTruckin.com
 [cv-en]: /cv-en.pdf
+[linux-unix-history]: {{< ref "linux-unix-history" >}}
