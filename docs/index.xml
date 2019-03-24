@@ -6,10 +6,22 @@
     <description>Recent content on kalbasit</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 17 Mar 2019 19:53:00 -0800</lastBuildDate>
+    <lastBuildDate>Sun, 24 Mar 2019 11:00:00 -0800</lastBuildDate>
     
 	<atom:link href="https://kalbas.it/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Why I use NixOS</title>
+      <link>https://kalbas.it/2019/03/24/why-i-use-nixos/</link>
+      <pubDate>Sun, 24 Mar 2019 11:00:00 -0800</pubDate>
+      
+      <guid>https://kalbas.it/2019/03/24/why-i-use-nixos/</guid>
+      <description>This was originally posted as a Reddit comment.
+Introduction This post highlights my reasoning behind switching to NixOS.
+Linux/Unix History Please head over to read all about my Linux/Unix history. In a Gist: I have about 20 years experience in using and managing Linux and Unix machines ranging from various Linux distributions, as well as *BSD and by extension Darwin (a.k.a Mac).
+Why did I switch to NixOS? Last year &amp;ndash; 2018 &amp;ndash; I was still working as a co-founder of a small Ad-related startup.</description>
+    </item>
     
     <item>
       <title>Announcing the new Golang infrastructure: buildGoModule</title>
@@ -42,16 +54,6 @@ by the host operating system to a reproducible environment regardless of
 the host.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>About Me!</title>
-      <link>https://kalbas.it/about/</link>
-      <pubDate>Sun, 24 Feb 2019 17:29:59 -0800</pubDate>
-      
-      <guid>https://kalbas.it/about/</guid>
-      <description>Introduction Hi there! My name is Wael Nasreddine, a Lebanese-born Sillicon Valley Software Engineer (or SWE), Site Reliability Engineer (or SRE) and Software Architect. I&amp;rsquo;m currently employed by KeepTruckin as a Principal Architect in the Platform team, in charge of the core products and the infrastructure.
-Background Career Biography I&amp;rsquo;ve started learning development at the age 12. I owned a Casio Graph 100 back then, and I&amp;rsquo;ve learned C and assembly in order to write programs for it.</description>
     </item>
     
     <item>
@@ -96,6 +98,26 @@ certificates from Let&amp;rsquo;s encrypt.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>About Me!</title>
+      <link>https://kalbas.it/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://kalbas.it/about/</guid>
+      <description>Hi there! My name is Wael. I&amp;rsquo;m a Lebanese-born Software Engineer (or SWE), Site Reliability Engineer (or SRE) and Software Architect living in San Francisco Bay Area. I&amp;rsquo;m currently employed by KeepTruckin as a Principal Architect in the Platform team, leading the team in charge of the overall architecture of the product, and the infrastructure orchestrating it.
+I have made many Open-Source contributions, and I strive to give back to the community to the best of my abilities.</description>
+    </item>
+    
+    <item>
+      <title>Linux/Unix History</title>
+      <link>https://kalbas.it/linux-unix-history/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://kalbas.it/linux-unix-history/</guid>
+      <description>Linux, in many ways, has had an important impact on my career. Below, you can find the timeline of my linux history:
+ 2001: After trying many different distributions, I&amp;rsquo;ve settled on using Debian. I never really liked RPM-based distributions. Debian taught me a lot about Linux, knowledge that I cherish to this day. 2005: Ubuntu has just recently came out, and delivered a much nice interface than Debian. I became quite invested in the project, and took on the task of a beta tester and a forum moderator.</description>
     </item>
     
   </channel>

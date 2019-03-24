@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Nixos on kalbasit</title>
+    <link>https://kalbas.it/tags/nixos/</link>
+    <description>Recent content in Nixos on kalbasit</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 24 Mar 2019 11:00:00 -0800</lastBuildDate>
+    
+	<atom:link href="https://kalbas.it/tags/nixos/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Why I use NixOS</title>
+      <link>https://kalbas.it/2019/03/24/why-i-use-nixos/</link>
+      <pubDate>Sun, 24 Mar 2019 11:00:00 -0800</pubDate>
+      
+      <guid>https://kalbas.it/2019/03/24/why-i-use-nixos/</guid>
+      <description>This was originally posted as a Reddit comment.
+Introduction This post highlights my reasoning behind switching to NixOS.
+Linux/Unix History Please head over to read all about my Linux/Unix history. In a Gist: I have about 20 years experience in using and managing Linux and Unix machines ranging from various Linux distributions, as well as *BSD and by extension Darwin (a.k.a Mac).
+Why did I switch to NixOS? Last year &amp;ndash; 2018 &amp;ndash; I was still working as a co-founder of a small Ad-related startup.</description>
+    </item>
+    
+  </channel>
+</rss>
