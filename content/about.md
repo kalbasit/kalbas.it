@@ -21,7 +21,8 @@ Graph 100 back then, and I've learned C and assembly in order to write programs
 for it -- unconventional programs in a sense. As someone who yearns for
 knowledge, I've experimented with many different angles of Software
 development. I've hacked mobile phones, designed and wrote websites, wrote
-backend applications and APIs, and managed servers as [pets and cattle][pets-vs-cattle].
+backend applications and APIs, and managed servers as [pets and
+cattle][pets-vs-cattle].
 
 Between the age of 13 and 18, I worked as a computer technician at my local
 computer store. I gained experience in understanding the machine at the
