@@ -8,11 +8,11 @@ css = []
 scripts = []
 +++
 
+This post highlights my reasoning behind switching to NixOS. 
+
+<!--more-->
+
 _This was originally posted as a [Reddit comment][reddit-comment]._
-
-# Introduction
-
-This post highlights my reasoning behind switching to NixOS.
 
 ## Linux/Unix History
 
