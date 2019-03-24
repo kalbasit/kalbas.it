@@ -1,8 +1,7 @@
----
++++
 title = "Linux/Unix History"
 description = "My personal history of using operating systems, most notably Unix and Linux OSes."
-disableComments: true
----
++++
 
 Linux, in many ways, has had an important impact on my career. Below, you can
 find the timeline of my linux history:
