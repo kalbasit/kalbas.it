@@ -38,10 +38,10 @@ system of choice since 2001. Read about my [Linux history below](#linux-history)
 
 At the age of 18, I moved to France to get my education done
 
-## Linux History
+## Linux/Unix History
 
-Linux, in many ways, has had an important impact on my career. Here's the
-timeline of my involvement in Linux distributions:
+Linux, in many ways, has had an important impact on my career. Below, you can
+find the timeline of my linux history:
 
 - 2001: After trying many different distributions, I've settled on using Debian.
 - 2005: Ubuntu has just recently came out, and delivered a much nice interface
@@ -55,11 +55,16 @@ timeline of my involvement in Linux distributions:
         my own version of Kernel initialization very much aligned with Arch's
         mkinitcpio. My work helped fix a few bugs
         ([example](https://git.archlinux.org/mkinitcpio.git/commit/?id=e93d33835fc2078eafe5c4d923367e1e95f66822)).
+- 2006: My server has been running Linux for about two years, and it was time
+        to switch to FreeBSD.
 - 2007: I switched to Gentoo because I wanted more customizations, and Arch did
         not offer an easy way to do this.
 - 2008: I was getting a bit tired of compiling the world, so I've switched over
         to using Sabayon, and quickly became a core member. I was later givin
         the title Chief development officer in charge of the packages.
+- 2011: Mac
+- 2017: Arch
+- 2018: NixOS
 
 
 <!--
