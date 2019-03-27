@@ -56,6 +56,10 @@
   </url>
   
   <url>
+    <loc>https://kalbas.it/linux-unix-history/</loc>
+  </url>
+  
+  <url>
     <loc>https://kalbas.it/categories/infrastructure/</loc>
     <lastmod>2016-08-21T18:21:02-07:00</lastmod>
     <priority>0</priority>
@@ -65,10 +69,6 @@
     <loc>https://kalbas.it/tags/kubernetes/</loc>
     <lastmod>2016-08-21T18:21:02-07:00</lastmod>
     <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://kalbas.it/linux-unix-history/</loc>
   </url>
   
   <url>
