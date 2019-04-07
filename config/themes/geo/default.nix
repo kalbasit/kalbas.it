@@ -39,7 +39,7 @@ with lib;
 
         {
           faicon = "twitter";
-          url = "https://twitter.com/ylcodes";
+          url = "https://twitter.com/kalbasit";
         }
 
         {
