@@ -10,6 +10,8 @@ scripts = []
 
 This post goes over configuring Tailscale DNS to support DNS resolution from other AppVMs using the Tailscale VM.
 
+<!--more-->
+
 This guide assumes you already have Tailscale configured in a TemplateVM and a
 sys-tailscale AppVM is running Tailscaled for other AppVMs to use. If you don't have
 Tailscale already configured, then please head over to
