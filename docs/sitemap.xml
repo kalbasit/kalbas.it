@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://kalbas.it/2024/11/14/configure-tailscale-dns-on-qubes-os/</loc>
+    <lastmod>2024-11-14T20:00:00-08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://kalbas.it/2019/03/24/why-i-use-nixos/</loc>
     <lastmod>2019-03-24T11:00:00-08:00</lastmod>
   </url>
@@ -34,6 +39,12 @@
   <url>
     <loc>https://kalbas.it/tags/coreos/</loc>
     <lastmod>2016-08-21T18:21:02-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kalbas.it/tags/dns/</loc>
+    <lastmod>2024-11-14T20:00:00-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -91,13 +102,25 @@
   
   <url>
     <loc>https://kalbas.it/post/</loc>
-    <lastmod>2019-03-24T11:00:00-08:00</lastmod>
+    <lastmod>2024-11-14T20:00:00-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kalbas.it/tags/qubes/</loc>
+    <lastmod>2024-11-14T20:00:00-08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://kalbas.it/tags/</loc>
     <lastmod>2016-08-21T18:21:02-07:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://kalbas.it/tags/tailscale/</loc>
+    <lastmod>2024-11-14T20:00:00-08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -109,7 +132,7 @@
   
   <url>
     <loc>https://kalbas.it/</loc>
-    <lastmod>2019-03-24T11:00:00-08:00</lastmod>
+    <lastmod>2024-11-14T20:00:00-08:00</lastmod>
     <priority>0</priority>
   </url>
   

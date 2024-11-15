@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Qubes on kalbasit</title>
+    <link>https://kalbas.it/tags/qubes/</link>
+    <description>Recent content in Qubes on kalbasit</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 14 Nov 2024 20:00:00 -0800</lastBuildDate>
+    
+	<atom:link href="https://kalbas.it/tags/qubes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Configure Tailscale DNS on Qubes OS</title>
+      <link>https://kalbas.it/2024/11/14/configure-tailscale-dns-on-qubes-os/</link>
+      <pubDate>Thu, 14 Nov 2024 20:00:00 -0800</pubDate>
+      
+      <guid>https://kalbas.it/2024/11/14/configure-tailscale-dns-on-qubes-os/</guid>
+      <description>This post goes over configuring Tailscale DNS to support DNS resolution from other AppVMs using the Tailscale VM.
+This guide assumes you already have Tailscale configured in a TemplateVM and a sys-tailscale AppVM is running Tailscaled for other AppVMs to use. If you don&amp;rsquo;t have Tailscale already configured, then please head over to taradiddles&amp;rsquo; excellent guide over on the Qubes forum.
+We need to do the following on the TemplateVM to get it all configured:</description>
+    </item>
+    
+  </channel>
+</rss>

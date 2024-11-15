@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="This post goes over Tailscale configuration on QubesOS">
+    <meta property="og:title" content="Configure Tailscale DNS on Qubes OS">
+    
+    <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2024-11-14">
+    
+    <meta property="og:description" content="This post goes over Tailscale configuration on QubesOS">
+    <meta property="og:url" content="https://kalbas.it/2024/11/14/configure-tailscale-dns-on-qubes-os/">
+    <meta property="og:site_name" content="kalbasit">
+    
+    <meta property="og:tags" content="qubes">
+    
+    <meta property="og:tags" content="tailscale">
+    
+    <meta property="og:tags" content="dns">
+    
+    <meta name="generator" content="Hugo 0.50" />
+    <title>Configure Tailscale DNS on Qubes OS &middot; kalbasit</title>
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/styles/default.min.css">
+    
+    <link rel="stylesheet" href="https://kalbas.it/css/style.css">
+    
+    <link href="https://kalbas.it/index.xml" rel="alternate" type="application/rss+xml" title="kalbasit" />
+    
+    
+    <link rel="icon" href="https://kalbas.it/favicon.ico" />
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://kalbas.it/">Wael Nasreddine</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+					<li><a href="https://kalbas.it/about/">About</a></li>
+				
+					<li><a href="https://kalbas.it/post/">Blog</a></li>
+				
+					<li><a href="https://kalbas.it/tags/">Tags</a></li>
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3 col-lg-2 col-xl-2">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://kalbas.it/">Wael Nasreddine</a></h1>
+		
+
+		
+			<small class="text-center center-block">Father - Entreprenur - Architect - Engineer</small>
+		
+
+		
+			<img id="profile-pic" src="https://kalbas.it//img/me.jpg" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/kalbasit"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/kalbasit"><i class="fa fa-twitter fa-2x"></i></a>
+			
+				<a href="https://www.linkedin.com/in/kalbasit"><i class="fa fa-linkedin fa-2x"></i></a>
+			
+
+			<a href="mailto:me@kalbas.it"><i class="fa fa-envelope-o fa-2x"></i></a>
+		</div>
+		<div id="links" class="text-center">
+			
+			
+				<a href="https://kalbas.it/about/">About</a>
+			
+				<a href="https://kalbas.it/post/">Blog</a>
+			
+				<a href="https://kalbas.it/tags/">Tags</a>
+			
+		</div>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9 col-lg-10 col-xl-10">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-9 col-xl-9">
+
+
+<main>
+	<header>
+		<h1>Configure Tailscale DNS on Qubes OS</h1>
+	</header>
+
+	<article>
+		<p>This post goes over configuring Tailscale DNS to support DNS resolution from other AppVMs using the Tailscale VM.</p>
+
+<p>This guide assumes you already have Tailscale configured in a TemplateVM and a
+sys-tailscale AppVM is running Tailscaled for other AppVMs to use. If you don&rsquo;t have
+Tailscale already configured, then please head over to
+<a href="https://forum.qubes-os.org/u/taradiddles">taradiddles</a>&rsquo; <a href="https://forum.qubes-os.org/t/19004">excellent guide</a> over on the Qubes forum.</p>
+
+<p>We need to do the following on the <strong>TemplateVM</strong> to get it all configured:</p>
+
+<ul>
+<li>Create a systemd service that runs a script.</li>
+<li>Create the script that gets executed by the systemd service.</li>
+<li>Shutdown the TemplateVM and restart the AppVMs based on it.</li>
+</ul>
+
+<p>Create <code>/etc/systemd/system/qubes-tailscaled-dns.service</code> with the following contents:</p>
+
+<pre><code class="language-conf">[Unit]
+Description=Forward all DNS traffic to Tailscale
+Requires=tailscaled.service
+After=qubes-network.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/qubes-tailscaled-dns.sh start
+ExecStop=/usr/bin/qubes-tailscaled-dns.sh stop
+RemainAfterExit=yes
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+
+<p>Create the script that&rsquo;s used by the service <code>/usr/bin/qubes-tailscaled-dns.sh</code> with the following contents:</p>
+
+<pre><code class="language-bash">#!/usr/bin/env bash
+
+set -euo pipefail
+
+tailscale_dns=100.100.100.100
+readonly tailscale_dns
+
+primary_dns=$(/usr/bin/qubesdb-read /qubes-primary-dns 2&gt;/dev/null) || primary_dns=
+secondary_dns=$(/usr/bin/qubesdb-read /qubes-secondary-dns 2&gt;/dev/null) || secondary_dns=
+readonly primary_dns secondary_dns
+
+# Protect against empty DNS server list
+if [[ -z &quot;$primary_dns&quot; ]] &amp;&amp; [[ -z &quot;$secondary_dns&quot; ]]; then
+    &gt;&amp;2 echo &quot;No primary or secondary DNS servers configured, cannot continue&quot;
+    exit 1
+fi
+
+# Flush the current dnat-dns chain
+nft flush chain ip qubes dnat-dns  # nft is used to interact with the firewall
+
+for dns in $primary_dns $secondary_dns; do
+    if [[ &quot;$1&quot; == &quot;start&quot; ]]; then
+        nft add rule ip qubes dnat-dns ip daddr $dns udp dport 53 dnat to $tailscale_dns
+        nft add rule ip qubes dnat-dns ip daddr $dns tcp dport 53 dnat to $tailscale_dns
+    else
+        nft add rule ip qubes dnat-dns ip daddr $dns udp dport 53 dnat to $dns
+        nft add rule ip qubes dnat-dns ip daddr $dns tcp dport 53 dnat to $dns
+    fi
+done
+
+</code></pre>
+
+<p>Once all this is done, simply shutdown the TemplateVM and restart your sys-tailscale AppVM. You should be up and running with DNS working on any AppVM that&rsquo;s using sys-tailscale for networking.</p>
+
+	</article>
+</main>
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://kalbas.it/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+
+	<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "kalbasit" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-82839578-2', 'auto');
+    ga('send', 'pageview');
+    window.baseURL = "https:\/\/kalbas.it\/";
+  </script>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.7/highlight.min.js"></script>
+  
+  <script src="https://kalbas.it//js/App.js"></script>
+  
+</body>
+</html>

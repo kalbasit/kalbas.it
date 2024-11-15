@@ -6,10 +6,21 @@
     <description>Recent content on kalbasit</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 24 Mar 2019 11:00:00 -0800</lastBuildDate>
+    <lastBuildDate>Thu, 14 Nov 2024 20:00:00 -0800</lastBuildDate>
     
 	<atom:link href="https://kalbas.it/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Configure Tailscale DNS on Qubes OS</title>
+      <link>https://kalbas.it/2024/11/14/configure-tailscale-dns-on-qubes-os/</link>
+      <pubDate>Thu, 14 Nov 2024 20:00:00 -0800</pubDate>
+      
+      <guid>https://kalbas.it/2024/11/14/configure-tailscale-dns-on-qubes-os/</guid>
+      <description>This post goes over configuring Tailscale DNS to support DNS resolution from other AppVMs using the Tailscale VM.
+This guide assumes you already have Tailscale configured in a TemplateVM and a sys-tailscale AppVM is running Tailscaled for other AppVMs to use. If you don&amp;rsquo;t have Tailscale already configured, then please head over to taradiddles&amp;rsquo; excellent guide over on the Qubes forum.
+We need to do the following on the TemplateVM to get it all configured:</description>
+    </item>
     
     <item>
       <title>Why I use NixOS</title>
