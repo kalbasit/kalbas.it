@@ -65,6 +65,11 @@ with lib;
           url = "tags/";
         }
 
+        {
+          name = "Services";
+          url = "services/";
+        }
+
         # XXX: Enable this once I have some tutorials
         # {
         #   name = "Tutorials";
