@@ -2,120 +2,120 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on kalbasit</title>
-    <link>https://kalbas.it/tags/</link>
+    <link>https://kalbasit.github.io/kalbas.it/tags/</link>
     <description>Recent content in Tags on kalbasit</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 21 Aug 2016 18:21:02 -0700</lastBuildDate>
     
-	<atom:link href="https://kalbas.it/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://kalbasit.github.io/kalbas.it/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Coreos</title>
-      <link>https://kalbas.it/tags/coreos/</link>
+      <link>https://kalbasit.github.io/kalbas.it/tags/coreos/</link>
       <pubDate>Sun, 21 Aug 2016 18:21:02 -0700</pubDate>
       
-      <guid>https://kalbas.it/tags/coreos/</guid>
+      <guid>https://kalbasit.github.io/kalbas.it/tags/coreos/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Dns</title>
-      <link>https://kalbas.it/tags/dns/</link>
+      <link>https://kalbasit.github.io/kalbas.it/tags/dns/</link>
       <pubDate>Thu, 14 Nov 2024 20:00:00 -0800</pubDate>
       
-      <guid>https://kalbas.it/tags/dns/</guid>
+      <guid>https://kalbasit.github.io/kalbas.it/tags/dns/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Docker</title>
-      <link>https://kalbas.it/tags/docker/</link>
+      <link>https://kalbasit.github.io/kalbas.it/tags/docker/</link>
       <pubDate>Sun, 21 Aug 2016 18:21:02 -0700</pubDate>
       
-      <guid>https://kalbas.it/tags/docker/</guid>
+      <guid>https://kalbasit.github.io/kalbas.it/tags/docker/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Golang</title>
-      <link>https://kalbas.it/tags/golang/</link>
+      <link>https://kalbasit.github.io/kalbas.it/tags/golang/</link>
       <pubDate>Sun, 17 Mar 2019 19:53:00 -0800</pubDate>
       
-      <guid>https://kalbas.it/tags/golang/</guid>
+      <guid>https://kalbasit.github.io/kalbas.it/tags/golang/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Hugo</title>
-      <link>https://kalbas.it/tags/hugo/</link>
+      <link>https://kalbasit.github.io/kalbas.it/tags/hugo/</link>
       <pubDate>Tue, 26 Feb 2019 17:21:56 -0800</pubDate>
       
-      <guid>https://kalbas.it/tags/hugo/</guid>
+      <guid>https://kalbasit.github.io/kalbas.it/tags/hugo/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Kubernetes</title>
-      <link>https://kalbas.it/tags/kubernetes/</link>
+      <link>https://kalbasit.github.io/kalbas.it/tags/kubernetes/</link>
       <pubDate>Sun, 21 Aug 2016 18:21:02 -0700</pubDate>
       
-      <guid>https://kalbas.it/tags/kubernetes/</guid>
+      <guid>https://kalbasit.github.io/kalbas.it/tags/kubernetes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Nix</title>
-      <link>https://kalbas.it/tags/nix/</link>
+      <link>https://kalbasit.github.io/kalbas.it/tags/nix/</link>
       <pubDate>Sun, 17 Mar 2019 19:53:00 -0800</pubDate>
       
-      <guid>https://kalbas.it/tags/nix/</guid>
+      <guid>https://kalbasit.github.io/kalbas.it/tags/nix/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Nixos</title>
-      <link>https://kalbas.it/tags/nixos/</link>
+      <link>https://kalbasit.github.io/kalbas.it/tags/nixos/</link>
       <pubDate>Sun, 24 Mar 2019 11:00:00 -0800</pubDate>
       
-      <guid>https://kalbas.it/tags/nixos/</guid>
+      <guid>https://kalbasit.github.io/kalbas.it/tags/nixos/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Nixpkgs</title>
-      <link>https://kalbas.it/tags/nixpkgs/</link>
+      <link>https://kalbasit.github.io/kalbas.it/tags/nixpkgs/</link>
       <pubDate>Sun, 17 Mar 2019 19:53:00 -0800</pubDate>
       
-      <guid>https://kalbas.it/tags/nixpkgs/</guid>
+      <guid>https://kalbasit.github.io/kalbas.it/tags/nixpkgs/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Qubes</title>
-      <link>https://kalbas.it/tags/qubes/</link>
+      <link>https://kalbasit.github.io/kalbas.it/tags/qubes/</link>
       <pubDate>Thu, 14 Nov 2024 20:00:00 -0800</pubDate>
       
-      <guid>https://kalbas.it/tags/qubes/</guid>
+      <guid>https://kalbasit.github.io/kalbas.it/tags/qubes/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Tailscale</title>
-      <link>https://kalbas.it/tags/tailscale/</link>
+      <link>https://kalbasit.github.io/kalbas.it/tags/tailscale/</link>
       <pubDate>Thu, 14 Nov 2024 20:00:00 -0800</pubDate>
       
-      <guid>https://kalbas.it/tags/tailscale/</guid>
+      <guid>https://kalbasit.github.io/kalbas.it/tags/tailscale/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Terraform</title>
-      <link>https://kalbas.it/tags/terraform/</link>
+      <link>https://kalbasit.github.io/kalbas.it/tags/terraform/</link>
       <pubDate>Sun, 21 Aug 2016 18:21:02 -0700</pubDate>
       
-      <guid>https://kalbas.it/tags/terraform/</guid>
+      <guid>https://kalbasit.github.io/kalbas.it/tags/terraform/</guid>
       <description></description>
     </item>
     

@@ -3,135 +3,135 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://kalbas.it/2024/11/14/configure-tailscale-dns-on-qubes-os/</loc>
+    <loc>https://kalbasit.github.io/kalbas.it/2024/11/14/configure-tailscale-dns-on-qubes-os/</loc>
     <lastmod>2024-11-14T20:00:00-08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://kalbas.it/2019/03/24/why-i-use-nixos/</loc>
+    <loc>https://kalbasit.github.io/kalbas.it/2019/03/24/why-i-use-nixos/</loc>
     <lastmod>2019-03-24T11:00:00-08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://kalbas.it/2019/03/17/announcing-the-new-golang-infrastructure-buildgomodule/</loc>
+    <loc>https://kalbasit.github.io/kalbas.it/2019/03/17/announcing-the-new-golang-infrastructure-buildgomodule/</loc>
     <lastmod>2019-03-17T19:53:00-08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://kalbas.it/2019/02/26/manage-a-static-website-with-hugo-and-nix/</loc>
+    <loc>https://kalbasit.github.io/kalbas.it/2019/02/26/manage-a-static-website-with-hugo-and-nix/</loc>
     <lastmod>2019-02-26T17:21:56-08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://kalbas.it/2016/08/21/setup-a-website-on-aws-with-coreos-and-docker/</loc>
+    <loc>https://kalbasit.github.io/kalbas.it/2016/08/21/setup-a-website-on-aws-with-coreos-and-docker/</loc>
     <lastmod>2016-08-21T18:21:02-07:00</lastmod>
   </url>
   
   <url>
-    <loc>https://kalbas.it/about/</loc>
+    <loc>https://kalbasit.github.io/kalbas.it/about/</loc>
   </url>
   
   <url>
-    <loc>https://kalbas.it/categories/</loc>
+    <loc>https://kalbasit.github.io/kalbas.it/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://kalbas.it/tags/coreos/</loc>
+    <loc>https://kalbasit.github.io/kalbas.it/tags/coreos/</loc>
     <lastmod>2016-08-21T18:21:02-07:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://kalbas.it/tags/dns/</loc>
+    <loc>https://kalbasit.github.io/kalbas.it/tags/dns/</loc>
     <lastmod>2024-11-14T20:00:00-08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://kalbas.it/tags/docker/</loc>
+    <loc>https://kalbasit.github.io/kalbas.it/tags/docker/</loc>
     <lastmod>2016-08-21T18:21:02-07:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://kalbas.it/tags/golang/</loc>
+    <loc>https://kalbasit.github.io/kalbas.it/tags/golang/</loc>
     <lastmod>2019-03-17T19:53:00-08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://kalbas.it/tags/hugo/</loc>
+    <loc>https://kalbasit.github.io/kalbas.it/tags/hugo/</loc>
     <lastmod>2019-02-26T17:21:56-08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://kalbas.it/linux-unix-history/</loc>
+    <loc>https://kalbasit.github.io/kalbas.it/linux-unix-history/</loc>
   </url>
   
   <url>
-    <loc>https://kalbas.it/categories/infrastructure/</loc>
+    <loc>https://kalbasit.github.io/kalbas.it/categories/infrastructure/</loc>
     <lastmod>2016-08-21T18:21:02-07:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://kalbas.it/tags/kubernetes/</loc>
+    <loc>https://kalbasit.github.io/kalbas.it/tags/kubernetes/</loc>
     <lastmod>2016-08-21T18:21:02-07:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://kalbas.it/tags/nix/</loc>
+    <loc>https://kalbasit.github.io/kalbas.it/tags/nix/</loc>
     <lastmod>2019-03-17T19:53:00-08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://kalbas.it/tags/nixos/</loc>
+    <loc>https://kalbasit.github.io/kalbas.it/tags/nixos/</loc>
     <lastmod>2019-03-24T11:00:00-08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://kalbas.it/tags/nixpkgs/</loc>
+    <loc>https://kalbasit.github.io/kalbas.it/tags/nixpkgs/</loc>
     <lastmod>2019-03-17T19:53:00-08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://kalbas.it/post/</loc>
+    <loc>https://kalbasit.github.io/kalbas.it/post/</loc>
     <lastmod>2024-11-14T20:00:00-08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://kalbas.it/tags/qubes/</loc>
+    <loc>https://kalbasit.github.io/kalbas.it/tags/qubes/</loc>
     <lastmod>2024-11-14T20:00:00-08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://kalbas.it/tags/</loc>
+    <loc>https://kalbasit.github.io/kalbas.it/tags/</loc>
     <lastmod>2016-08-21T18:21:02-07:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://kalbas.it/tags/tailscale/</loc>
+    <loc>https://kalbasit.github.io/kalbas.it/tags/tailscale/</loc>
     <lastmod>2024-11-14T20:00:00-08:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://kalbas.it/tags/terraform/</loc>
+    <loc>https://kalbasit.github.io/kalbas.it/tags/terraform/</loc>
     <lastmod>2016-08-21T18:21:02-07:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://kalbas.it/</loc>
+    <loc>https://kalbasit.github.io/kalbas.it/</loc>
     <lastmod>2024-11-14T20:00:00-08:00</lastmod>
     <priority>0</priority>
   </url>

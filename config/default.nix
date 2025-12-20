@@ -123,7 +123,7 @@ let
 
     author = "Wael Nasreddine";
     authorEmail = "me@kalbas.it";
-    baseURL = "https://kalbas.it/";
+    baseURL = "https://kalbasit.github.io/kalbas.it/";
     disqusShortname = "kalbasit";
     enableRobotsTXT = "true";
     footnoteReturnLinkContents = "↩";

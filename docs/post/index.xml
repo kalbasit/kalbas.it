@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on kalbasit</title>
-    <link>https://kalbas.it/post/</link>
+    <link>https://kalbasit.github.io/kalbas.it/post/</link>
     <description>Recent content in Posts on kalbasit</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 14 Nov 2024 20:00:00 -0800</lastBuildDate>
     
-	<atom:link href="https://kalbas.it/post/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://kalbasit.github.io/kalbas.it/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Configure Tailscale DNS on Qubes OS</title>
-      <link>https://kalbas.it/2024/11/14/configure-tailscale-dns-on-qubes-os/</link>
+      <link>https://kalbasit.github.io/kalbas.it/2024/11/14/configure-tailscale-dns-on-qubes-os/</link>
       <pubDate>Thu, 14 Nov 2024 20:00:00 -0800</pubDate>
       
-      <guid>https://kalbas.it/2024/11/14/configure-tailscale-dns-on-qubes-os/</guid>
+      <guid>https://kalbasit.github.io/kalbas.it/2024/11/14/configure-tailscale-dns-on-qubes-os/</guid>
       <description>&lt;p&gt;This post goes over configuring Tailscale DNS to support DNS resolution from other AppVMs using the Tailscale VM.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -24,10 +24,10 @@
     
     <item>
       <title>Why I use NixOS</title>
-      <link>https://kalbas.it/2019/03/24/why-i-use-nixos/</link>
+      <link>https://kalbasit.github.io/kalbas.it/2019/03/24/why-i-use-nixos/</link>
       <pubDate>Sun, 24 Mar 2019 11:00:00 -0800</pubDate>
       
-      <guid>https://kalbas.it/2019/03/24/why-i-use-nixos/</guid>
+      <guid>https://kalbasit.github.io/kalbas.it/2019/03/24/why-i-use-nixos/</guid>
       <description>&lt;p&gt;This post highlights my reasoning behind switching to NixOS.&lt;/p&gt;
 
 &lt;p&gt;&lt;/p&gt;</description>
@@ -35,10 +35,10 @@
     
     <item>
       <title>Announcing the new Golang infrastructure: buildGoModule</title>
-      <link>https://kalbas.it/2019/03/17/announcing-the-new-golang-infrastructure-buildgomodule/</link>
+      <link>https://kalbasit.github.io/kalbas.it/2019/03/17/announcing-the-new-golang-infrastructure-buildgomodule/</link>
       <pubDate>Sun, 17 Mar 2019 19:53:00 -0800</pubDate>
       
-      <guid>https://kalbas.it/2019/03/17/announcing-the-new-golang-infrastructure-buildgomodule/</guid>
+      <guid>https://kalbasit.github.io/kalbas.it/2019/03/17/announcing-the-new-golang-infrastructure-buildgomodule/</guid>
       <description>&lt;p&gt;I &lt;a href=&#34;https://github.com/NixOS/nixpkgs/pull/57080&#34;&gt;recently introduced&lt;/a&gt; a new
 function in Nixpkgs named &lt;code&gt;buildGoModule&lt;/code&gt;. The new function allows you to
 package Go application (or modules) with ease, provided the modules have added
@@ -49,10 +49,10 @@ support for &lt;a href=&#34;https://github.com/golang/go/wiki/Modules&#34;&gt;Go
     
     <item>
       <title>Manage a static website with Hugo and Nix</title>
-      <link>https://kalbas.it/2019/02/26/manage-a-static-website-with-hugo-and-nix/</link>
+      <link>https://kalbasit.github.io/kalbas.it/2019/02/26/manage-a-static-website-with-hugo-and-nix/</link>
       <pubDate>Tue, 26 Feb 2019 17:21:56 -0800</pubDate>
       
-      <guid>https://kalbas.it/2019/02/26/manage-a-static-website-with-hugo-and-nix/</guid>
+      <guid>https://kalbasit.github.io/kalbas.it/2019/02/26/manage-a-static-website-with-hugo-and-nix/</guid>
       <description>&lt;p&gt;Over the past couple of years, I&amp;rsquo;ve been using Hugo on and off for my
 blog, as well as for some static websites I maintain. On many occasions,
 I have started to hack on my site, only to realsize that my theme &amp;ndash; as
@@ -68,10 +68,10 @@ the host.&lt;/p&gt;
     
     <item>
       <title>Setup a website on AWS with CoreOS and Docker</title>
-      <link>https://kalbas.it/2016/08/21/setup-a-website-on-aws-with-coreos-and-docker/</link>
+      <link>https://kalbasit.github.io/kalbas.it/2016/08/21/setup-a-website-on-aws-with-coreos-and-docker/</link>
       <pubDate>Sun, 21 Aug 2016 18:21:02 -0700</pubDate>
       
-      <guid>https://kalbas.it/2016/08/21/setup-a-website-on-aws-with-coreos-and-docker/</guid>
+      <guid>https://kalbasit.github.io/kalbas.it/2016/08/21/setup-a-website-on-aws-with-coreos-and-docker/</guid>
       <description>&lt;h1 id=&#34;overview&#34;&gt;Overview&lt;/h1&gt;
 
 &lt;p&gt;It&amp;rsquo;s been quite some time since I shared my knowledge and the daily
